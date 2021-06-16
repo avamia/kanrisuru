@@ -9,3 +9,20 @@
 
 # rspec failure tracking
 .rspec_status
+.Gemfile
+.byebug_history
+.ruby-version
+
+*.gem
+coverage/*
+Gemfile.lock
+*~
+.bundle
+.rvmrc
+log/*
+measurement/*
+pkg/*
+.DS_Store
+.env
+spec/dummy/tmp/*
+spec/dummy/log/*.log

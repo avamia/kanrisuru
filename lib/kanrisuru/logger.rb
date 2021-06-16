@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'logger'
+
 module Kanrisuru
-  VERSION = '0.2.0'
+  class Logger < ::Logger
+  end
 end

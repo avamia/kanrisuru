@@ -1,23 +1,32 @@
-require File.expand_path('../lib/kanrisuru/version', __FILE__)
+# frozen_string_literal: true
+
+require File.expand_path('lib/kanrisuru/version', __dir__)
 
 Gem::Specification.new do |gem|
-  gem.name        = "kanrisuru"
+  gem.name        = 'kanrisuru'
   gem.version     = Kanrisuru::VERSION
-  gem.authors     = ["Ryan Mammina"]
-  gem.email       = ["ryan@avamia.com"]
-  gem.license     = "MIT"
+  gem.author      = 'Ryan Mammina'
+  gem.email       = 'ryan@avamia.com'
+  gem.license     = 'MIT'
+  gem.summary     = 'Manage remote servers with ruby.'
+  gem.homepage    = 'https://github.com/avamia/kanrisuru'
 
-  gem.summary     = "Manage remote servers with ruby and ssh."
-  gem.description = "Manage remote servers with ruby and ssh."
+  gem.required_ruby_version     = '>= 2.5.0'
+  gem.required_rubygems_version = '>= 1.8.11'
 
-  gem.homepage    = "https://github.com/avamia-dm/kanrisuru"
-  
+  gem.add_development_dependency 'rspec'
+  gem.add_development_dependency 'rubocop'
+  gem.add_development_dependency 'rubocop-rspec'
+  gem.add_development_dependency 'simplecov'
+
+  gem.add_runtime_dependency 'net-ping'
   gem.add_runtime_dependency 'net-scp'
-  gem.add_runtime_dependency 'net-sftp'
   gem.add_runtime_dependency 'net-ssh'
 
   gem.files         = `git ls-files`.split("\n")
-  gem.require_paths = ["lib"]
+  gem.require_paths = ['lib']
 
-  gem.rubyforge_project = 'nowarning'
+  gem.metadata = {
+    'source_code_uri' => 'https://github.com/avamia/kanrisuru/'
+  }
 end

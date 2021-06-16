@@ -1,0 +1,92 @@
+[
+	{
+		"name": "localhost",
+		"port": 22,
+		"username": "ubuntu",
+		"ssh_key": "~/.ssh/id_rsa",
+		"hostname": "localhost",
+		"kernel": "Linux",
+		"home": "/home/ubuntu"
+	},
+	{
+		"name": "ubuntu",
+		"port": 22,
+		"username": "ubuntu",
+		"ssh_key": "~/.ssh/id_rsa",
+		"hostname": "ubuntu-host",
+		"kernel": "Linux",
+		"home": "/home/ubuntu"
+	},
+	{
+		"name": "debian",
+		"port": 22,
+		"username": "debian",
+		"ssh_key": "~/.ssh/id_rsa",
+		"hostname": "debian-host",
+		"kernel": "Linux",
+		"home": "/home/debian"
+	},
+	{
+		"name": "fedora",
+		"port": 22,
+		"username": "fedora",
+		"ssh_key": "~/.ssh/id_rsa",
+		"hostname": "fedora-host",
+		"kernel": "Linux",
+		"home": "/home/fedora"
+	},
+	{
+		"name": "centos",
+		"port": 22,
+		"username": "centos",
+		"ssh_key": "~/.ssh/id_rsa",
+		"hostname": "centos-host",
+		"kernel": "Linux",
+		"home": "/home/centos"
+	},
+	{
+		"name": "rhel",
+		"port": 22,
+		"username": "cloud-user",
+		"ssh_key": "~/.ssh/id_rsa",
+		"hostname": "rhel-host",
+		"kernel": "Linux",
+		"home": "/home/cloud-user"
+	},
+	{
+		"name": "opensuse",
+		"port": 22,
+		"username": "opensuse",
+		"ssh_key": "~/.ssh/id_rsa",
+		"hostname": "opensuse-host",
+		"kernel": "Linux",
+		"home": "/home/opensuse"
+	},
+	{
+		"name": "sles",
+		"port": 22,
+		"username": "ec2-user",
+		"ssh_key": "~/.ssh/id_rsa",
+		"hostname": "sles-host",
+		"kernel": "Linux",
+		"home": "/home/ec2-user"
+	},
+	{
+		"name": "arch",
+		"port": 22,
+		"username": "arch",
+		"ssh_key": "~/.ssh/id_rsa",
+		"hostname": "arch-host",
+		"kernel": "Linux",
+		"home": "/home/arch"
+	},
+	{
+		"name": "freebsd",
+		"port": 22,
+		"username": "freebsd",
+		"ssh_key": "~/.ssh/id_rsa",
+		"hostname": "freebsd-host",
+		"kernel": "FreeBSD",
+		"home": "/usr/home/freebsd"
+	}
+]

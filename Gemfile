@@ -1,7 +1,4 @@
-source "https://rubygems.org"
+# frozen_string_literal: true
 
-# Specify your gem's dependencies in kanrisuru.gemspec
+source 'https://rubygems.org'
 gemspec
-
-gem "rake", "~> 12.0"
-gem "rspec", "~> 3.0"
