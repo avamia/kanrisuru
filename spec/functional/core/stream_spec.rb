@@ -74,6 +74,24 @@ RSpec.describe Kanrisuru::Core::Stream do
         expect(result.data).to eq(['a', 'file!'])
       end
 
+      it 'reads a chunk of text from a file' do
+        file = host.file("#{spec_dir}/test-file-chunk.txt")
+        file.touch
+        file.append do |f|
+          f << 'This'
+          f << 'is'
+          f << 'is'
+          f << 'a'
+          f << 'file'
+          f << 'forever...'
+        end
+
+        result = host.read_file_chunk("#{spec_dir}/test-file-chunk.txt", 2, 4)
+        expect(result).to be_success
+        expect(result.data.length).to eq(3)
+        expect(result.data).to eq(['is', 'is', 'a'])
+      end
+
       it 'cats a file' do
         result = host.cat('/etc/group')
         expect(result.success?).to eq(true)

@@ -35,8 +35,8 @@ module Kanrisuru
       end
 
       def read_file_chunk(path, start_line, end_line)
-        if start_line.instance_of?(Integer) || end_line.instance_of?(Integer) ||
-           start_line > end_line || start_line.negative?
+        if !start_line.instance_of?(Integer) || !end_line.instance_of?(Integer) ||
+           start_line > end_line || start_line.negative? || end_line.negative?
           raise ArgumentError, 'Invalid start or end'
         end
 
