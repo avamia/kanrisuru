@@ -211,7 +211,7 @@ module Kanrisuru
 
           command.append_arg('dev', opts[:dev])
           command.append_arg('scope', opts[:scope])
-          comamnd.append_arg('to', opts[:prefix])
+          command.append_arg('to', opts[:prefix])
           command.append_arg('label', opts[:label])
 
           command.append_flag('dynamic', opts[:dynamic])
@@ -415,14 +415,14 @@ module Kanrisuru
 
           command.append_arg('type', opts[:type])
           command.append_arg('from', opts[:from])
-          comamnd.append_arg('to', opts[:to])
+          command.append_arg('to', opts[:to])
           command.append_arg('iif', opts[:iif])
-          comamnd.append_arg('tos', opts[:tos])
+          command.append_arg('tos', opts[:tos])
           command.append_arg('dsfield', opts[:dsfield])
-          comamnd.append_arg('fwmark', opts[:fwmark])
-          comamnd.append_arg('priority', opts[:priority])
-          comamnd.append_arg('table', opts[:table])
-          comamnd.append_arg('realms', opts[:realms])
+          command.append_arg('fwmark', opts[:fwmark])
+          command.append_arg('priority', opts[:priority])
+          command.append_arg('table', opts[:table])
+          command.append_arg('realms', opts[:realms])
           command.append_arg('nat', opts[:nat])
         end
 
