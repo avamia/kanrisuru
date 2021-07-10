@@ -8,7 +8,7 @@ Gem::Specification.new do |gem|
   gem.author      = 'Ryan Mammina'
   gem.email       = 'ryan@avamia.com'
   gem.license     = 'MIT'
-  gem.summary     = 'Manage remote servers with ruby.'
+  gem.summary     = 'Manage remote servers over ssh with ruby.'
   gem.homepage    = 'https://github.com/avamia/kanrisuru'
 
   gem.required_ruby_version     = '>= 2.5.0'

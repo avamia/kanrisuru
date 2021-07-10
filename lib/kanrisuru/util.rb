@@ -15,13 +15,13 @@ module Kanrisuru
       !Kanrisuru::Util.blank?(value)
     end
 
-    def self.array_join_string(arg)
-      arg.instance_of?(Array) ? arg.join(',') : arg
+    def self.array_join_string(arg, field = ',')
+      arg.instance_of?(Array) ? arg.join(field) : arg
     end
 
-    def self.string_join_array(arg)
+    def self.string_join_array(arg, field = ',')
       array = arg.instance_of?(String) ? [arg] : arg
-      array.join(',')
+      array.join(field)
     end
 
     def self.numeric?(value)

@@ -89,7 +89,7 @@ RSpec.describe Kanrisuru::Core::Stream do
         result = host.read_file_chunk("#{spec_dir}/test-file-chunk.txt", 2, 4)
         expect(result).to be_success
         expect(result.data.length).to eq(3)
-        expect(result.data).to eq(['is', 'is', 'a'])
+        expect(result.data).to eq(%w[is is a])
       end
 
       it 'cats a file' do
