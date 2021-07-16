@@ -15,6 +15,7 @@ module Kanrisuru
       os_define :linux, :kill
 
       os_define :linux, :uptime
+
       os_define :linux, :w
       os_define :linux, :who
 
@@ -184,7 +185,7 @@ module Kanrisuru
 
       def w(opts = {})
         users = opts[:users]
-        command = Kanrisuru::Command.new('w -h')
+        command = Kanrisuru::Command.new('w -hi')
 
         command << users if Kanrisuru::Util.present?(users)
 

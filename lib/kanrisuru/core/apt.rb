@@ -214,7 +214,7 @@ module Kanrisuru
 
           lines.each do |line|
             next if line == 'WARNING: apt does not have a stable CLI interface. Use with caution in scripts.'
-            next if [] ['', nil, '.'].include?(line)
+            next if ['', nil, '.'].include?(line)
 
             case line
             when /^Package:/
@@ -242,10 +242,10 @@ module Kanrisuru
               current_row.bugs = extract_single_line(line)
             when /^Installed-Size:/
               size = Kanrisuru::Util::Bits.normalize_size(extract_single_line(line))
-              current_row.install_size = size 
+              current_row.install_size = size
             when /^Download-Size:/
               size = Kanrisuru::Util::Bits.normalize_size(extract_single_line(line))
-              current_row.download_size = size 
+              current_row.download_size = size
             when /^Depends:/
               current_row.dependencies = parse_comma_values(extract_single_line(line))
             when /^Provides:/

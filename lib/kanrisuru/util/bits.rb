@@ -6,9 +6,9 @@ module Kanrisuru
       def self.normalize_size(string)
         size, unit = string.split
         size = size.to_f
-        unit = 'b' unless unit
+        unit ||= 'b'
 
-        return 0 if size == 0
+        return 0 if size.zero?
 
         case unit.downcase
         when 'b'
