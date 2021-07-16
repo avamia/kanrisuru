@@ -14,14 +14,14 @@ Gem::Specification.new do |gem|
   gem.required_ruby_version     = '>= 2.5.0'
   gem.required_rubygems_version = '>= 1.8.11'
 
-  gem.add_development_dependency 'rspec'
-  gem.add_development_dependency 'rubocop'
-  gem.add_development_dependency 'rubocop-rspec'
-  gem.add_development_dependency 'simplecov'
+  gem.add_development_dependency 'rspec', '>= 3.10.0'
+  gem.add_development_dependency 'rubocop', '>= 1.12.1'
+  gem.add_development_dependency 'rubocop-rspec', '>= 2.2.0'
+  gem.add_development_dependency 'simplecov', '>= 0.21.2'
 
-  gem.add_runtime_dependency 'net-ping'
-  gem.add_runtime_dependency 'net-scp'
-  gem.add_runtime_dependency 'net-ssh'
+  gem.add_runtime_dependency 'net-ping', '>= 2.0.8'
+  gem.add_runtime_dependency 'net-scp', '>= 3.0.0'
+  gem.add_runtime_dependency 'net-ssh', '>= 6.1.0'
 
   gem.files         = `git ls-files`.split("\n")
   gem.require_paths = ['lib']

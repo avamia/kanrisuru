@@ -145,6 +145,11 @@ module Kanrisuru
           state: 'current',
           type: 'distribution'
         },
+        rhel: {
+          name: 'RHEL',
+          type: 'alias',
+          to: 'redhat'
+        },
         centos: {
           name: 'CentOS',
           type: 'alias',

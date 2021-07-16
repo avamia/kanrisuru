@@ -119,7 +119,7 @@ module Kanrisuru
           lines.shift
 
           result = []
-          lines.each.with_index do |line, _index|
+          lines.each do |line|
             item = parse_apt_line(line)
             next unless item
 
@@ -210,7 +210,7 @@ module Kanrisuru
           rows = []
 
           current_row = nil
-          summary = ''
+          description = ''
 
           lines.each do |line|
             next if line == 'WARNING: apt does not have a stable CLI interface. Use with caution in scripts.'
@@ -219,8 +219,8 @@ module Kanrisuru
             case line
             when /^Package:/
               unless current_row.nil?
-                current_row.summary = summary.strip
-                summary = ''
+                current_row.description = description.strip
+                description = ''
                 rows << current_row
               end
 
@@ -241,9 +241,11 @@ module Kanrisuru
             when /^Bugs:/
               current_row.bugs = extract_single_line(line)
             when /^Installed-Size:/
-              current_row.install_size = normalize_size(extract_single_line(line))
+              size = Kanrisuru::Util::Bits.normalize_size(extract_single_line(line))
+              current_row.install_size = size 
             when /^Download-Size:/
-              current_row.download_size = normalize_size(extract_single_line(line))
+              size = Kanrisuru::Util::Bits.normalize_size(extract_single_line(line))
+              current_row.download_size = size 
             when /^Depends:/
               current_row.dependencies = parse_comma_values(extract_single_line(line))
             when /^Provides:/
@@ -269,13 +271,13 @@ module Kanrisuru
             when /^APT-Manual-Installed:/
               current_row.apt_manual_installed = extract_single_line(line) == 'yes'
             when /^Description:/
-              current_row.description = extract_single_line(line)
+              current_row.summary = extract_single_line(line)
             else
-              summary += " #{line.strip}"
+              description += " #{line.strip}"
             end
           end
 
-          current_row.summary = summary.strip
+          current_row.description = description.strip
           rows << current_row
           rows
         end
@@ -292,21 +294,6 @@ module Kanrisuru
       def parse_apt_sources(string)
         url, dist, architecture, = string.split
         AptSource.new(url, dist, architecture)
-      end
-
-      def normalize_size(string)
-        size, unit = string.split
-        size = size.to_i
-        case unit.downcase
-        when 'b'
-          Kanrisuru::Util::Bits.convert_bytes(size, :byte, :kilobyte)
-        when 'kb'
-          size
-        when 'mb'
-          Kanrisuru::Util::Bits.convert_from_mb(size, :kilobyte).to_i
-        when 'gb'
-          Kanrisuru::Util::Bits.convert_from_gb(size, :kilobyte).to_i
-        end
       end
 
       def parse_apt_line(line)

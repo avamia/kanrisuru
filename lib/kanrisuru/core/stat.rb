@@ -50,8 +50,7 @@ module Kanrisuru
       def inode?(path)
         command = Kanrisuru::Command.new("stat #{path}")
         command.append_arg('-c', '%i')
-
-        execute_shell(command)
+        execute(command)
         command.success?
       end
 

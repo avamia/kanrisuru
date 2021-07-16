@@ -3,6 +3,25 @@
 module Kanrisuru
   class Util
     class Bits
+      def self.normalize_size(string)
+        size, unit = string.split
+        size = size.to_f
+        unit = 'b' unless unit
+
+        return 0 if size == 0
+
+        case unit.downcase
+        when 'b'
+          Kanrisuru::Util::Bits.convert_bytes(size, :byte, :kilobyte)
+        when 'kb', 'k'
+          size
+        when 'mb', 'm'
+          Kanrisuru::Util::Bits.convert_from_mb(size, :kilobyte).to_i
+        when 'gb', 'g'
+          Kanrisuru::Util::Bits.convert_from_gb(size, :kilobyte).to_i
+        end
+      end
+
       def self.convert_from_kb(value, metric)
         convert_bytes(value, :kilobyte, metric)
       end

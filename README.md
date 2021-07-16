@@ -146,6 +146,9 @@ cluster.execute('uname') #=> {host: 'host1', result: 'Linux'}, {host: 'host2', r
 | Upload to remote server               | upload           | scp                | core   | https://linux.die.net/man/1/scp      | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
 | Download from remote server           | download         | scp                | core   | https://linux.die.net/man/1/scp      | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
 | Wget                                  | wget             | wget               | core   | https://linux.die.net/man/1/wget     | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
+| **Packages**                          |                  |                    |        |                                      |        |        |        |        |      |          |      |
+| Apt               | apt           | apt                | core   | https://linux.die.net/man/1/apt      | [x]    | [x]    |    |    |  |      |  |
+| Yum           | yum         | yum                | core   | https://linux.die.net/man/1/yum      |    |    | [x]    | [x]    | [x]  |      |  |
 
 ## Development
 

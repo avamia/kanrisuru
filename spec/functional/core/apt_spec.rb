@@ -25,6 +25,16 @@ RSpec.describe Kanrisuru::Core::Apt do
             host.su('root')
             result = host.apt('install', packages: %w[ffmpeg curl])
             expect(result).to be_success
+
+            result = host.which('ffmpeg')
+            expect(result).to be_success
+            paths = result.map(&:path)
+            expect(paths).to include(match('ffmpeg'))
+
+            result = host.which('curl')
+            expect(result).to be_success
+            paths = result.map(&:path)
+            expect(paths).to include(match('curl'))
           end
         end
       end
@@ -75,6 +85,17 @@ RSpec.describe Kanrisuru::Core::Apt do
           when 'debian', 'ubuntu'
             host.su('root')
             result = host.apt('autoclean')
+            expect(result).to be_success
+          end
+        end
+      end
+
+      describe 'apt update' do
+        it 'updates packages' do
+          case os_name
+          when 'debian', 'ubuntu'
+            host.su('root')
+            result = host.apt('update')
             expect(result).to be_success
           end
         end

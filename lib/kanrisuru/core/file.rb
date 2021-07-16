@@ -233,7 +233,7 @@ module Kanrisuru
       end
 
       def touch(paths, opts = {})
-        date    = opts[:date]
+        date = opts[:date]
 
         paths = [paths] if paths.instance_of?(String)
         command = Kanrisuru::Command.new("touch #{paths.join(' ')}")

@@ -15,6 +15,7 @@ require_relative 'core/transfer'
 require_relative 'core/ip'
 require_relative 'core/socket'
 require_relative 'core/apt'
+require_relative 'core/yum'
 
 module Kanrisuru
   module Remote
@@ -34,6 +35,7 @@ module Kanrisuru
       os_include Kanrisuru::Core::IP
       os_include Kanrisuru::Core::Socket
       os_include Kanrisuru::Core::Apt
+      os_include Kanrisuru::Core::Yum
     end
 
     class Cluster
@@ -51,6 +53,7 @@ module Kanrisuru
       os_collection Kanrisuru::Core::IP
       os_collection Kanrisuru::Core::Socket
       os_collection Kanrisuru::Core::Apt
+      os_collection Kanrisuru::Core::Yum
     end
   end
 end
