@@ -72,7 +72,9 @@ module Kanrisuru
         result = @host.execute(command)
         raise 'Invalid os release' if result.failure?
 
-        result.to_s.gsub(/"/, '')
+        value = result.to_s
+        value = value.gsub(/"/, '')
+        value.gsub('-', '_')
       end
 
       def parse_os_version

@@ -179,7 +179,7 @@ module Kanrisuru
         sles: {
           name: 'SUSE Linux Enterprise Server',
           os_family: 'linux',
-          upstream: 'linux',
+          upstream: 'opensuse',
           model: 'commercial',
           state: 'current',
           type: 'distribution'
