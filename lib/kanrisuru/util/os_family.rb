@@ -163,6 +163,22 @@ module Kanrisuru
           state: 'current',
           type: 'distribution'
         },
+        sles: {
+          name: 'SUSE Linux Enterprise Server',
+          os_family: 'linux',
+          upstream: 'linux',
+          model: 'commercial',
+          state: 'current',
+          type: 'distribution'
+        },
+        opensuse_leap: {
+          name: 'openSUSE Leap',
+          os_family: 'linux',
+          upstream: 'sles',
+          model: 'open_source',
+          state: 'current',
+          type: 'distribution'
+        },
         opensuse: {
           name: 'openSUSE',
           os_family: 'linux',
@@ -171,19 +187,6 @@ module Kanrisuru
           state: 'current',
           type: 'distribution'
         },
-        opensuse_leap: {
-          name: 'openSUSE Leap',
-          type: 'alias',
-          to: 'opensuse'
-        },
-        sles: {
-          name: 'SUSE Linux Enterprise Server',
-          os_family: 'linux',
-          upstream: 'opensuse',
-          model: 'commercial',
-          state: 'current',
-          type: 'distribution'
-        }
       }
 
       def self.family_include_distribution?(family, dist)

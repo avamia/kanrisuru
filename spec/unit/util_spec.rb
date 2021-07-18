@@ -59,6 +59,7 @@ RSpec.describe Kanrisuru::Util do
     expect(Kanrisuru::Util::OsFamily.upstream_include_distribution?('linux', 'linux_mint')).to eq(true)
 
     expect(Kanrisuru::Util::OsFamily.upstream_include_distribution?('fedora', 'redhat')).to eq(true)
+    expect(Kanrisuru::Util::OsFamily.upstream_include_distribution?('sles', 'opensuse_leap')).to eq(true)
     expect(Kanrisuru::Util::OsFamily.upstream_include_distribution?('fedora', 'centos')).to eq(true)
 
     expect(Kanrisuru::Util::OsFamily.upstream_include_distribution?('unix_like', 'linux_mint')).to eq(false)
