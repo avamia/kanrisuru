@@ -16,6 +16,22 @@ RSpec.describe Kanrisuru::Remote::Fstab do
         host.disconnect
       end
 
+      it 'outputs string version of fstab' do
+        host.su('root')
+
+        result = host.cat('/etc/fstab')
+        expect(result).to be_success
+        raw_file_lines = []
+        result.each do |line|
+          next if line.match(/^#/) || line == ''
+
+          raw_file_lines << line.split.join(' ')
+        end
+
+        raw_file_output = raw_file_lines.join("\n")
+        expect(raw_file_output).to eq(host.fstab.to_s)
+      end
+
       it 'parses fstab' do
         host.su('root')
         fstab = host.fstab

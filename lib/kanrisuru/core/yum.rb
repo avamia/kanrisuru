@@ -341,8 +341,11 @@ module Kanrisuru
             end
           end
 
-          current_row.description = description.strip
-          rows << current_row
+          if current_row
+            current_row.description = description.strip
+            rows << current_row
+          end
+
           rows
         end
       end

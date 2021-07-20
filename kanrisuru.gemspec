@@ -12,7 +12,7 @@ Gem::Specification.new do |gem|
   gem.description = 'Manage remote servers over ssh with ruby.'
   gem.homepage    = 'https://github.com/avamia/kanrisuru'
 
-  gem.required_ruby_version     = '>= 2.5.0'
+  gem.required_ruby_version = '>= 2.5.0'
 
   gem.add_development_dependency 'rspec', '~> 3.10'
   gem.add_development_dependency 'rubocop', '~> 1.12'

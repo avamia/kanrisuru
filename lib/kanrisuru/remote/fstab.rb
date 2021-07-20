@@ -67,7 +67,7 @@ module Kanrisuru
       def append_file!
         @file.append do |f|
           @entries.each do |_, entry|
-            f << entry.to_s if entry[:new]
+            f << entry[:entry].to_s if entry[:new]
           end
         end
 
@@ -78,11 +78,20 @@ module Kanrisuru
       def write_file!
         @file.write do |f|
           @entries.each do |_, entry|
-            f << entry.to_s
+            f << entry[:entry].to_s
           end
         end
 
         reload!
+      end
+
+      def to_s
+        lines = []
+        @entries.each do |_, entry|
+          lines << entry[:entry].to_s
+        end
+
+        lines.join("\n")
       end
 
       def reload!
