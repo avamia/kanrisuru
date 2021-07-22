@@ -18,6 +18,12 @@ RSpec.describe Kanrisuru::Core::System do
         host.disconnect
       end
 
+      it 'gets cpu details' do
+        result = host.lscpu
+        expect(result).to be_success
+        expect(result.data).to be_instance_of(Kanrisuru::Core::System::CPUArchitecture)
+      end
+
       it 'gets environment variables' do
         result = host.load_env
 

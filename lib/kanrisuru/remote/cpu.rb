@@ -76,7 +76,19 @@ module Kanrisuru
       end
 
       def address_size
-        @cpu_architecture.byte_order
+        @cpu_architecture.address_size
+      end
+
+      def cpu_mhz
+        @cpu_architecture.cpu_mhz
+      end
+
+      def cpu_max_mhz
+        @cpu_architecture.cpu_max_mhz
+      end
+
+      def cpu_min_mhz
+        @cpu_architecture.cpu_min_mhz
       end
 
       def hypervisor
