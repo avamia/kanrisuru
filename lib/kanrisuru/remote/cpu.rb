@@ -28,27 +28,63 @@ module Kanrisuru
       end
 
       def sockets
-        @sockets_count
+        @cpu_architecture.sockets
       end
 
       def cores
-        @logical_cores_count
+        @cpu_architecture.cores
       end
 
       def total
-        @logical_cores_count
+        @cpu_architecture.cores
       end
 
       def count
-        @logical_cores_count
+        @cpu_architecture.cores
       end
 
       def threads_per_core
-        @threads_per_core_count
+        @cpu_architecture.threads_per_core
       end
 
       def cores_per_socket
-        @cores_per_socket_count
+        @cpu_architecture.cores_per_socket
+      end
+
+      def numa_nodes
+        @cpu_architecture.numa_nodes
+      end
+
+      def vendor_id
+        @cpu_architecture.vendor_id
+      end
+
+      def cpu_family
+        @cpu_architecture.cpu_family
+      end
+
+      def model
+        @cpu_architecture.model
+      end
+
+      def model_name
+        @cpu_architecture.model_name
+      end
+
+      def byte_order
+        @cpu_architecture.byte_order
+      end
+
+      def address_size
+        @cpu_architecture.byte_order
+      end
+
+      def hypervisor
+        @cpu_architecture.hypervisor_vendor
+      end
+
+      def virtualization_type
+        @cpu_architecture.virtualization_type
       end
 
       def hyperthreading?
@@ -58,10 +94,7 @@ module Kanrisuru
       private
 
       def initialize_linux
-        @sockets_count          = @host.cpu_info('sockets').to_i
-        @cores_per_socket_count = @host.cpu_info('cores_per_socket').to_i
-        @threads_per_core_count = @host.cpu_info('threads').to_i
-        @logical_cores_count    = @host.cpu_info('cores').to_i
+        @cpu_architecture = @host.lscpu.data
       end
     end
   end
