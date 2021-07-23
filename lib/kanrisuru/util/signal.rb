@@ -136,7 +136,7 @@ module Kanrisuru
       def self.[](signal)
         return unless valid?(signal)
 
-        if key.instance_of?(Integer)
+        if signal.instance_of?(Integer)
           @linux_inverted[signal]
         else
           @linux[translate(signal)]
