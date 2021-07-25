@@ -186,7 +186,7 @@ module Kanrisuru
           model: 'open_source',
           state: 'current',
           type: 'distribution'
-        },
+        }
       }
 
       def self.family_include_distribution?(family, dist)

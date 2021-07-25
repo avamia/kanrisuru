@@ -24,7 +24,7 @@ RSpec.describe Kanrisuru::Remote::Os do
 
         case os_name
         when 'opensuse'
-          expect(host.os.release).to eq('opensuse-leap')
+          expect(host.os.release).to eq('opensuse_leap')
         else
           expect(host.os.release).to eq(os_name)
         end
