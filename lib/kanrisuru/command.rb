@@ -6,12 +6,13 @@ module Kanrisuru
     attr_writer :remote_user, :remote_shell, :remote_path, :remote_env
 
     def initialize(command)
+      @valid_exit_codes = [0]
       @raw_command = command
       @raw_result = []
     end
 
     def success?
-      @exit_status&.zero?
+      @valid_exit_codes.include?(@exit_status)
     end
 
     def failure?
@@ -45,8 +46,7 @@ module Kanrisuru
                     end
 
         env = @remote_env && !@remote_env.empty? ? "#{@remote_env} " : ''
-
-        "#{env}sudo -u #{@remote_user} #{@remote_shell} -c -l \"#{evaluate}\""
+        "#{env}sudo -u #{@remote_user} #{@remote_shell} -c \"#{evaluate}\""
       else
         @raw_command
       end
@@ -94,6 +94,11 @@ module Kanrisuru
 
     def append_flag(arg, boolean = 'true')
       @raw_command = Kanrisuru::Util.present?(boolean) ? "#{@raw_command} #{arg}" : @raw_command
+    end
+
+    def append_valid_exit_code(code)
+      @valid_exit_codes << code if code.instance_of?(Integer)
+      @valid_exit_codes.concat(code) if code.instance_of?(Array)
     end
   end
 end
