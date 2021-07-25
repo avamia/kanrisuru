@@ -16,7 +16,7 @@ module Kanrisuru
         @username = opts[:username]
         @login_user = @username
 
-        @port     = opts[:port]
+        @port     = opts[:port] || 22
         @password = opts[:password] if opts[:password]
         @keys     = opts[:keys] if opts[:keys]
         @shell    = opts[:shell] || '/bin/bash'
@@ -84,7 +84,7 @@ module Kanrisuru
       end
 
       def ssh
-        @ssh ||= Net::SSH.start(@host, @username, keys: @keys, password: @password)
+        @ssh ||= Net::SSH.start(@host, @username, keys: @keys, password: @password, port: @port)
       end
 
       def ping?

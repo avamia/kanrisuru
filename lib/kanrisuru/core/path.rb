@@ -44,7 +44,6 @@ module Kanrisuru
             date = DateTime.parse("#{values[6]} #{values[7]} #{values[8]}")
 
             type = values[1].include?('d') ? 'directory' : 'file'
-
             items <<
               if id
                 FileInfoId.new(
