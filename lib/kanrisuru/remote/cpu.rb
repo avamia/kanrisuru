@@ -99,6 +99,10 @@ module Kanrisuru
         @cpu_architecture.virtualization_type
       end
 
+      def flags
+        @cpu_architecture.flags
+      end
+
       def hyperthreading?
         threads_per_core > 1
       end
