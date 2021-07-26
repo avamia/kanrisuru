@@ -82,18 +82,18 @@ module Kanrisuru
             next if values.length < 5
 
             socket_stats = SocketStatistics.new
-
-            socket_stats.netid = if headers.include?('Netid')
-                                   values.shift
-                                 elsif opts[:tcp]
-                                   'tcp'
-                                 elsif opts[:udp]
-                                   'udp'
-                                 elsif opts[:raw]
-                                   'raw'
-                                 else
-                                   ''
-                                 end
+            socket_stats.netid =
+              if headers.include?('Netid')
+                values.shift
+              elsif opts[:tcp]
+                'tcp'
+              elsif opts[:udp]
+                'udp'
+              elsif opts[:raw]
+                'raw'
+              else
+                ''
+              end
 
             socket_stats.state = if headers.include?('State')
                                    TCP_STATE_ABBR[values.shift]
