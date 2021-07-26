@@ -69,6 +69,27 @@ RSpec.describe Kanrisuru::Core::System do
         expect(process).to be_empty
       end
 
+      it 'gets kernel statistics' do
+        result = host.kernel_statistics
+        expect(result).to be_success
+
+        expect(result.data).to respond_to(
+          :cpu_total,
+          :cpus,
+          :interrupt_total,
+          :interrupts,
+          :ctxt,
+          :btime,
+          :processes,
+          :procs_running,
+          :procs_blocked,
+          :softirq_total,
+          :softirqs,
+        )
+
+        expect(result.cpus.length).to eq(host.cpu.cores)
+      end
+
       it 'gets process details' do
         result = host.ps
 

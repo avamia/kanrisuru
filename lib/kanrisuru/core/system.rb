@@ -15,6 +15,8 @@ module Kanrisuru
       os_define :linux, :ps
       os_define :linux, :kill
 
+      os_define :linux, :kernel_statistics
+
       os_define :linux, :uptime
 
       os_define :linux, :w
@@ -58,6 +60,33 @@ module Kanrisuru
         :numa_nodes,
         :vulnerabilities,
         :flags
+      )
+
+      KernelStatisticCpu = Struct.new(
+        :user,
+        :nice,
+        :system,
+        :idle,
+        :iowait,
+        :irq,
+        :softirq,
+        :steal,
+        :guest,
+        :guest_nice
+      )
+
+      KernelStatistic = Struct.new(
+        :cpu_total,
+        :cpus,
+        :interrupt_total,
+        :interrupts,
+        :ctxt,
+        :btime,
+        :processes,
+        :procs_running,
+        :procs_blocked,
+        :softirq_total,
+        :softirqs,
       )
 
       ProcessInfo = Struct.new(
@@ -270,6 +299,65 @@ module Kanrisuru
         execute_shell(command)
 
         Kanrisuru::Result.new(command)
+      end
+
+      def kernel_statistics
+        command = Kanrisuru::Command.new('cat /proc/stat') 
+
+        execute_shell(command)
+
+        Kanrisuru::Result.new(command) do |cmd|
+          lines = cmd.to_a
+
+          result = KernelStatistic.new
+          result.cpus = []
+
+          lines.each do |line|
+            values = line.split
+            field = values[0]
+            values = values[1..-1].map(&:to_i)
+
+            case field
+            when /^cpu$/
+              result.cpu_total = KernelStatisticCpu.new
+
+              result.cpu_total.user = values[0]
+              result.cpu_total.nice = values[1]
+              result.cpu_total.system = values[2]
+              result.cpu_total.idle = values[3]
+              result.cpu_total.iowait = values[4]
+              result.cpu_total.irq = values[5]
+              result.cpu_total.softirq = values[6]
+              result.cpu_total.steal = values[7]
+              result.cpu_total.guest = values[8]
+              result.cpu_total.guest_nice = values[9]
+            when /^cpu\d/
+              cpu_stat = KernelStatisticCpu.new
+              cpu_stat.user = values[0]
+              cpu_stat.nice = values[1]
+              cpu_stat.system = values[2]
+              cpu_stat.idle = values[3]
+              cpu_stat.iowait = values[4]
+              cpu_stat.irq = values[5]
+              cpu_stat.softirq = values[6]
+              cpu_stat.steal = values[7]
+              cpu_stat.guest = values[8]
+              cpu_stat.guest_nice = values[9]
+
+              result.cpus << cpu_stat
+            when 'intr'
+              result.interrupt_total = values[0]
+              result.interrupts = values[1..-1]
+            when 'softirq'
+              result.softirq_total = values[0]
+              result.softirqs = values[1..-1]
+            else
+              result[field] = values[0]
+            end
+          end
+
+          result
+        end
       end
 
       def uptime
