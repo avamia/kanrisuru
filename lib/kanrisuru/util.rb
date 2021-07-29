@@ -4,6 +4,7 @@ require_relative 'util/bits'
 require_relative 'util/os_family'
 require_relative 'util/fs_mount_opts'
 require_relative 'util/signal'
+require_relative 'util/dmi_type'
 
 module Kanrisuru
   class Util

@@ -7,6 +7,19 @@ AllCops:
 Style/Documentation:
   Enabled: false
 
+Style/WordArray:
+  Exclude:
+    - lib/kanrisuru/util/dmi_type.rb
+
+Lint/SymbolConversion:
+  Exclude:
+    - lib/kanrisuru/util/dmi_type.rb
+
+Naming/InclusiveLanguage:
+  Exclude:
+    - lib/kanrisuru/core/dmi.rb
+    - spec/unit/core/dmi_spec.rb
+
 Metrics/AbcSize:
   Enabled: false
 

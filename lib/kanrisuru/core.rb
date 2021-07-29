@@ -16,6 +16,8 @@ require_relative 'core/ip'
 require_relative 'core/socket'
 require_relative 'core/apt'
 require_relative 'core/yum'
+require_relative 'core/zypper'
+require_relative 'core/dmi'
 
 module Kanrisuru
   module Remote
@@ -36,6 +38,8 @@ module Kanrisuru
       os_include Kanrisuru::Core::Socket
       os_include Kanrisuru::Core::Apt
       os_include Kanrisuru::Core::Yum
+      os_include Kanrisuru::Core::Zypper
+      os_include Kanrisuru::Core::Dmi
     end
 
     class Cluster
@@ -54,6 +58,8 @@ module Kanrisuru
       os_collection Kanrisuru::Core::Socket
       os_collection Kanrisuru::Core::Apt
       os_collection Kanrisuru::Core::Yum
+      os_collection Kanrisuru::Core::Zypper
+      os_collection Kanrisuru::Core::Dmi
     end
   end
 end
