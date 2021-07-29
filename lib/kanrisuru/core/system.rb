@@ -86,7 +86,7 @@ module Kanrisuru
         :procs_running,
         :procs_blocked,
         :softirq_total,
-        :softirqs,
+        :softirqs
       )
 
       ProcessInfo = Struct.new(
@@ -302,7 +302,7 @@ module Kanrisuru
       end
 
       def kernel_statistics
-        command = Kanrisuru::Command.new('cat /proc/stat') 
+        command = Kanrisuru::Command.new('cat /proc/stat')
 
         execute_shell(command)
 
@@ -318,20 +318,7 @@ module Kanrisuru
             values = values[1..-1].map(&:to_i)
 
             case field
-            when /^cpu$/
-              result.cpu_total = KernelStatisticCpu.new
-
-              result.cpu_total.user = values[0]
-              result.cpu_total.nice = values[1]
-              result.cpu_total.system = values[2]
-              result.cpu_total.idle = values[3]
-              result.cpu_total.iowait = values[4]
-              result.cpu_total.irq = values[5]
-              result.cpu_total.softirq = values[6]
-              result.cpu_total.steal = values[7]
-              result.cpu_total.guest = values[8]
-              result.cpu_total.guest_nice = values[9]
-            when /^cpu\d/
+            when /^cpu/
               cpu_stat = KernelStatisticCpu.new
               cpu_stat.user = values[0]
               cpu_stat.nice = values[1]
@@ -344,7 +331,12 @@ module Kanrisuru
               cpu_stat.guest = values[8]
               cpu_stat.guest_nice = values[9]
 
-              result.cpus << cpu_stat
+              case field
+              when /^cpu$/
+                result.cpu_total = cpu_stat
+              when /^cpu\d+/
+                result.cpus << cpu_stat
+              end
             when 'intr'
               result.interrupt_total = values[0]
               result.interrupts = values[1..-1]
