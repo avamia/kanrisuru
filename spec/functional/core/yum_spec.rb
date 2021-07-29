@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe Kanrisuru::Core::Yum do
-  TestHosts.each_os do |os_name|
+  TestHosts.each_os(only: %w[fedora rhel centos]) do |os_name|
     context "with #{os_name}" do
       let(:host_json) { TestHosts.host(os_name) }
       let(:host) do
@@ -19,21 +19,15 @@ RSpec.describe Kanrisuru::Core::Yum do
       end
 
       it 'upgrades packages' do
-        case os_name
-        when 'centos', 'rhel', 'fedora'
-          host.su('root')
-          result = host.yum('upgrade')
-          expect(result).to be_success
-        end
+        host.su('root')
+        result = host.yum('upgrade')
+        expect(result).to be_success
       end
 
       it 'updates packages' do
-        case os_name
-        when 'centos', 'rhel', 'fedora'
-          host.su('root')
-          result = host.yum('update')
-          expect(result).to be_success
-        end
+        host.su('root')
+        result = host.yum('update')
+        expect(result).to be_success
       end
 
       it 'installs local package from RPM' do
@@ -54,106 +48,70 @@ RSpec.describe Kanrisuru::Core::Yum do
       end
 
       it 'lists installed packages' do
-        case os_name
-        when 'centos', 'rhel', 'fedora'
-          result = host.yum('list', installed: true)
-          expect(result).to be_success
-        end
+        result = host.yum('list', installed: true)
+        expect(result).to be_success
       end
 
       it 'lists repos' do
-        case os_name
-        when 'centos', 'rhel', 'fedora'
-          result = host.yum('repolist')
-          expect(result).to be_success
-        end
+        result = host.yum('repolist')
+        expect(result).to be_success
       end
 
       it 'lists installed repos' do
-        case os_name
-        when 'centos', 'rhel', 'fedora'
-          result = host.yum('repolist', repos: 'updates')
-          expect(result).to be_success
-        end
+        result = host.yum('repolist', repos: 'updates')
+        expect(result).to be_success
       end
 
       it 'searches a single package' do
-        case os_name
-        when 'centos', 'rhel', 'fedora'
-          result = host.yum('search', packages: 'curl')
-          expect(result).to be_success
-        end
+        result = host.yum('search', packages: 'curl')
+        expect(result).to be_success
       end
 
       it 'searches all packages' do
-        case os_name
-        when 'centos', 'rhel', 'fedora'
-          result = host.yum('search', all: true, packages: %w[curl ffmpeg])
-          expect(result).to be_success
-        end
+        result = host.yum('search', all: true, packages: %w[curl ffmpeg])
+        expect(result).to be_success
       end
 
       it 'installs a package' do
-        case os_name
-        when 'centos', 'rhel', 'fedora'
-          host.su('root')
-          result = host.yum('install', packages: %(ffmpeg curl))
-          expect(result).to be_success
-        end
+        host.su('root')
+        result = host.yum('install', packages: %(ffmpeg curl))
+        expect(result).to be_success
       end
 
       it 'removes installed packages' do
-        case os_name
-        when 'centos', 'rhel', 'fedora'
-          host.su('root')
-          result = host.yum('remove', packages: ['ffmpeg'])
-          expect(result).to be_success
-        end
+        host.su('root')
+        result = host.yum('remove', packages: ['ffmpeg'])
+        expect(result).to be_success
       end
 
       it 'purges installed packages' do
-        case os_name
-        when 'centos', 'rhel', 'fedora'
-          host.su('root')
-          result = host.yum('erase', packages: ['ffmpeg'])
-          expect(result).to be_success
-        end
+        host.su('root')
+        result = host.yum('erase', packages: ['ffmpeg'])
+        expect(result).to be_success
       end
 
       it 'gets info for one package' do
-        case os_name
-        when 'centos', 'rhel', 'fedora'
-          host.su('root')
-          result = host.yum('info', packages: 'yum')
-          expect(result).to be_success
-        end
+        host.su('root')
+        result = host.yum('info', packages: 'yum')
+        expect(result).to be_success
       end
 
       it 'gets info for installed packages' do
-        case os_name
-        when 'centos', 'rhel', 'fedora'
-          host.su('root')
-          result = host.yum('info', installed: true)
-          expect(result).to be_success
-        end
+        host.su('root')
+        result = host.yum('info', installed: true)
+        expect(result).to be_success
       end
 
       it 'cleans packages' do
-        case os_name
-        when 'centos', 'rhel', 'fedora'
-          host.su('root')
-          result = host.yum('clean', all: true)
-          expect(result).to be_success
-        end
+        host.su('root')
+        result = host.yum('clean', all: true)
+        expect(result).to be_success
       end
 
       it 'autoremoves packages' do
-        case os_name
-        when 'centos', 'rhel', 'fedora'
-          host.su('root')
-          result = host.yum('autoremove')
-          expect(result).to be_success
-        end
+        host.su('root')
+        result = host.yum('autoremove')
+        expect(result).to be_success
       end
     end
   end
