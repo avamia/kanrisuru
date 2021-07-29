@@ -13,11 +13,11 @@ module Kanrisuru
         case unit.downcase
         when 'b'
           Kanrisuru::Util::Bits.convert_bytes(size, :byte, :kilobyte)
-        when 'kb', 'k'
+        when 'kb', 'k', 'kib'
           size
-        when 'mb', 'm'
+        when 'mb', 'm', 'mib'
           Kanrisuru::Util::Bits.convert_from_mb(size, :kilobyte).to_i
-        when 'gb', 'g'
+        when 'gb', 'g', 'gib'
           Kanrisuru::Util::Bits.convert_from_gb(size, :kilobyte).to_i
         end
       end
