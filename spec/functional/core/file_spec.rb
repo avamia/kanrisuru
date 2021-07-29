@@ -167,16 +167,9 @@ RSpec.describe Kanrisuru::Core::File do
         path = "#{spec_dir}/test-dir/"
         result = host.mkdir(path)
 
-        expect(result.success?).to eq(true)
+        expect(result).to be_success
         expect(result.path).to eq(path)
-
-        case os_name
-        when 'fedora', 'rhel', 'centos'
-          expect(result.mode.numeric).to eq('775')
-        else
-          expect(result.mode.numeric).to eq('755')
-        end
-
+        expect(result.mode.numeric).to eq('755')
         expect(result.file_type).to eq('directory')
         expect(result.uid).to eq(1000)
         expect(result.user).to eq(host_json['username'])
@@ -250,7 +243,7 @@ RSpec.describe Kanrisuru::Core::File do
         end
 
         result = host.cp(path, copied_path)
-        expect(result.success?).to eq(true)
+        expect(result).to be_success
 
         file.append do |f|
           f << 'New Content'
@@ -260,8 +253,8 @@ RSpec.describe Kanrisuru::Core::File do
         expect(result.success?).to eq(true)
 
         result = host.ls(path: spec_dir)
-        backup = result.find { |f| f.path == 'remote-file-copied-2.txt~' }
-        expect(backup.path).to eq('remote-file-copied-2.txt~')
+        backup = result.find { |f| f.path == 'remote-file-copied-with-backup.txt~' }
+        expect(backup.path).to eq('remote-file-copied-with-backup.txt~')
       end
 
       it 'moves files' do
