@@ -9,9 +9,9 @@ module Kanrisuru
 
       os_define :fedora, :yum
 
-      YumPackageOverview = Struct.new(:package, :architecture, :version, :installed)
-      YumPackageSearchResult = Struct.new(:package, :architecture, :summary)
-      YumPackageDetail = Struct.new(
+      PackageOverview = Struct.new(:package, :architecture, :version, :installed)
+      PackageSearchResult = Struct.new(:package, :architecture, :summary)
+      PackageDetail = Struct.new(
         :package,
         :version,
         :release,
@@ -26,7 +26,7 @@ module Kanrisuru
         :description
       )
 
-      YumRepolist = Struct.new(
+      Repolist = Struct.new(
         :id,
         :name,
         :status,
@@ -217,7 +217,7 @@ module Kanrisuru
             name, architecture = full_name.split('.')
             summary = values[1]
 
-            result << YumPackageSearchResult.new(name, architecture, summary)
+            result << PackageSearchResult.new(name, architecture, summary)
           end
 
           result
@@ -246,7 +246,7 @@ module Kanrisuru
                 current_row = nil
               end
 
-              current_row = YumRepolist.new
+              current_row = Repolist.new
               current_row.id = extract_single_yum_line(line)
             when /^Repo-name/
               current_row.name = extract_single_yum_line(line)
@@ -309,7 +309,7 @@ module Kanrisuru
                 rows << current_row
               end
 
-              current_row = YumPackageDetail.new
+              current_row = PackageDetail.new
               current_row.package = extract_single_yum_line(line)
             when /^Arch/, /^Architecture/
               current_row.architecture = extract_single_yum_line(line)
@@ -365,7 +365,7 @@ module Kanrisuru
 
         name, architecture = full_name.split('.')
 
-        YumPackageOverview.new(name, architecture, version)
+        PackageOverview.new(name, architecture, version)
       end
 
       ## Bug reported on the output of the yum command

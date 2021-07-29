@@ -2,9 +2,10 @@
 
 class TestHosts
   class << self
-    def each_os(&block)
+    def each_os(opts = {}, &block)
       %w[debian ubuntu fedora centos rhel opensuse sles].each do |os_name|
         next unless test?(os_name)
+        next if opts[:only] && !only?(opts, os_name)
 
         block.call(os_name)
       end
@@ -12,6 +13,11 @@ class TestHosts
 
     def host(name)
       hosts(name)
+    end
+
+    def only?(opts, name)
+      ((opts[:only].instance_of?(Array) && opts[:only].include?(name)) ||
+        (opts[:only].instance_of?(String) && opts[:only] == name))
     end
 
     def test?(name)

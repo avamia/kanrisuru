@@ -7,9 +7,9 @@ module Kanrisuru
 
       os_define :debian, :apt
 
-      AptSource = Struct.new(:url, :dist, :architecture)
-      AptPackageOverview = Struct.new(:package, :version, :suites, :architecture, :installed, :upgradeable, :automatic)
-      AptPackageDetail = Struct.new(
+      Source = Struct.new(:url, :dist, :architecture)
+      PackageOverview = Struct.new(:package, :version, :suites, :architecture, :installed, :upgradeable, :automatic)
+      PackageDetail = Struct.new(
         :package,
         :version,
         :priority,
@@ -224,7 +224,7 @@ module Kanrisuru
                 rows << current_row
               end
 
-              current_row = AptPackageDetail.new
+              current_row = PackageDetail.new
               current_row.package = extract_single_line(line)
             when /^Version:/
               current_row.version = extract_single_line(line)
@@ -293,7 +293,7 @@ module Kanrisuru
 
       def parse_apt_sources(string)
         url, dist, architecture, = string.split
-        AptSource.new(url, dist, architecture)
+        Source.new(url, dist, architecture)
       end
 
       def parse_apt_line(line)
@@ -317,7 +317,7 @@ module Kanrisuru
           automatic = values[3].include?('automatic')
         end
 
-        AptPackageOverview.new(package, version, suites, architecture, installed, upgradeable, automatic)
+        PackageOverview.new(package, version, suites, architecture, installed, upgradeable, automatic)
       end
     end
   end
