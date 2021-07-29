@@ -9,13 +9,13 @@ module Kanrisuru
 
       os_define :linux, :ss
 
-      SocketStatistics = Struct.new(
+      Statistics = Struct.new(
         :netid, :state, :receive_queue, :send_queue,
         :local_address, :local_port, :peer_address, :peer_port,
         :memory
       )
 
-      SocketStatisticsMemory = Struct.new(
+      StatisticsMemory = Struct.new(
         :rmem_alloc, :rcv_buf, :wmem_alloc, :snd_buf,
         :fwd_alloc, :wmem_queued, :ropt_mem, :back_log, :sock_drop
       )
@@ -81,7 +81,7 @@ module Kanrisuru
             values = line.split
             next if values.length < 5
 
-            socket_stats = SocketStatistics.new
+            socket_stats = Statistics.new
             socket_stats.netid =
               if headers.include?('Netid')
                 values.shift
@@ -130,7 +130,7 @@ module Kanrisuru
         _, string = string.split(/skmem:\((\S+)\)/)
         values = string.split(',')
 
-        memory = SocketStatisticsMemory.new
+        memory = StatisticsMemory.new
         memory.rmem_alloc  = values[0].split(/(\d+)/)[1].to_i
         memory.rcv_buf     = values[1].split(/(\d+)/)[1].to_i
         memory.wmem_alloc  = values[2].split(/(\d+)/)[1].to_i
