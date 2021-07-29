@@ -168,9 +168,9 @@ module Kanrisuru
 
         def inspect
           str = '#<Kanrisuru::Remote::Fstab::Entry:0x%<object_id>s ' \
-            '@line=%<line>s @device=%<device>s @label=%<label>s' \
-            '@uuid=%<uuid>s @freq=%<freq>s @pasno=%<passno>s' \
-            '@opts=%<opts>s}>'
+                '@line=%<line>s @device=%<device>s @label=%<label>s' \
+                '@uuid=%<uuid>s @freq=%<freq>s @pasno=%<passno>s' \
+                '@opts=%<opts>s}>'
 
           format(
             str,

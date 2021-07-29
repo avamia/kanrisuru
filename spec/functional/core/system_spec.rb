@@ -84,7 +84,7 @@ RSpec.describe Kanrisuru::Core::System do
           :procs_running,
           :procs_blocked,
           :softirq_total,
-          :softirqs,
+          :softirqs
         )
 
         expect(result.cpus.length).to eq(host.cpu.cores)

@@ -82,7 +82,7 @@ RSpec.describe Kanrisuru::Remote::Fstab do
         entry.mount_point = '/mnt/test3'
 
         expect(fstab['/dev/vda14'].to_s).to eq '/dev/vda14 /mnt/test3 ext4 ' \
-          'user,exec,rw,auto,relatime,async,nodev,nosuid,owner,group 0 0'
+                                               'user,exec,rw,auto,relatime,async,nodev,nosuid,owner,group 0 0'
 
         fstab << '/dev/vda16 /mnt/test2 fat defaults,user,uid=1000,gid=1000 0 0'
         expect(fstab['/dev/vda16'].to_s).to eq('/dev/vda16 /mnt/test2 fat defaults,user,uid=1000,gid=1000 0 0')
