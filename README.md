@@ -79,6 +79,8 @@ cluster.execute('uname') #=> {host: 'host1', result: 'Linux'}, {host: 'host2', r
 |---------------------------------------|------------------|--------------------|--------|--------------------------------------|--------|--------|--------|--------|------|----------|------|
 | **System**                            |                  |                    |        |                                      |        |        |        |        |      |          |      |
 | Get CPU Info                          | cpu_info         | lscpu              | core   | https://linux.die.net/man/1/lscpu    | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
+| Get CPU architecture                          |  lscpu         | lscpu            | core   | https://linux.die.net/man/1/lscpu    | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
+| Get kernel stastics                          |  kernel_statistics         | cat /proc/stat            | core   |   | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
 | Get Load Average                      | load_average     | cat /proc/load_avg | core   |                                      | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
 | Get RAM Available                     | free             | cat /proc/meminfo  | core   |                                      | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
 | Get list of processes                 | ps               | ps                 | core   | https://linux.die.net/man/1/ps       | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
@@ -149,6 +151,7 @@ cluster.execute('uname') #=> {host: 'host1', result: 'Linux'}, {host: 'host2', r
 | **Packages**                          |                  |                    |        |                                      |        |        |        |        |      |          |      |
 | Apt               | apt           | apt                | core   | https://linux.die.net/man/1/apt      | [x]    | [x]    |    |    |  |      |  |
 | Yum           | yum         | yum                | core   | https://linux.die.net/man/1/yum      |    |    | [x]    | [x]    | [x]  |      |  |
+| Zypper           | zypper         | zypper                | core   | https://en.opensuse.org/SDB:Zypper_manual   |    |    |   |    |  | [x] | [x] |
 
 ## Development
 
