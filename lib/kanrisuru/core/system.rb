@@ -205,6 +205,10 @@ module Kanrisuru
       end
 
       def cpu_info(spec)
+        Kanrisuru.logger.info {
+          'DEPRECATION WARNING: cpu_info will be removed in the upcoming major release. Use lscpu instead.'
+        }
+
         name =
           case spec
           when 'sockets'
