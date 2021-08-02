@@ -1,3 +1,8 @@
+## Kanrisuru 0.6.0 (August 1, 2021) ##
+* Add lsof implementation in system core module
+* Fix changelog formatting
+* Add changelog url to gemspec
+
 ## Kanrisuru 0.5.2 (July 30, 2021) ##
 * Add changelog documentation
 * Update documentation table with new tested core module 
@@ -78,7 +83,7 @@
 ## Kanrisuru 0.2.1 (June 16, 2021) ##
 * Add first working release on rubygems.org
 
-## Kanrisuru 0.2.0 (June 16, 2021) [YANKED]##
+## Kanrisuru 0.2.0 (June 16, 2021) [YANKED] ##
 
 ## Kanrisuru 0.1.0 (December 12, 2020) ##
 * Initialize repository, start working on project.

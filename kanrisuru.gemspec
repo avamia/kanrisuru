@@ -27,6 +27,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ['lib']
 
   gem.metadata = {
-    'source_code_uri' => 'https://github.com/avamia/kanrisuru/'
+    'source_code_uri' => 'https://github.com/avamia/kanrisuru/',
+    'changelog_uri'   => 'https://github.com/avamia/kanrisuru/blob/main/CHANGELOG.md'
   }
 end

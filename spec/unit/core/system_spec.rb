@@ -75,5 +75,16 @@ RSpec.describe Kanrisuru::Core::System do
     expect(Kanrisuru::Core::System::UserLoggedIn.new).to respond_to(
       :user, :tty, :ip, :login, :idle, :jcpu, :pcpu, :command
     )
+    expect(Kanrisuru::Core::System::OpenFile.new).to respond_to(
+      :command,
+      :pid,
+      :uid,
+      :file_descriptor,
+      :type,
+      :device,
+      :size,
+      :inode,
+      :name
+    )
   end
 end

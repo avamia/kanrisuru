@@ -26,14 +26,20 @@ RSpec.describe Kanrisuru::Core::System do
 
       it 'gets environment variables' do
         result = host.load_env
-
-        expect(result.success?).to be(true)
+        expect(result).to be_success
         expect(result.data).to be_instance_of(Hash)
+      end
+
+      it 'gets open files' do
+        host.su('root')
+        result = host.lsof
+        expect(result).to be_success
+        expect(result.data).to be_instance_of(Array)
       end
 
       it 'gets uptime' do
         result = host.uptime
-        expect(result.success?).to eq(true)
+        expect(result).to be_success
 
         expect(result).to respond_to(
           :boot_time, :uptime, :seconds,

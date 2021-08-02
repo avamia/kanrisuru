@@ -16,6 +16,9 @@ module Kanrisuru
       os_define :linux, :kill
 
       os_define :linux, :kernel_statistics
+      os_define :linux, :kstat
+
+      os_define :linux, :lsof
 
       os_define :linux, :uptime
 
@@ -100,6 +103,18 @@ module Kanrisuru
       )
 
       UserLoggedIn = Struct.new(:user, :tty, :ip, :login, :idle, :jcpu, :pcpu, :command)
+
+      OpenFile = Struct.new(
+        :command,
+        :pid,
+        :uid,
+        :file_descriptor,
+        :type,
+        :device,
+        :size,
+        :inode,
+        :name
+      )
 
       def load_env
         command = Kanrisuru::Command.new('env')
@@ -305,6 +320,64 @@ module Kanrisuru
         Kanrisuru::Result.new(command)
       end
 
+      def lsof(opts = {})
+        command = Kanrisuru::Command.new('lsof -F pcuftDsin')
+
+        execute_shell(command)
+        Kanrisuru::Result.new(command) do |cmd|
+          lines = cmd.to_a
+
+          current_row = nil
+          current_pid = nil
+          current_user = nil
+          current_command = nil
+          
+          rows = []
+
+          lines.each do |line|
+            case line
+            when /^p/
+              current_pid = parse_lsof(line, 'p').to_i
+            when /^c/
+              current_command = parse_lsof(line, 'c')
+            when /^u/
+              current_user = parse_lsof(line, 'u').to_i
+            when /^f/
+              if current_row
+                rows << current_row
+              end
+
+              current_row = OpenFile.new
+              current_row.pid = current_pid
+              current_row.command = current_command
+              current_row.uid = current_user
+
+              current_row.file_descriptor = parse_lsof(line, 'f') 
+            when /^t/
+              current_row.type = parse_lsof(line, 't')
+            when /^D/
+              current_row.device = parse_lsof(line, 'D')
+            when /^s/
+              current_row.size = parse_lsof(line, 's').to_i
+            when /^i/
+              current_row.inode = parse_lsof(line, 'i').to_i
+            when /^n/
+              current_row.name = parse_lsof(line, 'n')
+            end
+          end
+
+          if current_row
+            rows << current_row
+          end
+
+          rows
+        end
+      end
+
+      def kstat
+        kernel_statistics
+      end
+
       def kernel_statistics
         command = Kanrisuru::Command.new('cat /proc/stat')
 
@@ -493,6 +566,10 @@ module Kanrisuru
       end
 
       private
+
+      def parse_lsof(line, char)
+        line.split(char, 2)[1]
+      end
 
       def parse_policy_abbr(value)
         case value
