@@ -2,6 +2,10 @@
 [![Latest version](https://img.shields.io/github/license/avamia/kanrisuru)](https://github.com/avamia/kanrisuru/blob/main/LICENSE.txt)&nbsp;
 ![GitHub repo size](https://img.shields.io/github/repo-size/avamia/kanrisuru)&nbsp;
 
+<p align="center">
+  <img src="https://www.avamia.com/wp-content/uploads/kanrisuru-banner-02-1.png" width="500">
+</p>
+
 # Kanrisuru
 
 Kanrisuru (manage) helps you remotely control infrastructure using Ruby. This is done over SSH. I'm working on building up some basic functionality to help quickly provision, deploy and manage a single host or cluster of hosts.
