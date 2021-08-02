@@ -2,7 +2,7 @@
 [![Latest version](https://img.shields.io/github/license/avamia/kanrisuru)](https://github.com/avamia/kanrisuru/blob/main/LICENSE.txt)&nbsp;
 ![GitHub repo size](https://img.shields.io/github/repo-size/avamia/kanrisuru)&nbsp;
 
-![kanrisuru-logo](https://www.avamia.com/wp-content/uploads/kanrisuru-banner-02-1.png)
+<img src="https://www.avamia.com/wp-content/uploads/kanrisuru-banner-02-1.png" width="400" />
 
 # Kanrisuru
 
