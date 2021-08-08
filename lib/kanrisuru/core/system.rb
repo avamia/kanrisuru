@@ -111,7 +111,7 @@ module Kanrisuru
         :file_descriptor,
         :type,
         :device,
-        :size,
+        :fsize,
         :inode,
         :name
       )
@@ -220,9 +220,9 @@ module Kanrisuru
       end
 
       def cpu_info(spec)
-        Kanrisuru.logger.info {
+        Kanrisuru.logger.info do
           'DEPRECATION WARNING: cpu_info will be removed in the upcoming major release. Use lscpu instead.'
-        }
+        end
 
         name =
           case spec
@@ -320,7 +320,7 @@ module Kanrisuru
         Kanrisuru::Result.new(command)
       end
 
-      def lsof(opts = {})
+      def lsof(_opts = {})
         command = Kanrisuru::Command.new('lsof -F pcuftDsin')
 
         execute_shell(command)
@@ -331,7 +331,7 @@ module Kanrisuru
           current_pid = nil
           current_user = nil
           current_command = nil
-          
+
           rows = []
 
           lines.each do |line|
@@ -343,22 +343,20 @@ module Kanrisuru
             when /^u/
               current_user = parse_lsof(line, 'u').to_i
             when /^f/
-              if current_row
-                rows << current_row
-              end
+              rows << current_row if current_row
 
               current_row = OpenFile.new
               current_row.pid = current_pid
               current_row.command = current_command
               current_row.uid = current_user
 
-              current_row.file_descriptor = parse_lsof(line, 'f') 
+              current_row.file_descriptor = parse_lsof(line, 'f')
             when /^t/
               current_row.type = parse_lsof(line, 't')
             when /^D/
               current_row.device = parse_lsof(line, 'D')
             when /^s/
-              current_row.size = parse_lsof(line, 's').to_i
+              current_row.fsize = parse_lsof(line, 's').to_i
             when /^i/
               current_row.inode = parse_lsof(line, 'i').to_i
             when /^n/
@@ -366,9 +364,7 @@ module Kanrisuru
             end
           end
 
-          if current_row
-            rows << current_row
-          end
+          rows << current_row if current_row
 
           rows
         end
