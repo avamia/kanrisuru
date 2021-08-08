@@ -31,6 +31,10 @@ module Kanrisuru
       @data[prop]
     end
 
+    def to_s
+      @data.to_s
+    end
+
     def to_a
       @data.instance_of?(Array) ? @data : [@data]
     end
