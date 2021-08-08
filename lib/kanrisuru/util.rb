@@ -16,10 +16,6 @@ module Kanrisuru
       !Kanrisuru::Util.blank?(value)
     end
 
-    def self.numeric?(value)
-      true if Integer(value) rescue false
-    end
-
     def self.array_join_string(arg, field = ',')
       arg.instance_of?(Array) ? arg.join(field) : arg
     end
