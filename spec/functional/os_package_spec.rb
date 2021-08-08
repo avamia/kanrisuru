@@ -16,7 +16,7 @@ module Kanrisuru
   module TestNamespace
     extend Kanrisuru::OsPackage::Define
 
-    os_define :unix_like, :tester
+    os_define :linux, :tester
     os_define :centos, :test_not_correct
 
     def tester
@@ -25,17 +25,34 @@ module Kanrisuru
 
     def test_not_correct; end
   end
+
+  module TestNamespaceAdditions
+    extend Kanrisuru::OsPackage::Define
+
+    os_define :linux, :add
+    os_define :linux, :minus
+
+    def add(a, b)
+      a + b
+    end
+
+    def minus(a, b)
+      a - b
+    end
+  end
 end
 
 module Kanrisuru
   module Remote
     class Host
       os_include Kanrisuru::TestInclude
+      os_include Kanrisuru::TestNamespaceAdditions, namespace: :asdf
       os_include Kanrisuru::TestNamespace, namespace: :asdf
     end
 
     class Cluster
       os_collection Kanrisuru::TestInclude
+      os_collection Kanrisuru::TestNamespaceAdditions, namespace: :asdf
       os_collection Kanrisuru::TestNamespace, namespace: :asdf
     end
   end
@@ -64,8 +81,15 @@ RSpec.describe Kanrisuru::OsPackage do
 
     expect(host).to respond_to(:asdf)
     expect(host.asdf).to respond_to(:tester)
+    expect(host.asdf).to respond_to(:add)
+    expect(host.asdf).to respond_to(:minus)
+
     expect(host.asdf.tester).to eq 'hello namespace'
+    expect(host.asdf.add(1, 2)).to eq(3)
+    expect(host.asdf.minus(3, 2)).to eq(1)
+
     expect(host.tester).to eq('hello ubuntu')
+
     expect { host.asdf.test_not_correct }.to raise_error(NoMethodError)
     expect(cluster.asdf.tester).to be_instance_of(Array)
 

@@ -46,13 +46,19 @@ module Kanrisuru
           ## Define the namespace as an eigen class instance on the host.
           ## Namespaced instances will access core host methods
           ## with @host instance variable.
-          namespace_class    = Kanrisuru::Remote::Cluster.const_set(Kanrisuru::Util.camelize(namespace), Class.new)
-          namespace_instance = Kanrisuru::Remote::Cluster.instance_variable_set("@#{namespace}", namespace_class.new)
 
-          class_eval do
-            define_method namespace do
-              namespace_instance.instance_variable_set(:@cluster, self)
-              namespace_instance
+          if Kanrisuru::Remote::Cluster.instance_variable_defined?("@#{namespace}")
+            namespace_class = Kanrisuru::Remote::Cluster.const_get(Kanrisuru::Util.camelize(namespace))
+            namespace_instance = instance_variable_get("@#{namespace}")
+          else
+            namespace_class    = Kanrisuru::Remote::Cluster.const_set(Kanrisuru::Util.camelize(namespace), Class.new)
+            namespace_instance = Kanrisuru::Remote::Cluster.instance_variable_set("@#{namespace}", namespace_class.new)
+
+            class_eval do
+              define_method namespace do
+                namespace_instance.instance_variable_set(:@cluster, self)
+                namespace_instance
+              end
             end
           end
 
@@ -132,17 +138,25 @@ module Kanrisuru
           ## Define the namespace as an eigen class instance within the host class.
           ## Namespaced instances will access core host methods
           ## with @host instance variable.
-          namespace_class    = Kanrisuru::Remote::Host.const_set(Kanrisuru::Util.camelize(namespace), Class.new)
-          namespace_instance = Kanrisuru::Remote::Host.instance_variable_set("@#{namespace}", namespace_class.new)
 
-          namespace_class.class_eval(&include_method_bindings)
-
-          class_eval do
-            define_method namespace do
-              namespace_instance.instance_variable_set(:@host, self)
-              namespace_instance
+          ## Check to see if the namespace was defined. If so, additional methods will be appended to the
+          ## existing namespace class definition, otherwise, a new namespace class and instance will be
+          ## defined with the methods added.
+          if Kanrisuru::Remote::Host.instance_variable_defined?("@#{namespace}")
+            namespace_class = Kanrisuru::Remote::Host.const_get(Kanrisuru::Util.camelize(namespace))
+            namespace_instance = instance_variable_get("@#{namespace}")
+          else
+            namespace_class    = Kanrisuru::Remote::Host.const_set(Kanrisuru::Util.camelize(namespace), Class.new)
+            namespace_instance = Kanrisuru::Remote::Host.instance_variable_set("@#{namespace}", namespace_class.new)
+            class_eval do
+              define_method namespace do
+                namespace_instance.instance_variable_set(:@host, self)
+                namespace_instance
+              end
             end
           end
+
+          namespace_class.class_eval(&include_method_bindings)
         else
           class_eval(&include_method_bindings)
         end
