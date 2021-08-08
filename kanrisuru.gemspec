@@ -28,6 +28,6 @@ Gem::Specification.new do |gem|
 
   gem.metadata = {
     'source_code_uri' => 'https://github.com/avamia/kanrisuru/',
-    'changelog_uri'   => 'https://github.com/avamia/kanrisuru/blob/main/CHANGELOG.md'
+    'changelog_uri' => 'https://github.com/avamia/kanrisuru/blob/main/CHANGELOG.md'
   }
 end

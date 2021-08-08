@@ -20,6 +20,10 @@ Naming/InclusiveLanguage:
     - lib/kanrisuru/core/dmi.rb
     - spec/unit/core/dmi_spec.rb
 
+Naming/MethodParameterName:
+  Exclude:
+    - spec/functional/os_package_spec.rb
+
 Metrics/AbcSize:
   Enabled: false
 

@@ -1,5 +1,13 @@
+## Kanrisuru 0.7.0 (August 8, 2021) ##
+* Simplify `FileInfo` struct for return object of `ls` command.
+* Rename `size` to `fsize` for the `OpenFile` struct to avoid method naming conflicts of the struct class. 
+* Allow `os_include` and `os_collection` to define multiple groupings of methods with the same namespace.
+* Add `clear` method for remote env class, to remove any session based env variables.
+* Add `to_s` method to result for quick analysis of string based return values. 
+* Remove duplicate `numeric` method in the utils module.
+
 ## Kanrisuru 0.6.0 (August 1, 2021) ##
-* Add lsof implementation in system core module
+* Add `lsof` implementation in system core module
 * Fix changelog formatting
 * Add changelog url to gemspec
 
@@ -42,7 +50,6 @@
 * Fix `address_size` in `cpu` method call.
 
 ## Kanrisuru 0.3.0 (July 22, 2021) ##
-
 * Add `lscpu` system core module 
 * Replace `cpu` module internal fetching of data from `cpu_info` to `lscpu` struct.
  
