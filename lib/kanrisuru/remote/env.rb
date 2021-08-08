@@ -11,6 +11,10 @@ module Kanrisuru
         @env
       end
 
+      def clear
+        @env = {}
+      end
+
       def to_s
         string = ''
         @env.each.with_index do |(key, value), index|
