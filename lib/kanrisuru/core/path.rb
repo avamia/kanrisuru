@@ -9,10 +9,10 @@ module Kanrisuru
 
       os_define :linux, :ls
       os_define :linux, :pwd
-      os_define :linux, :whoami
-      os_define :linux, :which
       os_define :linux, :realpath
       os_define :linux, :readlink
+      os_define :linux, :whoami
+      os_define :linux, :which
 
       FilePath = Struct.new(:path)
       FileInfoId = Struct.new(:inode, :mode, :memory_blocks, :uid, :gid, :fsize, :date, :path, :type)
@@ -46,7 +46,7 @@ module Kanrisuru
             type = values[1].include?('d') ? 'directory' : 'file'
             items <<
               if id
-                FileInfoId.new(
+                FileInfo.new(
                   values[0].to_i,
                   Kanrisuru::Mode.new(values[1]),
                   values[2].to_i,
