@@ -10,9 +10,9 @@ RSpec.describe Kanrisuru::Core::IP do
 
     expect(Kanrisuru::Core::IP::IP_ROUTE_TYPES).to(
       eq(%w[
-        unicast unreachable blackhole prohibit local
-        broadcast throw nat via anycast multicast
-      ])
+           unicast unreachable blackhole prohibit local
+           broadcast throw nat via anycast multicast
+         ])
     )
 
     expect(Kanrisuru::Core::IP::IPLinkProperty.new).to respond_to(

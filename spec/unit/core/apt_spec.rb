@@ -11,7 +11,7 @@ RSpec.describe Kanrisuru::Core::Apt do
     expect(Kanrisuru::Core::Apt::PackageOverview.new).to respond_to(
       :package, :version, :suites, :architecture, :installed, :upgradeable, :automatic
     )
-    
+
     expect(Kanrisuru::Core::Apt::PackageDetail.new).to respond_to(
       :package,
       :version,

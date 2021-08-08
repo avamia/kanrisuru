@@ -82,7 +82,7 @@ RSpec.describe Kanrisuru::Core::System do
       :file_descriptor,
       :type,
       :device,
-      :size,
+      :fsize,
       :inode,
       :name
     )
