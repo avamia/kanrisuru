@@ -8,7 +8,6 @@ module Kanrisuru
       def self.extended(base)
         base.instance_variable_set(:@os_method_properties, {})
         base.instance_variable_set(:@os_methods, Set.new)
-        base.instance_variable_set(:@os_method_cache, {})
       end
 
       def os_define(os_name, method_name, options = {})
@@ -102,12 +101,6 @@ module Kanrisuru
         include_methods   = (public_methods + protected_methods + private_methods).flatten
 
         include_method_bindings = proc do
-          define_method 'os_method_cache' do
-            @os_method_cache ||= {}
-          end
-
-          private :os_method_cache
-
           include_methods.each do |method_name|
             define_method method_name do |*args, &block|
               unbound_method = mod.instance_method(method_name)
@@ -144,10 +137,11 @@ module Kanrisuru
           ## defined with the methods added.
           if Kanrisuru::Remote::Host.instance_variable_defined?("@#{namespace}")
             namespace_class = Kanrisuru::Remote::Host.const_get(Kanrisuru::Util.camelize(namespace))
-            namespace_instance = instance_variable_get("@#{namespace}")
+            namespace_instance = Kanrisuru::Remote::Host.instance_variable_get("@#{namespace}")
           else
             namespace_class    = Kanrisuru::Remote::Host.const_set(Kanrisuru::Util.camelize(namespace), Class.new)
             namespace_instance = Kanrisuru::Remote::Host.instance_variable_set("@#{namespace}", namespace_class.new)
+
             class_eval do
               define_method namespace do
                 namespace_instance.instance_variable_set(:@host, self)
@@ -165,14 +159,16 @@ module Kanrisuru
           os_method_names.each do |method_name|
             if namespace
               namespace_class.class_eval do
+
                 define_method method_name do |*args, &block|
                   unbound_method = nil
+
+                  host = namespace_instance.instance_variable_get(:@host)
+                  os_method_cache = host.instance_variable_get(:@os_method_cache) || {}
 
                   if os_method_cache.key?("#{namespace}.#{method_name}")
                     unbound_method = os_method_cache["#{namespace}.#{method_name}"]
                   else
-                    host = namespace_instance.instance_variable_get(:@host)
-
                     ## Find the correct method to resolve based on the OS for the remote host.
                     defined_method_name = host.resolve_os_method_name(os_method_properties, method_name)
                     unless defined_method_name
@@ -186,6 +182,7 @@ module Kanrisuru
                     ## Cache the unbound method on this host instance for faster resolution on
                     ## the next invocation of this method
                     os_method_cache["#{namespace}.#{method_name}"] = unbound_method
+                    host.instance_variable_set(:@os_method_cache, os_method_cache)
                   end
 
                   ## Bind the method to host instance and
@@ -196,12 +193,13 @@ module Kanrisuru
             else
               define_method method_name do |*args, &block|
                 unbound_method = nil
+                
+                host = self
+                os_method_cache = host.instance_variable_get(:@os_method_cache) || {}
 
                 if os_method_cache.key?(method_name)
                   unbound_method = os_method_cache[method_name]
                 else
-                  host = self
-
                   ## Find the correct method to resolve based on the OS for the remote host.
                   defined_method_name = host.resolve_os_method_name(os_method_properties, method_name)
                   raise NoMethodError, "undefined method `#{method_name}' for #{self.class}" unless defined_method_name
@@ -213,6 +211,7 @@ module Kanrisuru
                   ## Cache the unbound method on this host instance for faster resolution on
                   ## the next invocation of this method
                   os_method_cache[method_name] = unbound_method
+                  host.instance_variable_set(:@os_method_cache, os_method_cache)
                 end
 
                 ## Bind the method to host instance and

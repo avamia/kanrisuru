@@ -40,18 +40,66 @@ module Kanrisuru
       a - b
     end
   end
+
+  module TestAliasNames
+    extend Kanrisuru::OsPackage::Define
+
+    os_define :fedora, :output_fedora, alias: :output
+    os_define :debian, :output_debian, alias: :output
+    os_define :sles,   :output_sles, alias: :output
+
+    def output_debian
+      'debian'
+    end
+
+    def output_fedora
+      'fedora'
+    end
+
+    def output_sles
+      'sles'
+    end
+  end
+
+  module TestAliasNamesNamespace
+    extend Kanrisuru::OsPackage::Define
+
+    os_define :fedora, :output_fedora, alias: :output
+    os_define :debian, :output_debian, alias: :output
+    os_define :sles,   :output_sles, alias: :output
+
+    def output_debian
+      'debian'
+    end
+
+    def output_fedora
+      'fedora'
+    end
+
+    def output_sles
+      'sles'
+    end
+  end
 end
 
 module Kanrisuru
   module Remote
     class Host
       os_include Kanrisuru::TestInclude
+
+      os_include Kanrisuru::TestAliasNames
+      os_include Kanrisuru::TestAliasNamesNamespace, namespace: :alias
+
       os_include Kanrisuru::TestNamespaceAdditions, namespace: :asdf
       os_include Kanrisuru::TestNamespace, namespace: :asdf
     end
 
     class Cluster
       os_collection Kanrisuru::TestInclude
+
+      os_collection Kanrisuru::TestAliasNames
+      os_collection Kanrisuru::TestAliasNamesNamespace, namespace: :alias
+
       os_collection Kanrisuru::TestNamespaceAdditions, namespace: :asdf
       os_collection Kanrisuru::TestNamespace, namespace: :asdf
     end
@@ -94,6 +142,52 @@ RSpec.describe Kanrisuru::OsPackage do
     expect(cluster.asdf.tester).to be_instance_of(Array)
 
     host.disconnect
+    host2.disconnect
+    cluster.disconnect
+  end
+
+  it 'includes the correct alias named method' do
+    host1 = Kanrisuru::Remote::Host.new(host: 'ubuntu-host', username: 'ubuntu', keys: ['~/.ssh/id_rsa'])
+    host2 = Kanrisuru::Remote::Host.new(host: 'centos-host', username: 'centos', keys: ['~/.ssh/id_rsa'])
+    host3 = Kanrisuru::Remote::Host.new(host: 'opensuse-host', username: 'opensuse', keys: ['~/.ssh/id_rsa'])
+
+    cluster = Kanrisuru::Remote::Cluster.new([host1, host2, host3])
+
+    expect(host1).to respond_to(:output)
+    expect(host2).to respond_to(:output)
+    expect(host3).to respond_to(:output)
+    expect(host1.output).to eq('debian')
+    expect(host2.output).to eq('fedora')
+    expect(host3.output).to eq('sles')
+
+    expect(cluster).to respond_to(:output)
+    expect(cluster.output).to eq([
+      {:host=>"ubuntu-host", :result=>"debian"},
+      {:host=>"centos-host", :result=>"fedora"},
+      {:host=>"opensuse-host", :result=>"sles"}
+    ])
+
+    expect(host1).to respond_to(:alias)
+    expect(host2).to respond_to(:alias)
+    expect(host3).to respond_to(:alias)
+    expect(host1.alias).to respond_to(:output)
+    expect(host2.alias).to respond_to(:output)
+    expect(host3.alias).to respond_to(:output)
+    expect(host1.alias.output).to eq('debian')
+    expect(host2.alias.output).to eq('fedora')
+    expect(host3.alias.output).to eq('sles')
+
+    expect(cluster).to respond_to(:alias)
+    expect(cluster.alias).to respond_to(:output)
+    expect(cluster.alias.output).to eq([
+      {:host=>"ubuntu-host", :result=>"debian"},
+      {:host=>"centos-host", :result=>"fedora"},
+      {:host=>"opensuse-host", :result=>"sles"}
+    ])
+
+    host1.disconnect
+    host2.disconnect
+    host3.disconnect
     cluster.disconnect
   end
 end

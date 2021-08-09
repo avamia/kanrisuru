@@ -1,3 +1,12 @@
+## Kanrisuru 0.7.2 (August 9, 2021) ##
+* Fixed bug with the `os_method_cache` instance variable set in the namespaced instance of a host. This was causing collision issues inbetween host instances, where, hosts with the same aliased method name was getting overwritten (with a different OS), since the namespace instance variable existing on the host class definition wasn't getting reset inbetween host instantiations. Given that the `os_method_cache` is normally re-instantiated, this bug fix addresses this so that the `os_method_cache` is always defined on the host instance, ie:
+
+  ```ruby
+  host.instance_variable_get(:@os_method_cache)
+  host.instance_variable_set(:@os_method_cache, os_method_cache)
+  ```
+  This is done instead of being saved on the namespace module. With the previous bug fix of using namespaced keys, there's no way for a method to be overwritten otherwise with a global `os_method_cache`.
+
 ## Kanrisuru 0.7.1 (August 8, 2021) ##
 * Fix bug with `os_include` when caching namespace unbound methods, use the namespace in the 
 cache key to avoid any namespace collisions with the same method name, namely:
