@@ -1,3 +1,10 @@
+## Kanrisuru 0.7.1 (August 8, 2021) ##
+* Fix bug with `os_include` when caching namespace unbound methods, use the namespace in the 
+cache key to avoid any namespace collisions with the same method name, namely:
+```ruby
+"#{namespace}.#{method_name}"
+```
+
 ## Kanrisuru 0.7.0 (August 8, 2021) ##
 * Simplify `FileInfo` struct for return object of `ls` command.
 * Rename `size` to `fsize` for the `OpenFile` struct to avoid method naming conflicts of the struct class. 

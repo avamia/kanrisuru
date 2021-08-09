@@ -168,8 +168,8 @@ module Kanrisuru
                 define_method method_name do |*args, &block|
                   unbound_method = nil
 
-                  if os_method_cache.key?(method_name)
-                    unbound_method = os_method_cache[method_name]
+                  if os_method_cache.key?("#{namespace}.#{method_name}")
+                    unbound_method = os_method_cache["#{namespace}.#{method_name}"]
                   else
                     host = namespace_instance.instance_variable_get(:@host)
 
@@ -185,7 +185,7 @@ module Kanrisuru
 
                     ## Cache the unbound method on this host instance for faster resolution on
                     ## the next invocation of this method
-                    os_method_cache[method_name] = unbound_method
+                    os_method_cache["#{namespace}.#{method_name}"] = unbound_method
                   end
 
                   ## Bind the method to host instance and
