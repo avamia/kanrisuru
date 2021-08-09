@@ -40,6 +40,12 @@ RSpec.describe Kanrisuru::Core::Zypper do
         expect(result).to be_success
       end
 
+      it 'removes a package' do
+        host.su('root')
+        result = host.zypper('remove', packages: ['ffmpeg'])
+        expect(result).to be_success
+      end
+
       it 'lists updates' do
         result = host.zypper('list-updates')
         expect(result).to be_success

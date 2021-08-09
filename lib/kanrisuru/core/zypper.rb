@@ -713,6 +713,9 @@ module Kanrisuru
         zypper_repos_opt(command, opts)
         zypper_package_type_opt(command, opts)
         zypper_solver_opts(command, opts)
+        
+        packages = Kanrisuru::Util.string_join_array(opts[:packages], ' ')
+        command << packages
 
         execute_shell(command)
         Kanrisuru::Result.new(command)
