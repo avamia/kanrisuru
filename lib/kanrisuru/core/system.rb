@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'date'
+require 'ipaddr'
 
 module Kanrisuru
   module Core
@@ -19,6 +20,7 @@ module Kanrisuru
       os_define :linux, :kstat
 
       os_define :linux, :lsof
+      os_define :linux, :last
 
       os_define :linux, :uptime
 
@@ -114,6 +116,19 @@ module Kanrisuru
         :fsize,
         :inode,
         :name
+      )
+
+      SessionDetail = Struct.new(
+        :tty,
+        :login_at,
+        :logout_at,
+        :ip_address,
+        :success
+      )
+
+      LoginUser = Struct.new(
+        :user,
+        :sessions
       )
 
       def load_env
@@ -269,6 +284,65 @@ module Kanrisuru
 
         ## In kB
         Kanrisuru::Result.new(command, &:to_i)
+      end
+
+      def last(opts = {})
+        command =
+          if opts[:failed_attempts]
+            Kanrisuru::Command.new('lastb')
+          else
+            Kanrisuru::Command.new('last')
+          end
+
+        command.append_flag('-i')
+        command.append_flag('-F')
+        command.append_arg('-f', opts[:file])
+
+        ## Some systems only use 1 space between user and TTY field
+        ## Add an additional space in output formatting for simple parsing
+        ## logic.
+        command | "sed 's/ /  /'"
+
+        execute_shell(command)
+
+        Kanrisuru::Result.new(command) do |cmd|
+          lines = cmd.to_a
+
+          mapping = {}
+
+          lines.each do |line|
+            next if Kanrisuru::Util.blank?(line)
+            next if line.include?('wtmp') || line.include?('btmp')
+
+            line = line.gsub('  still logged in', '- still logged in') if line.include?('still logged in')
+
+            values = line.split(/\s{2,}/, 4)
+            user   = values[0]
+            tty    = values[1]
+            ip     = IPAddr.new(values[2])
+
+            date_range = values[3]
+            login, logout = date_range.split(' - ')
+
+            login = parse_last_date(login) if login
+
+            logout = parse_last_date(logout) if logout
+
+            detail = SessionDetail.new
+            detail.tty = tty
+            detail.ip_address = ip
+            detail.login_at = login
+            detail.logout_at = logout
+
+            detail.success = !Kanrisuru::Util.present?(opts[:failed_attemps])
+
+            mapping[user] = LoginUser.new(user, []) unless mapping.key?(user)
+
+            mapping[user].sessions << detail
+          end
+
+          mapping.values
+        end
       end
 
       def ps(opts = {})
@@ -565,6 +639,19 @@ module Kanrisuru
 
       def parse_lsof(line, char)
         line.split(char, 2)[1]
+      end
+
+      def parse_last_date(string)
+        tokens = string.split
+
+        return if tokens.length < 4
+
+        month_abbr = tokens[1]
+        day = tokens[2]
+        timestamp = tokens[3]
+        year = tokens[4]
+
+        DateTime.parse("#{day} #{month_abbr} #{year} #{timestamp}")
       end
 
       def parse_policy_abbr(value)

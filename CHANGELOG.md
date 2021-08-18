@@ -1,3 +1,6 @@
+## Kanrisuru 0.8.0 (August 18, 2021) ##
+* Add last / lastb implementation in system core module. 
+
 ## Kanrisuru 0.7.3 (August 9, 2021) ##
 * Fixed bug with zypper remove package, where the package names weren't being added to the linux command. 
 * Test case added to ensure package is removed.

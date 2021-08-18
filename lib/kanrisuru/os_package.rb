@@ -159,7 +159,6 @@ module Kanrisuru
           os_method_names.each do |method_name|
             if namespace
               namespace_class.class_eval do
-
                 define_method method_name do |*args, &block|
                   unbound_method = nil
 
@@ -193,7 +192,7 @@ module Kanrisuru
             else
               define_method method_name do |*args, &block|
                 unbound_method = nil
-                
+
                 host = self
                 os_method_cache = host.instance_variable_get(:@os_method_cache) || {}
 

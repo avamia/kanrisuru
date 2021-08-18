@@ -96,6 +96,21 @@ RSpec.describe Kanrisuru::Core::System do
         expect(result.cpus.length).to eq(host.cpu.cores)
       end
 
+      it 'gets login details' do
+        host.su('root')
+
+        result = host.last
+        expect(result).to be_success
+      end
+
+      it 'gets failed login attempts' do
+        host.su('root')
+
+        result = host.last(failed_attempts: true)
+        puts result.data
+        expect(result).to be_success
+      end
+
       it 'gets process details' do
         result = host.ps
 

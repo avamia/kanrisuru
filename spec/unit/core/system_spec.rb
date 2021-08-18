@@ -86,5 +86,17 @@ RSpec.describe Kanrisuru::Core::System do
       :inode,
       :name
     )
+    expect(Kanrisuru::Core::System::SessionDetail.new).to respond_to(
+      :tty,
+      :login_at,
+      :logout_at,
+      :ip_address,
+      :success
+    )
+
+    expect(Kanrisuru::Core::System::LoginUser.new).to respond_to(
+      :user,
+      :sessions
+    )
   end
 end

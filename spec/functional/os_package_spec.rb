@@ -162,10 +162,10 @@ RSpec.describe Kanrisuru::OsPackage do
 
     expect(cluster).to respond_to(:output)
     expect(cluster.output).to eq([
-      {:host=>"ubuntu-host", :result=>"debian"},
-      {:host=>"centos-host", :result=>"fedora"},
-      {:host=>"opensuse-host", :result=>"sles"}
-    ])
+                                   { host: 'ubuntu-host', result: 'debian' },
+                                   { host: 'centos-host', result: 'fedora' },
+                                   { host: 'opensuse-host', result: 'sles' }
+                                 ])
 
     expect(host1).to respond_to(:alias)
     expect(host2).to respond_to(:alias)
@@ -180,10 +180,10 @@ RSpec.describe Kanrisuru::OsPackage do
     expect(cluster).to respond_to(:alias)
     expect(cluster.alias).to respond_to(:output)
     expect(cluster.alias.output).to eq([
-      {:host=>"ubuntu-host", :result=>"debian"},
-      {:host=>"centos-host", :result=>"fedora"},
-      {:host=>"opensuse-host", :result=>"sles"}
-    ])
+                                         { host: 'ubuntu-host', result: 'debian' },
+                                         { host: 'centos-host', result: 'fedora' },
+                                         { host: 'opensuse-host', result: 'sles' }
+                                       ])
 
     host1.disconnect
     host2.disconnect
