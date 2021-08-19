@@ -244,8 +244,8 @@ module Kanrisuru
               current_device.fs_type = value
             when 'MAJ:MIN'
               maj, min = value.split(':')
-              current_device.maj_dev = maj
-              current_device.min_dev = min
+              current_device.maj_dev = maj ? maj.to_i : nil
+              current_device.min_dev = min ? min.to_i : nil
             when 'MOUNTPOINT'
               current_device.mount_point = value
             when 'SIZE'
@@ -281,8 +281,8 @@ module Kanrisuru
 
           LsblkDevice.new(
             device['name'],
-            maj_min ? maj_min.split(':')[0] : nil,
-            maj_min ? maj_min.split(':')[1] : nil,
+            maj_min ? maj_min.split(':')[0].to_i : nil,
+            maj_min ? maj_min.split(':')[1].to_i : nil,
             device['rm'],
             device['ro'],
             device['owner'],

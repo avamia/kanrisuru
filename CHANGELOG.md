@@ -1,3 +1,6 @@
+## Kanrisuru 0.8.2 (August 19, 2021) ##
+* Convert `major` and `minor` device field values to an `integer` in lsblk system module.
+
 ## Kanrisuru 0.8.1 (August 19, 2021) ##
 * Fix `nodeps` flag value for `lsblk` command in disk module. 
 
