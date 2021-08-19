@@ -1,3 +1,6 @@
+## Kanrisuru 0.8.1 (August 19, 2021) ##
+* Fix `nodeps` flag value for `lsblk` command in disk module. 
+
 ## Kanrisuru 0.8.0 (August 18, 2021) ##
 * Add last / lastb implementation in system core module. 
 

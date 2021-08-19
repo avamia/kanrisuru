@@ -144,7 +144,7 @@ module Kanrisuru
 
         command.append_flag('-a', all)
         command.append_flag('-p', paths)
-        command.append_flag('-p', nodeps)
+        command.append_flag('-d', nodeps)
 
         command.append_arg('-o', 'NAME,FSTYPE,MAJ:MIN,MOUNTPOINT,SIZE,UUID,RO,RM,OWNER,GROUP,MODE,TYPE')
         execute(command)
