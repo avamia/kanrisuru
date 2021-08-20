@@ -65,6 +65,13 @@ RSpec.describe Kanrisuru::Core::Disk do
         expect(result[0].path).to eq("#{host_json['home']}/.bashrc")
       end
 
+      it 'gets disk usage root' do
+        host.su('root')
+        result = host.du(path: '/etc')
+        expect(result).to be_success
+        expect(result[0].path).to eq("/etc")
+      end
+
       it 'gets disk free for system' do
         expect(host.df.data).to be_instance_of(Array)
         expect(host.df(inodes: true).data).to be_instance_of(Array)

@@ -1,3 +1,7 @@
+## Kanrisuru 0.8.3 (August 20, 2021) ##
+* Fix bug with disk usage, `du` command by escaping the awk variables in the command.
+* Update `du` command to execute with shell user. 
+
 ## Kanrisuru 0.8.2 (August 19, 2021) ##
 * Convert `major` and `minor` device field values to an `integer` in lsblk system module.
 

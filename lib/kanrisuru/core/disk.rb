@@ -31,9 +31,9 @@ module Kanrisuru
 
         command = Kanrisuru::Command.new('du')
         command.append_arg('-s', path)
-        command | "awk '{print $1, $2}'"
+        command | "awk '{print \\$1, \\$2}'"
 
-        execute(command)
+        execute_shell(command)
 
         Kanrisuru::Result.new(command) do |cmd|
           string = cmd.to_s
