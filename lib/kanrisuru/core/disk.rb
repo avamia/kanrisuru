@@ -41,7 +41,8 @@ module Kanrisuru
 
           rows.map do |row|
             values = row.split
-            size = convert ? Kanrisuru::Util::Bits.convert_bytes(values[0], :byte, convert) : values[0]
+            size = values[0].to_i
+            size = convert ? Kanrisuru::Util::Bits.convert_bytes(size, :byte, convert) : size 
 
             DiskUsage.new(size, values[1])
           end

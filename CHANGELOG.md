@@ -1,9 +1,12 @@
+## Kanrisuru 0.8.4 (August 20, 2021) ##
+* Convert `fsize` field to an `integer` for du disk module command.
+
 ## Kanrisuru 0.8.3 (August 20, 2021) ##
 * Fix bug with disk usage, `du` command by escaping the awk variables in the command.
-* Update `du` command to execute with shell user. 
+* Update `du` command to execute with shell user.
 
 ## Kanrisuru 0.8.2 (August 19, 2021) ##
-* Convert `major` and `minor` device field values to an `integer` in lsblk system module.
+* Convert `major` and `minor` device field values to an `integer` in lsblk disk module.
 
 ## Kanrisuru 0.8.1 (August 19, 2021) ##
 * Fix `nodeps` flag value for `lsblk` command in disk module. 
