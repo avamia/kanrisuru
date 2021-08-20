@@ -26,23 +26,26 @@ module Kanrisuru
       )
 
       def du(opts = {})
-        path    = opts[:path]
-        convert = opts[:convert]
+        path      = opts[:path]
+        summarize = opts[:summarize]
+        convert   = opts[:convert]
 
         command = Kanrisuru::Command.new('du')
-        command.append_arg('-s', path)
+        command.append_flag('-s', summarize)
+
+        command << path if Kanrisuru::Util.present?(path)
+
         command | "awk '{print \\$1, \\$2}'"
 
         execute_shell(command)
 
         Kanrisuru::Result.new(command) do |cmd|
-          string = cmd.to_s
-          rows = string.split("\n")
+          lines = cmd.to_a
 
-          rows.map do |row|
-            values = row.split
+          lines.map do |line|
+            values = line.split
             size = values[0].to_i
-            size = convert ? Kanrisuru::Util::Bits.convert_bytes(size, :byte, convert) : size 
+            size = convert ? Kanrisuru::Util::Bits.convert_bytes(size, :byte, convert) : size
 
             DiskUsage.new(size, values[1])
           end

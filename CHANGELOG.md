@@ -1,3 +1,6 @@
+## Kanrisuru 0.8.5 (August 20, 2021) ##
+* Add `summarize` option to `du` command. This will only output a total disk usage size for the entire directory versus disk usage for each file individually.
+
 ## Kanrisuru 0.8.4 (August 20, 2021) ##
 * Convert `fsize` field to an `integer` for du disk module command.
 

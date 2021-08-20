@@ -59,17 +59,23 @@ RSpec.describe Kanrisuru::Core::Disk do
         )
       end
 
-      it 'gets disk usage' do
-        result = host.du(path: "#{host_json['home']}/.bashrc")
-        expect(result.success?).to eq(true)
+      it 'gets summarize disk usage' do
+        result = host.du(path: "#{host_json['home']}/.bashrc", summarize: true)
+        expect(result).to be_success
         expect(result[0].path).to eq("#{host_json['home']}/.bashrc")
       end
 
-      it 'gets disk usage root' do
-        host.su('root')
-        result = host.du(path: '/etc')
+      it 'gets all disk usage' do
+        result = host.du(path: host_json['home'])
         expect(result).to be_success
-        expect(result[0].path).to eq("/etc")
+        expect(result.data.length).to be >= 2
+      end
+
+      it 'gets summarized disk usage root user' do
+        host.su('root')
+        result = host.du(path: '/etc', summarize: true)
+        expect(result).to be_success
+        expect(result[0].path).to eq('/etc')
       end
 
       it 'gets disk free for system' do
