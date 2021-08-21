@@ -29,13 +29,13 @@ RSpec.describe Kanrisuru::Core::Path do
         expect(result.data).to be_instance_of(Array)
 
         file = result.find { |f| f.path == '.bashrc' }
-        expect(file.uid).to eq(1000)
+        expect(file.owner).to eq(1000)
 
         case os_name
         when 'opensuse', 'sles'
-          expect(file.gid).to eq(100)
+          expect(file.group).to eq(100)
         else
-          expect(file.gid).to eq(1000)
+          expect(file.group).to eq(1000)
         end
       end
 

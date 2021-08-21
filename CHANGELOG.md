@@ -1,3 +1,6 @@
+## Kanrisuru 0.8.7 (August 21, 2021) ##
+* Fix `FileInfo` field for ls command. Was set to `memory_blocks`, but was incorrect, corrected this to `hard_links`.
+
 ## Kanrisuru 0.8.6 (August 21, 2021) ##
 * Add `minimum_io_size`, `physical_sector_size`, and `logical_sector_size` to the blkid low level disk probe for devices.
 

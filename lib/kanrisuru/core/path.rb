@@ -15,8 +15,8 @@ module Kanrisuru
       os_define :linux, :which
 
       FilePath = Struct.new(:path)
-      FileInfoId = Struct.new(:inode, :mode, :memory_blocks, :uid, :gid, :fsize, :date, :path, :type)
-      FileInfo = Struct.new(:inode, :mode, :memory_blocks, :owner, :group, :fsize, :date, :path, :type)
+      FileInfoId = Struct.new(:inode, :mode, :hard_links, :uid, :gid, :fsize, :date, :path, :type)
+      FileInfo = Struct.new(:inode, :mode, :hard_links, :owner, :group, :fsize, :date, :path, :type)
       UserName = Struct.new(:user)
 
       def ls(opts = {})
