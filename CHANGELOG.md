@@ -1,3 +1,6 @@
+## Kanrisuru 0.8.6 (August 21, 2021) ##
+* Add `minimum_io_size`, `physical_sector_size`, and `logical_sector_size` to the blkid low level disk probe for devices.
+
 ## Kanrisuru 0.8.5 (August 20, 2021) ##
 * Add `summarize` option to `du` command. This will only output a total disk usage size for the entire directory versus disk usage for each file individually.
 

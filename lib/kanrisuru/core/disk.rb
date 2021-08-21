@@ -22,7 +22,8 @@ module Kanrisuru
       BlkidDevice = Struct.new(
         :name, :label, :uuid, :type, :uuid_sub, :label_fatboot, :version, :usage,
         :part_uuid, :part_entry_scheme, :part_entry_uuid, :part_entry_type,
-        :part_entry_number, :part_entry_offset, :part_entry_size, :part_entry_disk
+        :part_entry_number, :part_entry_offset, :part_entry_size, :part_entry_disk,
+        :minimum_io_size, :physical_sector_size, :logical_sector_size, 
       )
 
       def du(opts = {})
@@ -32,9 +33,7 @@ module Kanrisuru
 
         command = Kanrisuru::Command.new('du')
         command.append_flag('-s', summarize)
-
         command << path if Kanrisuru::Util.present?(path)
-
         command | "awk '{print \\$1, \\$2}'"
 
         execute_shell(command)
@@ -101,7 +100,7 @@ module Kanrisuru
           command.append_arg('-U', opts[:uuid])
         elsif Kanrisuru::Util.present?(device)
           mode = 'device'
-          command.append_arg('-po', 'export')
+          command.append_arg('-pio', 'export')
           command << device
         else
           mode = 'list'
@@ -116,10 +115,7 @@ module Kanrisuru
             cmd.to_s
           when 'device'
             lines = cmd.to_a
-
-            ## Only gets 1 device
-            devices = blkid_devices(lines)
-            devices[0]
+            blkid_devices(lines)
           else
             lines = cmd.to_a
             blkid_devices(lines)
@@ -191,6 +187,12 @@ module Kanrisuru
             current_device.usage = value
           elsif line =~ /^VERSION=/
             current_device.version = value.to_f
+          elsif line =~ /^MINIMUM_IO_SIZE=/
+            current_device.minimum_io_size = value.to_i
+          elsif line =~ /^PHYSICAL_SECTOR_SIZE=/
+            current_device.physical_sector_size = value.to_i
+          elsif line =~ /^LOGICAL_SECTOR_SIZE=/
+            current_device.logical_sector_size = value.to_i
           elsif line =~ /^PART_ENTRY_SCHEME=/
             current_device.part_entry_scheme = value
           elsif line =~ /^PART_ENTRY_UUID=/
