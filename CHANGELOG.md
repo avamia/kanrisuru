@@ -1,3 +1,6 @@
+## Kanrisuru 0.8.8 (August 21, 2021) ##
+* Add shorthand notation for tar command actions, such as `x` for `extract`, `t` for `list`, and `c` for `create`. 
+
 ## Kanrisuru 0.8.7 (August 21, 2021) ##
 * Fix `FileInfo` field for ls command. Was set to `memory_blocks`, but was incorrect, corrected this to `hard_links`.
 

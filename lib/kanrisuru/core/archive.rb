@@ -24,7 +24,7 @@ module Kanrisuru
         set_compression(command, compress) if compress
 
         case action
-        when 'list'
+        when 'list', 't'
           command.append_flag('-t')
           command.append_arg('--occurrence', opts[:occurrence])
           command.append_flag('--label', opts[:label])
@@ -38,9 +38,10 @@ module Kanrisuru
               FilePath.new(item)
             end
           end
-        when 'extract', 'get'
+        when 'extract', 'get', 'x'
           command.append_flag('-x')
           command.append_arg('--occurrence', opts[:occurrence])
+
           command.append_flag('--no-same-owner', opts[:no_same_owner])
           command.append_flag('--no-same-permissions', opts[:no_same_permissions])
           command.append_flag('--no-selinux', opts[:no_selinux])
@@ -64,7 +65,7 @@ module Kanrisuru
 
           execute_shell(command)
           Kanrisuru::Result.new(command)
-        when 'create'
+        when 'create', 'c'
           command.append_flag('-c')
           command.append_flag('--multi-volume', opts[:multi_volume])
 
@@ -81,7 +82,7 @@ module Kanrisuru
           execute_shell(command)
 
           Kanrisuru::Result.new(command)
-        when 'append'
+        when 'append', 'r'
           command.append_flag('-r')
 
           if Kanrisuru::Util.present?(paths)
@@ -91,7 +92,7 @@ module Kanrisuru
 
           execute_shell(command)
           Kanrisuru::Result.new(command)
-        when 'catenate', 'concat'
+        when 'catenate', 'concat', 'A'
           command.append_flag('-A')
 
           if Kanrisuru::Util.present?(paths)
@@ -101,7 +102,7 @@ module Kanrisuru
 
           execute_shell(command)
           Kanrisuru::Result.new(command)
-        when 'update'
+        when 'update', 'u'
           command.append_flag('-u')
 
           if Kanrisuru::Util.present?(paths)
@@ -111,7 +112,7 @@ module Kanrisuru
 
           execute_shell(command)
           Kanrisuru::Result.new(command)
-        when 'diff', 'compare'
+        when 'diff', 'compare', 'd'
           command.append_flag('-d')
           command.append_arg('--occurrence', opts[:occurrence])
 
