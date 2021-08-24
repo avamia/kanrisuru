@@ -235,7 +235,7 @@ module Kanrisuru
         @group = Kanrisuru::Mode::Permission.new(symbolic_to_numeric(modes[3..5]), modes[3..5])
         @other = Kanrisuru::Mode::Permission.new(symbolic_to_numeric(modes[6..8]), modes[6..8])
       else
-        raise ArgumentErorr, "Invalid format for mode #{string}"
+        raise ArgumentError, "Invalid format for mode #{string}"
       end
     end
 

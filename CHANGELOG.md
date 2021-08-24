@@ -1,3 +1,6 @@
+## Kanrisuru 0.8.9 (August 24, 2021)
+* Fix spelling error exception `ArgumentError` in `Kanrisuru::Mode` class.
+
 ## Kanrisuru 0.8.8 (August 21, 2021) ##
 * Add shorthand notation for tar command actions, such as `x` for `extract`, `t` for `list`, and `c` for `create`. 
 

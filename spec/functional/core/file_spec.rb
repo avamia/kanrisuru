@@ -67,6 +67,10 @@ RSpec.describe Kanrisuru::Core::File do
         mode = host.chmod(path, mode).mode
         expect(mode.symbolic).to eq('-rwxr--r--')
         expect(mode.to_i).to eq(0o744)
+
+        expect {
+          host.chmod(path, 600))
+        }.to raise_error(ArgumentError)
       end
 
       it 'changes file owner and group' do
