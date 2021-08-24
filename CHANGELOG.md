@@ -1,3 +1,6 @@
+## Kanrisuru 0.8.10 (August 24, 20201)
+* Fix bug with rspec test case.
+
 ## Kanrisuru 0.8.9 (August 24, 2021)
 * Fix spelling error exception `ArgumentError` in `Kanrisuru::Mode` class.
 
