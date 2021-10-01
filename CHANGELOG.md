@@ -1,3 +1,6 @@
+## Kanrisuru 0.8.11 (October 1, 20201)
+* Allow `Kanrisuru::Mode` as mode option in mkdir method.
+
 ## Kanrisuru 0.8.10 (August 24, 20201)
 * Fix bug with rspec test case.
 
