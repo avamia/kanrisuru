@@ -1,4 +1,7 @@
-## Kanrisuru 0.8.12 (October 3, 20201)
+## Kanrisuru 0.8.13 (October 4, 20201)
+* Fix `wc` command. Ensure result parsing is cast to integer values.
+
+## Kanrisuru 0.8.12 (October 4, 20201)
 * Refactor `rmdir` command to only work on empty directories. 
 
 ## Kanrisuru 0.8.11 (October 1, 20201)

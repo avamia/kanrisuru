@@ -349,10 +349,17 @@ RSpec.describe Kanrisuru::Core::File do
         expect(result.success?).to eq(true)
         expect(result).to respond_to(:lines, :words, :characters)
 
-        lines = result.lines
-        result = host.cat('/etc/hosts')
+        ## Need to remap data including newline chars to get byte size
+        data = host.cat('/etc/hosts').command.raw_result
+        doc = data.map(&:lines).flatten
 
-        expect(lines).to eq(result.to_a.length)
+        lines = doc.length
+        words = doc.map(&:split).flatten
+        chars = doc.map(&:length).flatten 
+
+        expect(result.lines).to eq(doc.length)
+        expect(result.words).to eq(words.length)
+        expect(result.characters).to eq(chars.sum)
       end
     end
   end

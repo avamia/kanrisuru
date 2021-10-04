@@ -332,7 +332,7 @@ module Kanrisuru
         execute_shell(command)
 
         Kanrisuru::Result.new(command) do |cmd|
-          items = cmd.to_a
+          items = cmd.to_s.split
           FileCount.new(items[0].to_i, items[1].to_i, items[2].to_i)
         end
       end
