@@ -1,5 +1,8 @@
+## Kanrisuru 0.8.12 (October 3, 20201)
+* Refactor `rmdir` command to only work on empty directories. 
+
 ## Kanrisuru 0.8.11 (October 1, 20201)
-* Allow `Kanrisuru::Mode` as mode option in mkdir method.
+* Allow `Kanrisuru::Mode` as mode type option in mkdir method.
 
 ## Kanrisuru 0.8.10 (August 24, 20201)
 * Fix bug with rspec test case.

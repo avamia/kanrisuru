@@ -40,8 +40,8 @@ RSpec.describe Kanrisuru::Core::File do
           keys: [host_json['ssh_key']]
         )
 
-        host.rmdir("#{host_json['home']}/.kanrisuru_spec_files")
-        host.rmdir("#{host_json['home']}/extract-tar-files") if host.dir?("#{host_json['home']}/extract-tar-files")
+        host.rm("#{host_json['home']}/.kanrisuru_spec_files", force: true, recursive: true)
+        host.rm("#{host_json['home']}/extract-tar-files", force: true, recursive: true) if host.dir?("#{host_json['home']}/extract-tar-files")
         host.disconnect
       end
 
@@ -320,6 +320,27 @@ RSpec.describe Kanrisuru::Core::File do
         result = host.rm(path)
         expect(result.success?).to eq(true)
         expect(host.empty_file?(path)).to eq(false)
+      end
+
+      it 'removes directories' do
+        result = host.mkdir("#{spec_dir}/directory/1", silent: true)
+        expect(result).to be_success
+
+        result = host.mkdir("#{spec_dir}/directory/2", silent: true)
+        expect(result).to be_success
+
+        result = host.mkdir("#{spec_dir}/directory/3", silent: true)
+        expect(result).to be_success
+
+        result = host.rmdir(["#{spec_dir}/directory/1", "#{spec_dir}/directory/2"])
+        expect(result).to be_success
+
+        ## Can't delete non empty dir
+        result = host.rmdir("#{spec_dir}/directory")
+        expect(result).to be_failure
+       
+        result = host.rmdir("#{spec_dir}/directory/3")
+        expect(result).to be_success
       end
 
       it 'counts a file' do

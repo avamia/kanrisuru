@@ -206,10 +206,19 @@ module Kanrisuru
         Kanrisuru::Result.new(command)
       end
 
-      def rmdir(path)
-        return false unless dir?(path)
+      def rmdir(paths, opts = {})
+        paths = [paths] if paths.instance_of?(String)
+        paths.each do |path|
+          raise ArgumentError, "Can't delete root path" if path == '/' || realpath(path).path == '/'
+        end
 
-        rm(path, force: true, recursive: true)
+        command = Kanrisuru::Command.new("rmdir #{paths.join(' ')}")
+        command.append_flag('--ignore-fail-on-non-empty', opts[:silent])
+        command.append_flag('--parents', opts[:parents])
+
+        execute_shell(command)
+
+        Kanrisuru::Result.new(command)
       end
 
       def mkdir(path, opts = {})
