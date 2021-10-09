@@ -48,7 +48,7 @@ result.path 					# => /home/ubuntu
 
 ### Cluster 
 ```ruby
-cluster = Kanrisuru::Remote::Cluster.new([{
+cluster = Kanrisuru::Remote::Cluster.new({
   host: 'host1', username: 'ubuntu', keys: ['~/.ssh/id_rsa']
 }, {
   host: 'host2', username: 'alice', keys: ['~/.ssh/id_rsa']
@@ -72,7 +72,7 @@ host.execute(command)
 command.success? #=> true
 command.to_s  #=> Linux
 
-cluster = Kanrisuru::Remote::Cluster.new([host, {host: 'host2', username: 'alice', keys: ['~/.ssh/id_rsa']}])
+cluster = Kanrisuru::Remote::Cluster.new(host, {host: 'host2', username: 'alice', keys: ['~/.ssh/id_rsa']})
 
 cluster.execute('uname') #=> {host: 'host1', result: 'Linux'}, {host: 'host2', result: 'Linux'}
 ```

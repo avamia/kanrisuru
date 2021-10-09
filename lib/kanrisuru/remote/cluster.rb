@@ -6,7 +6,7 @@ module Kanrisuru
       extend OsPackage::Collection
       include Enumerable
 
-      def initialize(hosts)
+      def initialize(*hosts)
         @hosts = {}
         hosts.each do |host_opts|
           add_host(host_opts)

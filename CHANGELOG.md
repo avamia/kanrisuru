@@ -1,3 +1,6 @@
+## Kanrisuru 0.8.14 (October 8, 20201)
+* Update `Kanrisuru::Remote::Cluster` instantiation method to use array splat instead of passing array directly.
+
 ## Kanrisuru 0.8.13 (October 4, 20201)
 * Fix `wc` command. Ensure result parsing is cast to integer values.
 

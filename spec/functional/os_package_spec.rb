@@ -111,7 +111,7 @@ RSpec.describe Kanrisuru::OsPackage do
     host = Kanrisuru::Remote::Host.new(host: '127.0.0.1', username: 'ubuntu', keys: ['~/.ssh/id_rsa'])
     host2 = Kanrisuru::Remote::Host.new(host: 'localhost', username: 'ubuntu', keys: ['~/.ssh/id_rsa'])
 
-    cluster = Kanrisuru::Remote::Cluster.new([host, host2])
+    cluster = Kanrisuru::Remote::Cluster.new(host, host2)
 
     expect(host).to respond_to(:tester)
     expect(host.tester).to eq('hello ubuntu')
@@ -125,7 +125,7 @@ RSpec.describe Kanrisuru::OsPackage do
     host = Kanrisuru::Remote::Host.new(host: '127.0.0.1', username: 'ubuntu', keys: ['~/.ssh/id_rsa'])
     host2 = Kanrisuru::Remote::Host.new(host: 'localhost', username: 'ubuntu', keys: ['~/.ssh/id_rsa'])
 
-    cluster = Kanrisuru::Remote::Cluster.new([host, host2])
+    cluster = Kanrisuru::Remote::Cluster.new(host, host2)
 
     expect(host).to respond_to(:asdf)
     expect(host.asdf).to respond_to(:tester)
@@ -151,7 +151,7 @@ RSpec.describe Kanrisuru::OsPackage do
     host2 = Kanrisuru::Remote::Host.new(host: 'centos-host', username: 'centos', keys: ['~/.ssh/id_rsa'])
     host3 = Kanrisuru::Remote::Host.new(host: 'opensuse-host', username: 'opensuse', keys: ['~/.ssh/id_rsa'])
 
-    cluster = Kanrisuru::Remote::Cluster.new([host1, host2, host3])
+    cluster = Kanrisuru::Remote::Cluster.new(host1, host2, host3)
 
     expect(host1).to respond_to(:output)
     expect(host2).to respond_to(:output)
