@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 module Kanrisuru
-  VERSION = '0.8.14'
+  VERSION = '0.8.15'
 end

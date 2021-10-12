@@ -66,10 +66,8 @@ module Kanrisuru
       end
 
       def stat(path, opts = {})
-        follow = opts[:follow]
-
         command = Kanrisuru::Command.new('stat')
-        command.append_flag('-L', follow)
+        command.append_flag('-L', opts[:follow])
         command.append_arg('-c', '%A,%b,%D,%F,%g,%G,%h,%i,%n,%s,%u,%U,%x,%y,%z')
         command << path
 

@@ -5,6 +5,7 @@ SimpleCov.start
 
 require 'kanrisuru'
 require_relative 'helper/test_hosts'
+require_relative 'helper/stub_network'
 
 Kanrisuru.logger.level = Logger::WARN
 
