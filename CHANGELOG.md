@@ -1,3 +1,7 @@
+## Kanrisuru 0.8.16 (October 14, 20201)
+* Add functional test cases for `stream` and `path` modules
+* Create `expect_command`  helper for quick testing on raw command result
+
 ## Kanrisuru 0.8.15 (October 12, 20201)
 * Move functional specs to integration. Anything that performs an actual network request will be under the integrations test.
 * Create a `StubNetwork` to quickly monkey patch the `Kanrisuru::Remote::Host` to simulate a `Net::SSH` channel request. Will add additional functionality for different simulations later on.

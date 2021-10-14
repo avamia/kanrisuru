@@ -14,14 +14,12 @@ RSpec.describe Kanrisuru::Core::Stat do
   end
 
   it 'prepares stat command' do
-    result = host.stat('~/file1.txt')
-    expect(result.command.raw_command).to eq(
+    expect_command(host.stat('~/file1.txt'), 
       'stat -c %A,%b,%D,%F,%g,%G,%h,%i,%n,%s,%u,%U,%x,%y,%z ~/file1.txt'
     )
 
-    result = host.stat('~/file2.txt', follow: true)
-    expect(result.command.raw_command).to eq(
-      'stat -L -c %A,%b,%D,%F,%g,%G,%h,%i,%n,%s,%u,%U,%x,%y,%z ~/file1.txt'
+    expect_command(host.stat('~/file2.txt', follow: true),
+      'stat -L -c %A,%b,%D,%F,%g,%G,%h,%i,%n,%s,%u,%U,%x,%y,%z ~/file2.txt'
     )
   end
 
