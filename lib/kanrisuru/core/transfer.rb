@@ -124,13 +124,24 @@ module Kanrisuru
         command.append_flag('--no-cookies', opts[:no_cookies])
         command.append_flag('--keep-session-cookies', opts[:keep_session_cookies])
         command.append_flag('--ignore-length', opts[:ignore_length])
-        command.append_arg('--header', opts[:header])
         command.append_arg('--max-redirect', opts[:max_redirect])
         command.append_arg('--proxy-user', opts[:proxy_user])
         command.append_arg('--proxy-password', opts[:proxy_password])
         command.append_arg('--referer', opts[:referer])
         command.append_flag('--save-headers', opts[:save_headers])
         command.append_arg('--user-agent', opts[:user_agent])
+
+        headers = opts[:headers]
+        if Kanrisuru::Util.present?(headers)
+          if headers.instance_of?(Hash)
+            headers.each do |key, value|
+              header = "'#{key}: #{value}'"
+              command.append_arg('--header', header)
+            end
+          elsif headers.instance_of?(String)
+            command.append_arg('--header', headers)
+          end
+        end
 
         post_data = opts[:post_data]
 

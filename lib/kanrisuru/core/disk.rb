@@ -23,7 +23,7 @@ module Kanrisuru
         :name, :label, :uuid, :type, :uuid_sub, :label_fatboot, :version, :usage,
         :part_uuid, :part_entry_scheme, :part_entry_uuid, :part_entry_type,
         :part_entry_number, :part_entry_offset, :part_entry_size, :part_entry_disk,
-        :minimum_io_size, :physical_sector_size, :logical_sector_size, 
+        :minimum_io_size, :physical_sector_size, :logical_sector_size
       )
 
       def du(opts = {})
