@@ -1,4 +1,8 @@
-## Kanrisuru 0.8.16 (October 14, 20201)
+## Kanrisuru 0.8.17 (October 16 2021)
+* Add functional test cases for `transfer` module
+* Update wget command to accept hash for `headers` opt.
+
+## Kanrisuru 0.8.16 (October 14, 2021)
 * Add functional test cases for `stream` and `path` modules
 * Create `expect_command`  helper for quick testing on raw command result
 
