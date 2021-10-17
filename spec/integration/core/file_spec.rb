@@ -41,7 +41,10 @@ RSpec.describe Kanrisuru::Core::File do
         )
 
         host.rm("#{host_json['home']}/.kanrisuru_spec_files", force: true, recursive: true)
-        host.rm("#{host_json['home']}/extract-tar-files", force: true, recursive: true) if host.dir?("#{host_json['home']}/extract-tar-files")
+        if host.dir?("#{host_json['home']}/extract-tar-files")
+          host.rm("#{host_json['home']}/extract-tar-files", force: true,
+                                                            recursive: true)
+        end
         host.disconnect
       end
 
@@ -68,9 +71,9 @@ RSpec.describe Kanrisuru::Core::File do
         expect(mode.symbolic).to eq('-rwxr--r--')
         expect(mode.to_i).to eq(0o744)
 
-        expect {
+        expect do
           host.chmod(path, 600)
-        }.to raise_error(ArgumentError)
+        end.to raise_error(ArgumentError)
       end
 
       it 'changes file owner and group' do
@@ -338,7 +341,7 @@ RSpec.describe Kanrisuru::Core::File do
         ## Can't delete non empty dir
         result = host.rmdir("#{spec_dir}/directory")
         expect(result).to be_failure
-       
+
         result = host.rmdir("#{spec_dir}/directory/3")
         expect(result).to be_success
       end
@@ -355,7 +358,7 @@ RSpec.describe Kanrisuru::Core::File do
 
         lines = doc.length
         words = doc.map(&:split).flatten
-        chars = doc.map(&:length).flatten 
+        chars = doc.map(&:length).flatten
 
         expect(result.lines).to eq(doc.length)
         expect(result.words).to eq(words.length)

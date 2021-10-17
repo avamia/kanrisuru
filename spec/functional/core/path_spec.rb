@@ -8,7 +8,7 @@ RSpec.describe Kanrisuru::Core::Path do
   let(:host) do
     Kanrisuru::Remote::Host.new(
       host: 'localhost',
-      username: 'ubuntu', 
+      username: 'ubuntu',
       keys: ['id_rsa']
     )
   end
@@ -42,5 +42,4 @@ RSpec.describe Kanrisuru::Core::Path do
     expect_command(host.readlink('/etc/os-release', canonicalize_existing: true), 'readlink -e /etc/os-release')
     expect_command(host.readlink('/etc/os-release', canonicalize_missing: true), 'readlink -m /etc/os-release')
   end
-
 end
