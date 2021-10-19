@@ -10,6 +10,7 @@ module Kanrisuru
       os_define :linux, :find
 
       FilePath = Struct.new(:path)
+      REGEX_TYPES = ['emacs', 'posix-awk', 'posix-basic', 'posix-egrep', 'posix-extended']
 
       def find(opts = {})
         paths      = opts[:paths]
@@ -32,7 +33,7 @@ module Kanrisuru
           if paths.instance_of?(Array)
             paths = paths.join(' ')
           elsif paths.class != String
-            raise 'Invalid paths type'
+            raise ArgumentError, 'Invalid paths type'
           end
 
           command << paths
@@ -64,13 +65,19 @@ module Kanrisuru
         command.append_arg('-cmin', opts[:cmin])
         command.append_arg('-mmin', opts[:mmin])
 
+        if Kanrisuru::Util.present?(opts[:regex_type])
+          unless REGEX_TYPES.include?(opts[:regex_type])
+            raise ArgumentError, 'invalid regex type'
+          end
+
+          command.append_arg('-regextype', opts[:regex_type])
+        end
+
         command.append_arg('-regex', "'#{regex}'") if Kanrisuru::Util.present?(regex)
 
         if size.instance_of?(String)
-          match = Regexp.new(/^([-+]+)\s*?(\d+)([bcwkMG])$/).match(size)
-
-          raise ArgumentError, "invalid size string: '#{@size}'" if match.nil? || match.captures.include?(nil)
-
+          regex = Regexp.new(/^([-+])?(\d+)([bcwkMG])*$/)
+          raise ArgumentError, "invalid size string: '#{@size}'" unless regex.match?(size) 
           command.append_arg('-size', size)
         elsif size.instance_of?(Integer)
           command.append_arg('-size', size)
