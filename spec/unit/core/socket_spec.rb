@@ -20,6 +20,11 @@ RSpec.describe Kanrisuru::Core::Socket do
         closed close-wait last-ack listening closing
       ]
     )
+    expect(Kanrisuru::Core::Socket::NETWORK_FAMILIES).to eq(
+      %w[
+        unix inet inet6 link netlink
+      ]
+    )
     expect(Kanrisuru::Core::Socket::OTHER_STATES).to eq(
       %w[
         all connected synchronized bucket syn-recv
