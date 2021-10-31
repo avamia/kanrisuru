@@ -78,7 +78,7 @@ module Kanrisuru
         command = Kanrisuru::Command.new('yum install')
         command.append_flag('-y')
 
-        packages = Kanrisuru::Util.string_join_array(opts[:packages], ' ')
+        packages = Kanrisuru::Util.array_join_string(opts[:packages], ' ')
         command << packages
 
         execute_shell(command)
@@ -91,7 +91,7 @@ module Kanrisuru
         command.append_flag('-y')
 
         if Kanrisuru::Util.present?(opts[:repos])
-          repos = Kanrisuru::Util.string_join_array(opts[:repos], ' ')
+          repos = Kanrisuru::Util.array_join_string(opts[:repos], ' ')
           command << repos
         end
 
@@ -136,7 +136,7 @@ module Kanrisuru
         command = Kanrisuru::Command.new('yum remove')
         command.append_flag('-y')
 
-        packages = Kanrisuru::Util.string_join_array(opts[:packages], ' ')
+        packages = Kanrisuru::Util.array_join_string(opts[:packages], ' ')
         raise ArugmentError, "can't remove yum" if packages.include?('yum')
 
         command << packages
@@ -172,7 +172,7 @@ module Kanrisuru
         command = Kanrisuru::Command.new('yum erase')
         command.append_flag('-y')
 
-        packages = Kanrisuru::Util.string_join_array(opts[:packages], ' ')
+        packages = Kanrisuru::Util.array_join_string(opts[:packages], ' ')
         raise ArugmentError, "can't erase yum" if packages.include?('yum')
 
         command << packages
@@ -198,7 +198,7 @@ module Kanrisuru
       def yum_search(opts)
         command = Kanrisuru::Command.new('yum search')
         command.append_flag('all', opts[:all])
-        command << Kanrisuru::Util.string_join_array(opts[:packages], ' ')
+        command << Kanrisuru::Util.array_join_string(opts[:packages], ' ')
 
         pipe_output_newline(command)
 
@@ -228,7 +228,7 @@ module Kanrisuru
         command = Kanrisuru::Command.new('yum repolist')
         command.append_flag('--verbose')
 
-        command << Kanrisuru::Util.string_join_array(opts[:repos], ' ') if opts[:repos]
+        command << Kanrisuru::Util.array_join_string(opts[:repos], ' ') if opts[:repos]
 
         execute_shell(command)
 
@@ -287,7 +287,7 @@ module Kanrisuru
         command.append_flag('--quiet')
         command.append_flag('installed', opts[:installed])
 
-        command << Kanrisuru::Util.string_join_array(opts[:packages], ' ') if opts[:packages]
+        command << Kanrisuru::Util.array_join_string(opts[:packages], ' ') if opts[:packages]
 
         execute_shell(command)
 

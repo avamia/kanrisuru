@@ -142,7 +142,7 @@ module Kanrisuru
         command = Kanrisuru::Command.new('apt-get purge')
         command.append_flag('-y')
 
-        packages = Kanrisuru::Util.string_join_array(opts[:packages], ' ')
+        packages = Kanrisuru::Util.array_join_string(opts[:packages], ' ')
         command << packages
 
         execute_shell(command)
@@ -153,7 +153,7 @@ module Kanrisuru
         command = Kanrisuru::Command.new('apt-get remove')
         command.append_flag('-y')
 
-        packages = Kanrisuru::Util.string_join_array(opts[:packages], ' ')
+        packages = Kanrisuru::Util.array_join_string(opts[:packages], ' ')
         command << packages
 
         execute_shell(command)
@@ -168,7 +168,7 @@ module Kanrisuru
         command.append_flag('--only-upgrade', opts[:only_upgrade])
         command.append_flag('--reinstall', opts[:reinstall])
 
-        packages = Kanrisuru::Util.string_join_array(opts[:packages], ' ')
+        packages = Kanrisuru::Util.array_join_string(opts[:packages], ' ')
         command << packages
 
         execute_shell(command)
@@ -200,7 +200,7 @@ module Kanrisuru
         command = Kanrisuru::Command.new('apt show')
         command.append_flag('-a')
 
-        packages = Kanrisuru::Util.string_join_array(opts[:packages], ' ')
+        packages = Kanrisuru::Util.array_join_string(opts[:packages], ' ')
         command << packages
 
         execute_shell(command)

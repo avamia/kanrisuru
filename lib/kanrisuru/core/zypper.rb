@@ -567,7 +567,7 @@ module Kanrisuru
         zypper_repos_opt(command, opts)
         zypper_package_type_opt(command, opts)
 
-        packages = Kanrisuru::Util.string_join_array(opts[:packages], ' ')
+        packages = Kanrisuru::Util.array_join_string(opts[:packages], ' ')
         command << packages
 
         execute_shell(command)
@@ -663,7 +663,7 @@ module Kanrisuru
         zypper_download_and_install_opts(command, opts)
         zypper_expert_opts(command, opts)
 
-        packages = Kanrisuru::Util.string_join_array(opts[:packages], ' ')
+        packages = Kanrisuru::Util.array_join_string(opts[:packages], ' ')
         command << packages
 
         execute_shell(command)
@@ -714,7 +714,7 @@ module Kanrisuru
         zypper_package_type_opt(command, opts)
         zypper_solver_opts(command, opts)
 
-        packages = Kanrisuru::Util.string_join_array(opts[:packages], ' ')
+        packages = Kanrisuru::Util.array_join_string(opts[:packages], ' ')
         command << packages
 
         execute_shell(command)
@@ -783,7 +783,7 @@ module Kanrisuru
         zypper_repos_opt(command, opts)
         zypper_package_type_opt(command, opts)
 
-        packages = Kanrisuru::Util.string_join_array(opts[:packages], ' ')
+        packages = Kanrisuru::Util.array_join_string(opts[:packages], ' ')
         command << packages
 
         execute_shell(command)

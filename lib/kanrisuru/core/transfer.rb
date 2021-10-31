@@ -87,7 +87,7 @@ module Kanrisuru
         command.append_arg('--quota', opts[:quota])
 
         if Kanrisuru::Util.present?(opts[:restrict_file_names])
-          command.append_arg('--restrict-file-names', Kanrisuru::Util.string_join_array(opts[:restrict_file_names]))
+          command.append_arg('--restrict-file-names', Kanrisuru::Util.array_join_string(opts[:restrict_file_names]))
         end
 
         case opts[:family]
