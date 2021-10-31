@@ -1,4 +1,15 @@
-## Kanrisuru 0.8.17 (October 16 2021)
+## Kanrisuru 0.8.19 (October 31, 2021)
+* Add functional test cases for `ss` command.
+* Enforce contraints on `family` parameter for `ss` command.
+* Deprecating `string_join_array` in favor of `array_join_string`. Both methods do the same thing, and the `array_join_string` has a better nameing interface; will be removed in the next major release.
+* Replace `string_join_array` method calls in `apt`, `transfer`, `yum`, and `zypper` with `array_join_string`. 
+
+## Kanrisuru 0.8.18 (October 19, 2021)
+* Add functional test cases for `find` commmand.
+* Add `regex_type` option for `find` command.
+* Fix bug with `size` option when using number in a string format, regex testing has been simplified on matching correctness for size with options like `100`, `+100`, `-100M` for comparitive fields.
+
+## Kanrisuru 0.8.17 (October 16, 2021)
 * Add functional test cases for `transfer` module
 * Update wget command to accept hash for `headers` opt.
 
