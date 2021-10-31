@@ -38,9 +38,14 @@ module Kanrisuru
         'LAST-ACK' => 'last-ack', 'CLOSING' => 'closing'
       }.freeze
 
+      NETWORK_FAMILIES = %w[
+        unix inet inet6 link netlink
+      ].freeze
+
       def ss(opts = {})
         state = opts[:state]
         expression = opts[:expression]
+        family = opts[:family]
 
         command = Kanrisuru::Command.new('ss')
 
@@ -53,7 +58,10 @@ module Kanrisuru
         command.append_flag('-x', opts[:unix])
         command.append_flag('-w', opts[:raw])
 
-        command.append_arg('-f', opts[:family])
+        if Kanrisuru::Util.present?(family)
+          raise ArgumentError, 'invalid family type' if !NETWORK_FAMILIES.include?(family)
+          command.append_arg('-f', family)
+        end
 
         if Kanrisuru::Util.present?(state)
           raise ArgumentError, 'invalid filter state' if !TCP_STATES.include?(state) && !OTHER_STATES.include?(state)
