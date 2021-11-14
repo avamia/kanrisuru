@@ -1,3 +1,6 @@
+## Kanrisuru 0.8.20 (November 13, 2021)
+* Unstub network requests for full rspec test-suite run
+
 ## Kanrisuru 0.8.19 (October 31, 2021)
 * Add functional test cases for `ss` command.
 * Enforce contraints on `family` parameter for `ss` command.

@@ -2,9 +2,15 @@
 
 require 'spec_helper'
 
-StubNetwork.stub!
-
 RSpec.describe Kanrisuru::Core::Stream do
+  before(:all) do
+    StubNetwork.stub!
+  end
+
+  after(:all) do
+    StubNetwork.unstub!
+  end
+
   let(:host) do
     Kanrisuru::Remote::Host.new(
       host: 'localhost',
