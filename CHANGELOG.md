@@ -1,3 +1,6 @@
+## Kanrisuru 0.8.21 (November 15, 2021)
+* Fix bug with `Kanrisuru::Mode` class, lookup table had incorrect value for execute only symbolic to numeric field.
+
 ## Kanrisuru 0.8.20 (November 13, 2021)
 * Unstub network requests for full rspec test-suite run
 

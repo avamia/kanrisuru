@@ -79,6 +79,31 @@ RSpec.describe Kanrisuru::Mode do
     expect(mode.other.all?).to eq(true)
     expect(mode.other.to_i).to eq(7)
     expect(mode.other.symbolic).to eq('rwx')
+
+    mode = described_class.new("---x--x--x")
+    expect(mode.directory?).to eq(false)
+    expect(mode.numeric).to eq("111")
+
+    expect(mode.owner.read?).to eq(false)
+    expect(mode.owner.write?).to eq(false)
+    expect(mode.owner.execute?).to eq(true)
+    expect(mode.owner.all?).to eq(false)
+    expect(mode.owner.to_i).to eq(1)
+    expect(mode.owner.symbolic).to eq('--x')
+
+    expect(mode.group.read?).to eq(false)
+    expect(mode.group.write?).to eq(false)
+    expect(mode.group.execute?).to eq(true)
+    expect(mode.group.all?).to eq(false)
+    expect(mode.group.to_i).to eq(1)
+    expect(mode.group.symbolic).to eq('--x')
+
+    expect(mode.other.read?).to eq(false)
+    expect(mode.other.write?).to eq(false)
+    expect(mode.other.execute?).to eq(true)
+    expect(mode.other.all?).to eq(false)
+    expect(mode.other.to_i).to eq(1)
+    expect(mode.other.symbolic).to eq('--x')
   end
 
   it 'changes mode numerically globally' do

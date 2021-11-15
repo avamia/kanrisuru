@@ -247,7 +247,7 @@ module Kanrisuru
     def symbolic_to_numeric(ref)
       conversions = {
         '---' => 0,
-        '---x' => 1,
+        '--x' => 1,
         '-w-' => 2,
         '-wx' => 3,
         'r--' => 4,
