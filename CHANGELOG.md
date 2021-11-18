@@ -1,3 +1,6 @@
+## Kanrisuru 0.8.22 (November 18, 2021)
+* Add functional test cases for `apt` command
+
 ## Kanrisuru 0.8.21 (November 15, 2021)
 * Fix bug with `Kanrisuru::Mode` class, lookup table had incorrect value for execute only symbolic to numeric field.
 
