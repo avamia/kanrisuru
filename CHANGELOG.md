@@ -1,3 +1,8 @@
+## Kanrisuru 0.8.23 (November 19, 2021)
+* Add functional test cases for `yum` command
+* Add stub by operating system method, with support for `ubuntu` and `centos` os types. 
+* Fix `ArgumentError` typo in yum commands, `erase` and `remove`.
+
 ## Kanrisuru 0.8.22 (November 18, 2021)
 * Add functional test cases for `apt` command
 

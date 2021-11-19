@@ -137,7 +137,7 @@ module Kanrisuru
         command.append_flag('-y')
 
         packages = Kanrisuru::Util.array_join_string(opts[:packages], ' ')
-        raise ArugmentError, "can't remove yum" if packages.include?('yum')
+        raise ArgumentError, "can't remove yum" if packages.include?('yum')
 
         command << packages
 
@@ -173,7 +173,7 @@ module Kanrisuru
         command.append_flag('-y')
 
         packages = Kanrisuru::Util.array_join_string(opts[:packages], ' ')
-        raise ArugmentError, "can't erase yum" if packages.include?('yum')
+        raise ArgumentError, "can't erase yum" if packages.include?('yum')
 
         command << packages
 
