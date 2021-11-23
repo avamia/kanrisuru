@@ -13,12 +13,20 @@ module Kanrisuru
         end
       end
 
+      def hosts
+        @hosts.values
+      end
+
       def [](hostname)
         @hosts[hostname]
       end
 
       def <<(host_opts)
         add_host(host_opts)
+      end
+
+      def delete(host)
+        remove_host(host)
       end
 
       def execute(command)
@@ -81,13 +89,37 @@ module Kanrisuru
         end
       end
 
+      def remove_host(host)
+        if host.instance_of?(Kanrisuru::Remote::Host)
+          removed = false
+
+          if @hosts.key?(host.host)
+            removed = true
+            @hosts.delete(host.host)
+          end
+
+          removed
+        elsif host.instance_of?(String)
+          removed = false
+
+          if @hosts.key?(host)
+            removed = true
+            @hosts.delete(host)
+          end
+
+          removed
+        else
+          raise ArgumentError, 'Invalid host type'
+        end
+      end
+
       def add_host(host_opts)
         if host_opts.instance_of?(Hash)
           @hosts[host_opts[:host]] = Kanrisuru::Remote::Host.new(host_opts)
         elsif host_opts.instance_of?(Kanrisuru::Remote::Host)
           @hosts[host_opts.host] = host_opts
         else
-          raise 'Not a valid host option'
+          raise ArgumentError, 'Invalid host option'
         end
       end
     end

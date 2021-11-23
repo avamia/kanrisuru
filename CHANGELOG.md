@@ -1,3 +1,7 @@
+## Kanrisuru 0.9.0 (November 23, 2021)
+* Add `delete` to `Kanrisuru::Remote::Cluster` class to allow removal of hosts from cluster.
+* Add functional test cases for remote cluster class. 
+
 ## Kanrisuru 0.8.23 (November 19, 2021)
 * Add functional test cases for `yum` command
 * Add stub by operating system method, with support for `ubuntu` and `centos` os types. 
