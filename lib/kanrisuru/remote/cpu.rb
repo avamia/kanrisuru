@@ -75,8 +75,8 @@ module Kanrisuru
         @cpu_architecture.byte_order
       end
 
-      def address_size
-        @cpu_architecture.address_size
+      def address_sizes
+        @cpu_architecture.address_sizes
       end
 
       def cpu_mhz
@@ -103,7 +103,7 @@ module Kanrisuru
         @cpu_architecture.flags
       end
 
-      def hyperthreading?
+        def hyperthreading?
         threads_per_core > 1
       end
 

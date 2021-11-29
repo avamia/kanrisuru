@@ -1,3 +1,7 @@
+## Kanrisuru 0.9.1 (November 29, 2021)
+* Fix type on `address_sizes` for `Kanrisuru::Remote::Cpu` class.
+* Add unit test cases for the `cpu` class.
+
 ## Kanrisuru 0.9.0 (November 23, 2021)
 * Add `delete` to `Kanrisuru::Remote::Cluster` class to allow removal of hosts from cluster.
 * Add functional test cases for remote cluster class. 
