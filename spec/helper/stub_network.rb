@@ -82,9 +82,17 @@ class StubNetwork
           processor: 'x86_64',
           release: 'centos',
           version: 7.0
+        },
+        opensuse: {
+          kernel_name: 'Linux',
+          kernel_version: '"#1 SMP Tue Jul 20 23:04:11 UTC 2021"',
+          operating_system: 'GNU/Linux',
+          hardware_platform: 'x86_64',
+          processor: 'x86_64',
+          release: 'opensuse-leap',
+          version:15.2
         }
       }
-
 
       defaults[name].key?(property) ?
         defaults[name][property] : nil

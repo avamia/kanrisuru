@@ -3,6 +3,29 @@
 require 'spec_helper'
 
 RSpec.describe Kanrisuru::Core::Disk do
+  before(:all) do
+    StubNetwork.stub!
+  end
+
+  after(:all) do
+    StubNetwork.unstub!
+  end
+
+  let(:host) do
+    Kanrisuru::Remote::Host.new(
+      host: 'localhost',
+      username: 'ubuntu',
+      keys: ['id_rsa']
+    )
+  end
+
+  it 'responds to methods' do
+    expect(host).to respond_to(:df)
+    expect(host).to respond_to(:du)
+    expect(host).to respond_to(:blkid)
+    expect(host).to respond_to(:lsblk)
+  end
+
   it 'responds to disk fields' do
     expect(Kanrisuru::Core::Disk::DiskUsage.new).to respond_to(:fsize, :path)
     expect(Kanrisuru::Core::Disk::DiskFree.new).to respond_to(

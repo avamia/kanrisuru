@@ -3,6 +3,26 @@
 require 'spec_helper'
 
 RSpec.describe Kanrisuru::Core::IP do
+  before(:all) do
+    StubNetwork.stub!
+  end
+
+  after(:all) do
+    StubNetwork.unstub!
+  end
+
+  let(:host) do
+    Kanrisuru::Remote::Host.new(
+      host: 'localhost',
+      username: 'ubuntu',
+      keys: ['id_rsa']
+    )
+  end
+
+  it 'responds to methods' do
+    expect(host).to respond_to(:ip)
+  end
+
   it 'responds to ip fields' do
     expect(Kanrisuru::Core::IP::IPROUTE2_JSON_VERSION).to(
       eq(180_129)

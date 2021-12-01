@@ -3,6 +3,26 @@
 require 'spec_helper'
 
 RSpec.describe Kanrisuru::Core::Dmi do
+  before(:all) do
+    StubNetwork.stub!
+  end
+
+  after(:all) do
+    StubNetwork.unstub!
+  end
+
+  let(:host) do
+    Kanrisuru::Remote::Host.new(
+      host: 'localhost',
+      username: 'ubuntu',
+      keys: ['id_rsa']
+    )
+  end
+
+  it 'responds to methods' do
+    expect(host).to respond_to(:dmi)
+  end
+
   it 'responds to dmi type fields' do
     expect(Kanrisuru::Core::Dmi::BIOS.new).to respond_to(
       :dmi_type, :dmi_handle, :dmi_size,

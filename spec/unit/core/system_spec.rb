@@ -3,6 +3,41 @@
 require 'spec_helper'
 
 RSpec.describe Kanrisuru::Core::System do
+  before(:all) do
+    StubNetwork.stub!
+  end
+
+  after(:all) do
+    StubNetwork.unstub!
+  end
+
+  let(:host) do
+    Kanrisuru::Remote::Host.new(
+      host: 'localhost',
+      username: 'ubuntu',
+      keys: ['id_rsa']
+    )
+  end
+
+  it 'responds to methods' do
+    expect(host).to respond_to(:load_env)
+    expect(host).to respond_to(:cpu_info)
+    expect(host).to respond_to(:lscpu)
+    expect(host).to respond_to(:load_average)
+    expect(host).to respond_to(:free)
+    expect(host).to respond_to(:ps)
+    expect(host).to respond_to(:kill)
+    expect(host).to respond_to(:kernel_statistics)
+    expect(host).to respond_to(:kstat)
+    expect(host).to respond_to(:lsof)
+    expect(host).to respond_to(:last)
+    expect(host).to respond_to(:uptime)
+    expect(host).to respond_to(:w)
+    expect(host).to respond_to(:who)
+    expect(host).to respond_to(:reboot)
+    expect(host).to respond_to(:poweroff)
+  end
+
   it 'responds to system fields' do
     expect(Kanrisuru::Core::System::CPUArchitectureVulnerability.new).to respond_to(
       :name,

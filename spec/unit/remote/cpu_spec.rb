@@ -11,7 +11,7 @@ RSpec.describe Kanrisuru::Remote::Cpu do
     StubNetwork.unstub!
   end
 
-  let(:host1) do
+  let(:host) do
     Kanrisuru::Remote::Host.new(
       host: 'localhost',
       username: 'ubuntu',
@@ -20,7 +20,7 @@ RSpec.describe Kanrisuru::Remote::Cpu do
   end
 
   it 'responds to methods' do
-    cpu = Kanrisuru::Remote::Cpu.new(host1)
+    cpu = Kanrisuru::Remote::Cpu.new(host)
 
     expect(cpu).to respond_to(:load_average)
     expect(cpu).to respond_to(:load_average1)

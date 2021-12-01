@@ -3,6 +3,26 @@
 require 'spec_helper'
 
 RSpec.describe Kanrisuru::Core::Yum do
+  before(:all) do
+    StubNetwork.stub!('centos')
+  end
+
+  after(:all) do
+    StubNetwork.unstub!
+  end
+
+  let(:host) do
+    Kanrisuru::Remote::Host.new(
+      host: 'centos-host',
+      username: 'centos',
+      keys: ['id_rsa']
+    )
+  end
+
+  it 'responds to methods' do
+    expect(host).to respond_to(:yum)
+  end
+   
   it 'responds to yum fields' do
     expect(Kanrisuru::Core::Yum::PackageOverview.new).to respond_to(
       :package, :architecture, :version, :installed

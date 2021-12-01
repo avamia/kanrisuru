@@ -3,6 +3,26 @@
 require 'spec_helper'
 
 RSpec.describe Kanrisuru::Core::Zypper do
+  before(:all) do
+    StubNetwork.stub!('opensuse')
+  end
+
+  after(:all) do
+    StubNetwork.unstub!
+  end
+
+  let(:host) do
+    Kanrisuru::Remote::Host.new(
+      host: 'opensuse-host',
+      username: 'opensuse',
+      keys: ['id_rsa']
+    )
+  end
+
+  it 'responds to methods' do
+    expect(host).to respond_to(:zypper)
+  end
+
   it 'responds to zypper fields' do
     expect(Kanrisuru::Core::Zypper::PACKAGE_TYPES).to(
       eq(%w[package patch pattern product srcpackage application])
