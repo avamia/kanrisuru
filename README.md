@@ -1,6 +1,7 @@
 [![Latest version](https://img.shields.io/gem/v/kanrisuru?style=flat-square)](https://rubygems.org/gems/kanrisuru)&nbsp;
 [![Latest version](https://img.shields.io/github/license/avamia/kanrisuru)](https://github.com/avamia/kanrisuru/blob/main/LICENSE.txt)&nbsp;
 ![GitHub repo size](https://img.shields.io/github/repo-size/avamia/kanrisuru)&nbsp;
+![Codecov](https://img.shields.io/codecov/c/gh/avamia/kanrisuru?token=2Q1BE106B2)&nbsp;
 
 <p align='center'>
   <img src="https://s3.us-east-2.amazonaws.com/kanrisuru.com/kanrisuru-banner-02.png" width="600" />

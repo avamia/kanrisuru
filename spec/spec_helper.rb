@@ -3,6 +3,9 @@
 require 'simplecov'
 SimpleCov.start
 
+require 'simplecov-cobertura'
+SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
+
 require 'kanrisuru'
 
 require_relative 'helper/test_hosts'

@@ -9,7 +9,7 @@ Gem::Specification.new do |gem|
   gem.email       = 'ryan@avamia.com'
   gem.license     = 'MIT'
   gem.summary     = 'Manage remote servers over ssh with ruby.'
-  gem.description = 'Manage remote servers over ssh with ruby.'
+  gem.description = 'Kanrisuru helps manage remote servers with objected oriented ruby. Results come back as structured data, parsed, prepared and ready .'
   gem.homepage    = 'https://github.com/avamia/kanrisuru'
 
   gem.required_ruby_version = '>= 2.5.0'
@@ -18,6 +18,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rubocop', '~> 1.12'
   gem.add_development_dependency 'rubocop-rspec', '~> 2.2'
   gem.add_development_dependency 'simplecov', '~> 0.21'
+  gem.add_development_dependency 'simplecov-cobertura', '~> 2.0'
 
   gem.add_runtime_dependency 'net-ping', '~> 2.0'
   gem.add_runtime_dependency 'net-scp', '~> 3.0'
