@@ -45,6 +45,22 @@ class StubNetwork
       end
     end
 
+    def stub_command!(method, &block)
+      Kanrisuru::Remote::Host.class_eval do
+        alias_method "#{method}_alias", method
+
+        define_method(method) do |*args|
+          block.call(args)
+        end
+      end
+    end
+
+    def unstub_command!(method)
+      Kanrisuru::Remote::Host.class_eval do
+        alias_method method, "#{method}_alias"
+      end
+    end
+
     def unstub!
       Kanrisuru::Remote::Host.class_eval do
         alias_method :execute_with_retries, :execute_with_retries_alias
