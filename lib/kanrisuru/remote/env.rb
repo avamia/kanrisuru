@@ -25,6 +25,14 @@ module Kanrisuru
         string
       end
 
+      def count
+        @env.count
+      end
+
+      def delete(key)
+        @env.delete(key.to_s.upcase)
+      end
+
       def [](key)
         @env[key.to_s.upcase]
       end
