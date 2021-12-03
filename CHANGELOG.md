@@ -1,3 +1,11 @@
+## Kanrisuru 0.10.0 (December 03, 2021) ##
+* Add `stub_command` and `unstub_command` to mock indvidual command results from a remote server.
+* Add `count` and `delete` to `Kanrisuru::Remote::Env` class for managing environment variables.
+* Add unit and functional test cases for `Kanrisuru::Remote::Env`.
+* Add functional test cases for the `archive` command.
+* Fix typo bugs in the `archive` command. Fix `--exclude` opt field in `archive` command.
+* Add unit test cases for `Kanrisuru::Mode` class.
+
 ## Kanrisuru 0.9.2 (November 30, 2021) ##
 * Add unit test cases for all core commands.
 * Add unit test cases for `cluster` class. 
