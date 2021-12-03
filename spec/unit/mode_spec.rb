@@ -3,6 +3,18 @@
 require 'spec_helper'
 
 RSpec.describe Kanrisuru::Mode do
+  it 'responds to methods' do
+    mode = described_class.new('644')
+    expect(mode).to respond_to(:directory?)
+    expect(mode).to respond_to(:symbolic)
+    expect(mode).to respond_to(:symbolic=)
+    expect(mode).to respond_to(:numeric)
+    expect(mode).to respond_to(:numeric=)
+    expect(mode).to respond_to(:inspect)
+    expect(mode).to respond_to(:to_s)
+    expect(mode).to respond_to(:to_i)
+  end
+
   it 'parses int mode' do
     mode = described_class.new('644')
     expect(mode.directory?).to eq(false)
@@ -204,5 +216,24 @@ RSpec.describe Kanrisuru::Mode do
 
     mode.symbolic = '-w'
     expect(mode.symbolic).to eq('---xr-xr--')
+  end
+
+  context Kanrisuru::Mode::Permission do
+    it 'responds to methods' do
+      mode = Kanrisuru::Mode::Permission.new('644', 'rw-rw-r--')
+      expect(mode).to respond_to(:to_i)
+      expect(mode).to respond_to(:to_s)
+      expect(mode).to respond_to(:all?)
+      expect(mode).to respond_to(:numeric)
+      expect(mode).to respond_to(:numeric=)
+      expect(mode).to respond_to(:symbolic=)
+      expect(mode).to respond_to(:symbolic)
+      expect(mode).to respond_to(:read=)
+      expect(mode).to respond_to(:read?)
+      expect(mode).to respond_to(:write=)
+      expect(mode).to respond_to(:write?)
+      expect(mode).to respond_to(:execute=)
+      expect(mode).to respond_to(:execute?)
+    end
   end
 end
