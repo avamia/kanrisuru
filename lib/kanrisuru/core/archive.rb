@@ -50,7 +50,7 @@ module Kanrisuru
           command.append_flag('--same-owner', opts[:same_owners])
           command.append_flag('--multi-volume', opts[:multi_volume])
           command.append_flag('--label', opts[:label])
-          command.append_flag('--one-file-system ', opts[:one_file_system])
+          command.append_flag('--one-file-system', opts[:one_file_system])
           command.append_flag('--keep-old-files', opts[:keep_old_files])
           command.append_flag('--skip-old-files', opts[:skip_old_files])
           command.append_flag('--overwrite', opts[:overwrite])
@@ -59,7 +59,7 @@ module Kanrisuru
           command.append_flag('--recursive-unlink', opts[:recursive_unlink])
 
           if Kanrisuru::Util.present?(paths)
-            paths = paths.instance_of(String) ? [paths] : paths
+            paths = paths.instance_of?(String) ? [paths] : paths
             command << paths.join(' ')
           end
 
@@ -70,8 +70,10 @@ module Kanrisuru
           command.append_flag('--multi-volume', opts[:multi_volume])
 
           if Kanrisuru::Util.present?(exclude)
-            exclude = exclude.instance_of?(String) ? [exclude] : exclude
-            command.append_arg('--exclude', exclude.join(' '))
+            exclude_options = exclude.instance_of?(String) ? [exclude] : exclude
+            exclude_options.each do |exclude_option|
+              command << "--exclude=#{exclude_option}"
+            end
           end
 
           if Kanrisuru::Util.present?(paths)
@@ -80,7 +82,6 @@ module Kanrisuru
           end
 
           execute_shell(command)
-
           Kanrisuru::Result.new(command)
         when 'append', 'r'
           command.append_flag('-r')
