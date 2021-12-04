@@ -9,7 +9,7 @@ Gem::Specification.new do |gem|
   gem.email       = 'ryan@avamia.com'
   gem.license     = 'MIT'
   gem.summary     = 'Manage remote servers over ssh with ruby.'
-  gem.description = 'Kanrisuru helps manage remote servers with objected oriented ruby. Results come back as structured data, parsed, prepared and ready .'
+  gem.description = 'Kanrisuru helps manage remote servers with objected oriented ruby. Results come back as structured data, parsed, prepared and ready.'
   gem.homepage    = 'https://github.com/avamia/kanrisuru'
 
   gem.required_ruby_version = '>= 2.5.0'
