@@ -255,7 +255,7 @@ module Kanrisuru
           end
 
           result = @host.blkid(device: @device)
-          @uuid = result.success? ? result.uuid : nil
+          @uuid = result.success? ? result[0].uuid : nil
         end
 
         def parse_uuid(fsline)
@@ -269,15 +269,15 @@ module Kanrisuru
           end
 
           result = @host.blkid(device: @device)
-          @label = result.success? ? result.label : nil
+          @label = result.success? ? result[0].label : nil
         end
 
         def parse_dev(fsline)
           @device = fsline
           result = @host.blkid(device: @device)
 
-          @label = result.success? ? result.label : nil
-          @uuid = result.success? ? result.uuid : nil
+          @label = result.success? ? result[0].label : nil
+          @uuid = result.success? ? result[0].uuid : nil
         end
       end
 
