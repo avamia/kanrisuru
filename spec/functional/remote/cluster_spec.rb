@@ -28,7 +28,7 @@ RSpec.describe Kanrisuru::Remote::Cluster do
   end
 
   it 'adds host to a cluster' do
-    cluster = Kanrisuru::Remote::Cluster.new(host1)
+    cluster = described_class.new(host1)
     expect(cluster.hosts.length).to eq(1)
     expect(cluster.count).to eq(1)
     expect(cluster[host1.host]).to eq(host1)
@@ -42,8 +42,17 @@ RSpec.describe Kanrisuru::Remote::Cluster do
     expect(cluster.hosts).to include(host2)
   end
 
+  it 'fails to add host to a cluster' do
+    cluster = described_class.new
+    expect { cluster << 1 }.to raise_error(ArgumentError)
+    expect { cluster << 'hello' }.to raise_error(ArgumentError)
+    expect { cluster << ['host'] }.to raise_error(ArgumentError)
+
+    expect(cluster.count).to eq(0)
+  end
+
   it 'removes a host from a cluster' do
-    cluster = Kanrisuru::Remote::Cluster.new(host1, host2)
+    cluster = described_class.new(host1, host2)
     expect(cluster.count).to eq(2)
 
     cluster.delete(host2)

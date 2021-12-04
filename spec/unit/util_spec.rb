@@ -84,6 +84,10 @@ RSpec.describe Kanrisuru::Util do
     expect { Kanrisuru::Util::Bits.convert_bytes(100, :kilobytee, :kilobit) }.to raise_error(ArgumentError)
   end
 
+  it 'gets invalid signal type' do
+    expect { Kanrisuru::Util::Signal[{ 'Hello' => 'World' }] }.to raise_error(ArgumentError)
+  end
+
   it 'translates signal from string to numeric' do
     expect(Kanrisuru::Util::Signal['HUP']).to  eq(1)
     expect(Kanrisuru::Util::Signal['INT']).to  eq(2)
@@ -214,6 +218,10 @@ RSpec.describe Kanrisuru::Util do
     expect(Kanrisuru::Util::Signal[64]).to eq('RTMAX')
   end
 
+  it 'gets invalid dmi type' do
+    expect { Kanrisuru::Util::DmiType[{ 'Hello' => 'World' }] }.to raise_error(ArgumentError)
+  end
+
   it 'translates dmi types from string to integer' do
     expect(Kanrisuru::Util::DmiType['BIOS']).to eq(0)
     expect(Kanrisuru::Util::DmiType['System']).to eq(1)
@@ -306,6 +314,11 @@ RSpec.describe Kanrisuru::Util do
     expect(Kanrisuru::Util::DmiType[41]).to eq('Onboard Devices Extended Information')
     expect(Kanrisuru::Util::DmiType[42]).to eq('Management Controller Host Interface')
     expect(Kanrisuru::Util::DmiType[43]).to eq('TPM Device')
+  end
+
+  it 'gets fs_mount options' do
+    expect(Kanrisuru::Util::FsMountOpts.get_device('common')[:async]).to eq('boolean')
+    expect(Kanrisuru::Util::FsMountOpts.get_device_opt(:ext4, :acl)).to eq('boolean')
   end
 
   it 'converts power' do

@@ -24,7 +24,7 @@ module Kanrisuru
       Kanrisuru.logger.info do
         'DEPRECATION WARNING: string_join_array will be removed in the upcoming major release. Use array_join_string instead.'
       end
-      
+
       array = arg.instance_of?(String) ? [arg] : arg
       array.join(field)
     end
