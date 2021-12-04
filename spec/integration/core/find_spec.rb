@@ -19,6 +19,7 @@ RSpec.describe Kanrisuru::Core::Find do
       end
 
       it 'finds home directory' do
+        host.su('root')
         result = host.find(paths: '/home')
         home = result.find { |item| item.path == host_json['home'] }
         expect(home.path).to eq(host_json['home'])
