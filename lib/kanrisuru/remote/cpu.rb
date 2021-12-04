@@ -27,6 +27,10 @@ module Kanrisuru
         load_average[2]
       end
 
+      def architecture
+        @cpu_architecture.architecture
+      end
+
       def sockets
         @cpu_architecture.sockets
       end
@@ -103,7 +107,7 @@ module Kanrisuru
         @cpu_architecture.flags
       end
 
-        def hyperthreading?
+      def hyperthreading?
         threads_per_core > 1
       end
 

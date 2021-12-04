@@ -20,8 +20,7 @@ RSpec.describe Kanrisuru::Remote::Cpu do
   end
 
   it 'responds to methods' do
-    cpu = Kanrisuru::Remote::Cpu.new(host)
-
+    cpu = described_class.new(host)
     expect(cpu).to respond_to(:load_average)
     expect(cpu).to respond_to(:load_average1)
     expect(cpu).to respond_to(:load_average5)
