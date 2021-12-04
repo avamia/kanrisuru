@@ -17,7 +17,7 @@ class StubNetwork
 
       unless Kanrisuru::Remote::Os.instance_methods(false).include?(:initialize_alias)
         Kanrisuru::Remote::Os.class_eval do
-          alias_method :initialize_alias, :initialize 
+          alias_method :initialize_alias, :initialize
           define_method :initialize do |host|
             @host = host
 
@@ -34,23 +34,44 @@ class StubNetwork
 
       unless Kanrisuru::Result.instance_methods(false).include?(:initialize_alias)
         Kanrisuru::Result.class_eval do
-          alias_method :initialize_alias, :initialize 
-          def initialize(command)
+          alias_method :initialize_alias, :initialize
+          def initialize(command, parse_result = false, &block)
             @command = command
             @data = nil
 
+            @data = block.call(@command) if @command.success? && block_given? && parse_result
             @error = @command.to_a if @command.failure?
+
+            ## Define getter methods on result that maps to
+            ## the same methods of a data struct.
+            return unless @command.success? && Kanrisuru::Util.present?(@data) && @data.class.ancestors.include?(Struct)
+
+            method_names = @data.members
+            self.class.class_eval do
+              method_names.each do |method_name|
+                define_method method_name do
+                  @data[method_name]
+                end
+              end
+            end
           end
         end
       end
     end
 
-    def stub_command!(method, &block)
+    def stub_command!(method, opts = {}, &block)
       Kanrisuru::Remote::Host.class_eval do
         alias_method "#{method}_alias", method
 
         define_method(method) do |*args|
-          block.call(args)
+          command = Kanrisuru::Command.new(method.to_s)
+
+          status = opts[:status] || 0
+          command.handle_status(status)
+
+          Kanrisuru::Result.new(command, true) do |_cmd|
+            block.call(args)
+          end
         end
       end
     end
@@ -67,11 +88,11 @@ class StubNetwork
       end
 
       Kanrisuru::Remote::Os.class_eval do
-        alias_method :initialize, :initialize_alias 
+        alias_method :initialize, :initialize_alias
       end
 
       Kanrisuru::Result.class_eval do
-        alias_method :initialize, :initialize_alias 
+        alias_method :initialize, :initialize_alias
       end
     end
 
@@ -106,13 +127,11 @@ class StubNetwork
           hardware_platform: 'x86_64',
           processor: 'x86_64',
           release: 'opensuse-leap',
-          version:15.2
+          version: 15.2
         }
       }
 
-      defaults[name].key?(property) ?
-        defaults[name][property] : nil
+      defaults[name][property] if defaults[name].key?(property)
     end
-
   end
 end
