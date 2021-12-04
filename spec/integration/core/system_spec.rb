@@ -107,7 +107,6 @@ RSpec.describe Kanrisuru::Core::System do
         host.su('root')
 
         result = host.last(failed_attempts: true)
-        puts result.data
         expect(result).to be_success
       end
 

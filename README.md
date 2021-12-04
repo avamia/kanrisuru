@@ -2,6 +2,7 @@
 [![Latest version](https://img.shields.io/github/license/avamia/kanrisuru)](https://github.com/avamia/kanrisuru/blob/main/LICENSE.txt)&nbsp;
 ![GitHub repo size](https://img.shields.io/github/repo-size/avamia/kanrisuru)&nbsp;
 ![Codecov](https://img.shields.io/codecov/c/gh/avamia/kanrisuru?token=2Q1BE106B2)&nbsp;
+![Codacy grade](https://img.shields.io/codacy/grade/9e839eb160bc445ea4e81b64cef22b27)&nbsp;
 
 <p align='center'>
   <img src="https://s3.us-east-2.amazonaws.com/kanrisuru.com/kanrisuru-banner-02.png" width="600" />

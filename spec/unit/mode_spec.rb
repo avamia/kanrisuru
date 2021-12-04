@@ -92,9 +92,9 @@ RSpec.describe Kanrisuru::Mode do
     expect(mode.other.to_i).to eq(7)
     expect(mode.other.symbolic).to eq('rwx')
 
-    mode = described_class.new("---x--x--x")
+    mode = described_class.new('---x--x--x')
     expect(mode.directory?).to eq(false)
-    expect(mode.numeric).to eq("111")
+    expect(mode.numeric).to eq('111')
 
     expect(mode.owner.read?).to eq(false)
     expect(mode.owner.write?).to eq(false)

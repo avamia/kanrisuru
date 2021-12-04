@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Kanrisuru::Remote::Cluster do
   before(:all) do
     StubNetwork.stub!
@@ -16,7 +18,7 @@ RSpec.describe Kanrisuru::Remote::Cluster do
   end
 
   it 'responds to methods' do
-    cluster = Kanrisuru::Remote::Cluster.new(host1)
+    cluster = described_class.new(host1)
     expect(cluster).to respond_to(:hosts)
     expect(cluster).to respond_to(:[])
     expect(cluster).to respond_to(:<<)

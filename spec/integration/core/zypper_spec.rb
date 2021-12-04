@@ -30,19 +30,19 @@ RSpec.describe Kanrisuru::Core::Zypper do
 
       it 'installs a package' do
         host.su('root')
-        result = host.zypper('install', packages: 'ffmpeg')
+        result = host.zypper('install', packages: 'nginx')
         expect(result).to be_success
       end
 
       it 'installs multiple packages' do
         host.su('root')
-        result = host.zypper('install', packages: %w[curl ffmpeg])
+        result = host.zypper('install', packages: %w[curl nginx])
         expect(result).to be_success
       end
 
       it 'removes a package' do
         host.su('root')
-        result = host.zypper('remove', packages: ['ffmpeg'])
+        result = host.zypper('remove', packages: ['nginx'])
         expect(result).to be_success
       end
 

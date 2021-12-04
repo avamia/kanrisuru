@@ -356,7 +356,6 @@ RSpec.describe Kanrisuru::Core::File do
         data = host.cat('/etc/hosts').command.raw_result
         doc = data.map(&:lines).flatten
 
-        lines = doc.length
         words = doc.map(&:split).flatten
         chars = doc.map(&:length).flatten
 

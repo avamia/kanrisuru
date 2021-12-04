@@ -3,9 +3,8 @@
 require 'spec_helper'
 
 RSpec.describe Kanrisuru::Remote::Env do
-
   it 'responds to methods' do
-    env = Kanrisuru::Remote::Env.new
+    env = described_class.new
     expect(env).to respond_to(:to_h)
     expect(env).to respond_to(:to_s)
     expect(env).to respond_to(:clear)
@@ -15,5 +14,4 @@ RSpec.describe Kanrisuru::Remote::Env do
     expect(env).to respond_to(:[])
     expect(env).to respond_to(:[]=)
   end
-
 end

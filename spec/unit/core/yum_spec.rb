@@ -22,7 +22,7 @@ RSpec.describe Kanrisuru::Core::Yum do
   it 'responds to methods' do
     expect(host).to respond_to(:yum)
   end
-   
+
   it 'responds to yum fields' do
     expect(Kanrisuru::Core::Yum::PackageOverview.new).to respond_to(
       :package, :architecture, :version, :installed

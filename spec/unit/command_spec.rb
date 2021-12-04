@@ -4,7 +4,7 @@ require 'spec_helper'
 
 RSpec.describe Kanrisuru::Command do
   it 'responds to methods' do
-    command = Kanrisuru::Command.new('ls')
+    command = described_class.new('ls')
     expect(command).to respond_to(:exit_status)
     expect(command).to respond_to(:raw_result)
     expect(command).to respond_to(:program)

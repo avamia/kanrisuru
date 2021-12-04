@@ -59,7 +59,8 @@ module Kanrisuru
         command.append_flag('-w', opts[:raw])
 
         if Kanrisuru::Util.present?(family)
-          raise ArgumentError, 'invalid family type' if !NETWORK_FAMILIES.include?(family)
+          raise ArgumentError, 'invalid family type' unless NETWORK_FAMILIES.include?(family)
+
           command.append_arg('-f', family)
         end
 

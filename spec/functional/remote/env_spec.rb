@@ -3,13 +3,12 @@
 require 'spec_helper'
 
 RSpec.describe Kanrisuru::Remote::Env do
-
-  let (:env) { Kanrisuru::Remote::Env.new }
+  let(:env) { described_class.new }
 
   it 'adds a environment variable' do
     env['VAR1'] = 'hello'
     expect(env.count).to eq(1)
-    expect(env.to_h).to eq({'VAR1' => 'hello'})
+    expect(env.to_h).to eq({ 'VAR1' => 'hello' })
     expect(env.to_s).to eq('export VAR1=hello;')
     expect(env['VAR1']).to eq('hello')
   end
@@ -19,7 +18,7 @@ RSpec.describe Kanrisuru::Remote::Env do
     env['var2'] = 'world'
 
     expect(env.count).to eq(2)
-    expect(env.to_h).to eq({'VAR1' => 'hello', 'VAR2' => 'world'})
+    expect(env.to_h).to eq({ 'VAR1' => 'hello', 'VAR2' => 'world' })
     expect(env.to_s).to eq('export VAR1=hello; export VAR2=world;')
     expect(env['VAR1']).to eq('hello')
     expect(env['VAR2']).to eq('world')
@@ -46,5 +45,4 @@ RSpec.describe Kanrisuru::Remote::Env do
 
     expect(env.count).to eq(0)
   end
-
 end

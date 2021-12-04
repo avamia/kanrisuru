@@ -113,9 +113,6 @@ module Kanrisuru
           case mode
           when 'search'
             cmd.to_s
-          when 'device'
-            lines = cmd.to_a
-            blkid_devices(lines)
           else
             lines = cmd.to_a
             blkid_devices(lines)

@@ -85,30 +85,30 @@ RSpec.describe Kanrisuru::Core::Stream do
     expect_command(host.echo('Hello\\n world', backslash: true), "echo -e 'Hello\\n world'")
 
     expect_command(host.echo('Hello world', new_file: '~/file1.txt', mode: 'write'),
-      "echo 'Hello world' > ~/file1.txt")
-    
+                   "echo 'Hello world' > ~/file1.txt")
+
     expect_command(host.echo('Goodbye', new_file: '~/file1.txt', mode: 'append'),
-      "echo 'Goodbye' >> ~/file1.txt")
+                   "echo 'Goodbye' >> ~/file1.txt")
   end
 
   it 'prepares cat command' do
     expect_command(host.cat('/etc/group'), 'cat /etc/group')
     expect_command(host.cat('/etc/group', show_all: true), 'cat -A /etc/group')
     expect_command(host.cat('/etc/group',
-      show_tabs: true,
-      number: true,
-      squeeze_blank: true,
-      show_nonprinting: true,
-      show_ends: true,
-      number_nonblank: true), 'cat -T -n -s -v -E -b /etc/group')
+                            show_tabs: true,
+                            number: true,
+                            squeeze_blank: true,
+                            show_nonprinting: true,
+                            show_ends: true,
+                            number_nonblank: true), 'cat -T -n -s -v -E -b /etc/group')
 
     expect_command(host.cat(['~/file1.txt', '~/file2.txt', '~/file3.txt']),
-      'cat ~/file1.txt ~/file2.txt ~/file3.txt')
+                   'cat ~/file1.txt ~/file2.txt ~/file3.txt')
 
     expect_command(host.cat(['~/file1.txt', '~/file2.txt', '~/file3.txt'], mode: 'write', new_file: 'combined.txt'),
-      'cat ~/file1.txt ~/file2.txt ~/file3.txt > combined.txt')
+                   'cat ~/file1.txt ~/file2.txt ~/file3.txt > combined.txt')
 
     expect_command(host.cat(['~/file1.txt', '~/file2.txt', '~/file3.txt'], mode: 'append', new_file: 'combined.txt'),
-      'cat ~/file1.txt ~/file2.txt ~/file3.txt >> combined.txt')
+                   'cat ~/file1.txt ~/file2.txt ~/file3.txt >> combined.txt')
   end
 end
