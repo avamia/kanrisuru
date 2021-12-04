@@ -28,14 +28,17 @@ gem 'kanrisuru'
 
 And then execute:
 
-    $ bundle install
+```bash
+$ bundle install
+```
 
 Or install it yourself as:
 
-    $ gem install kanrisuru
+```bash
+$ gem install kanrisuru
+```
 
 ## Usage
-
 Run basic commands you would have access to while running on a remote host or on a cluster of hosts.
 
 ### Host

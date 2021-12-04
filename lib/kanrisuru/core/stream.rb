@@ -95,7 +95,7 @@ module Kanrisuru
         command.append_flag('-b', opts[:number_nonblank])
         command.append_flag('-A', opts[:show_all])
 
-        files = files.instance_of?(String) ? [files] : files
+        files = [files] if files.instance_of?(String)
         command << files.join(' ')
 
         append_file(command, opts)

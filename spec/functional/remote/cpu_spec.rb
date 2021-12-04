@@ -11,7 +11,7 @@ RSpec.describe Kanrisuru::Remote::Cpu do
     StubNetwork.unstub!
   end
 
-  context 'metal' do
+  context 'with metal' do
     let(:host) do
       Kanrisuru::Remote::Host.new(
         host: 'metal-host',

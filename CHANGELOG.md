@@ -1,11 +1,15 @@
+## Kanrisuru 0.11.1 (December 04, 2021) ##
+*  Cleanup self-assignment branches
+*  Fix linting issues.
+
 ## Kanrisuru 0.11.0 (December 04, 2021) ##
 *  Add codequality badge, cleanup code linting issues.
 *  Fix `fstab` issue with blkid device return type.
-*  Fix `find` spec with sudo permissions. 
+*  Fix `find` spec with sudo permissions.
 *  Change `stub_network` result override to use `block.call` with a conditional check for indvidual command stubs.
 *  Add `architecture` method to `cpu`.
 *  Add functional test cases for `cpu` class.
-*  Add more unit test cases. 
+*  Add more unit test cases.
 
 ## Kanrisuru 0.10.0 (December 03, 2021) ##
 *  Add `stub_command` and `unstub_command` to mock indvidual command results from a remote server.
@@ -199,10 +203,9 @@ cache key to avoid any namespace collisions with the same method name, namely:
 *  Force "-" to "\_" from `os-release` release name in `host.os` module.
 
 ## Kanrisuru 0.2.5 (July 16, 2021) ##
-*  Update gem depedencies to non-zero values
-*  Change summary and description fields for `apt` 
-*  Move `normalize_size` from `apt` core module, to 
-`Kanrisuru::Util::Bits` class.
+*  Update gem depedencies to non-zero values.
+*  Change summary and description fields for `apt`. 
+*  Move `normalize_size` from `apt` core module, to `Kanrisuru::Util::Bits` class.
 *  Add additional test cases for `apt` core module.
 *  Add `-hi` to `who` command to explicility print out ip address for user.
 *  Update `inode?` command to execute without shell user. 

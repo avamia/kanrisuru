@@ -59,7 +59,7 @@ module Kanrisuru
           command.append_flag('--recursive-unlink', opts[:recursive_unlink])
 
           if Kanrisuru::Util.present?(paths)
-            paths = paths.instance_of?(String) ? [paths] : paths
+            paths = [paths] if paths.instance_of?(String)
             command << paths.join(' ')
           end
 

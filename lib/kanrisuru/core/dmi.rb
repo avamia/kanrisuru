@@ -511,7 +511,7 @@ module Kanrisuru
         return unless Kanrisuru::Util.present?(opts[:types])
 
         types = opts[:types]
-        types = types.instance_of?(Array) ? types : [types]
+        types = [types] if types.instance_of?(String)
 
         types.each do |type|
           type = parse_dmi_type(type)

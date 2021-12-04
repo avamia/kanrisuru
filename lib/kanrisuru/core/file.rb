@@ -65,10 +65,10 @@ module Kanrisuru
         elsif opts[:target_directory]
           command.append_arg('-t', dest)
 
-          source = source.instance_of?(String) ? [source] : source
+          source = [source] if source.instance_of?(String)
           command << source.join(' ')
         else
-          source = source.instance_of?(String) ? [source] : source
+          source = [source] if source.instance_of?(String)
           command << source.join(' ')
           command << dest
         end

@@ -32,26 +32,26 @@ class StubNetwork
         end
       end
 
-      unless Kanrisuru::Result.instance_methods(false).include?(:initialize_alias)
-        Kanrisuru::Result.class_eval do
-          alias_method :initialize_alias, :initialize
-          def initialize(command, parse_result = false, &block)
-            @command = command
-            @data = nil
+      return if Kanrisuru::Result.instance_methods(false).include?(:initialize_alias)
+ 
+      Kanrisuru::Result.class_eval do
+        alias_method :initialize_alias, :initialize
+        def initialize(command, parse_result = false, &block)
+          @command = command
+          @data = nil
 
-            @data = block.call(@command) if @command.success? && block_given? && parse_result
-            @error = @command.to_a if @command.failure?
+          @data = block.call(@command) if @command.success? && block_given? && parse_result
+          @error = @command.to_a if @command.failure?
 
-            ## Define getter methods on result that maps to
-            ## the same methods of a data struct.
-            return unless @command.success? && Kanrisuru::Util.present?(@data) && @data.class.ancestors.include?(Struct)
+          ## Define getter methods on result that maps to
+          ## the same methods of a data struct.
+          return unless @command.success? && Kanrisuru::Util.present?(@data) && @data.class.ancestors.include?(Struct)
 
-            method_names = @data.members
-            self.class.class_eval do
-              method_names.each do |method_name|
-                define_method method_name do
-                  @data[method_name]
-                end
+          method_names = @data.members
+          self.class.class_eval do
+            method_names.each do |method_name|
+              define_method method_name do
+                @data[method_name]
               end
             end
           end

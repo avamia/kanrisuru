@@ -278,7 +278,7 @@ module Kanrisuru
 
         repos = opts[:repos]
         if Kanrisuru::Util.present?(repos)
-          repos = repos.instance_of?(String) ? [repos] : repos
+          repos = [repos] if repos.instance_of?(String)
           command << repos.join(' ')
         end
 
@@ -374,7 +374,7 @@ module Kanrisuru
 
         services = opts[:services]
         if Kanrisuru::Util.present?(services)
-          services = services.instance_of?(Array) ? services : [services]
+          services = [services] if services.instance_of?(String)
           command << services.join(' ')
         end
 
@@ -392,7 +392,7 @@ module Kanrisuru
 
         services = opts[:services]
         if Kanrisuru::Util.present?(services)
-          services = services.instance_of?(String) ? [services] : services
+          services = [services] if services.instance_of?(String)
           command << services.join(' ')
         end
 
