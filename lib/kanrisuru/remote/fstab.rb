@@ -161,7 +161,7 @@ module Kanrisuru
 
           if Kanrisuru::Util.present?(@line) && @line.instance_of?(String)
             parse_line!
-          elsif Kanrisuru::Util.present?(@opts) && @opts.instance_of?(String) || @opts.instance_of?(Hash)
+          elsif (Kanrisuru::Util.present?(@opts) && @opts.instance_of?(String)) || @opts.instance_of?(Hash)
             @opts = Kanrisuru::Remote::Fstab::Options.new(@type, @opts)
           end
         end
