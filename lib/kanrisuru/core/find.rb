@@ -30,13 +30,9 @@ module Kanrisuru
         end
 
         if Kanrisuru::Util.present?(paths)
-          if paths.instance_of?(Array)
-            paths = paths.join(' ')
-          elsif paths.class != String
-            raise ArgumentError, 'Invalid paths type'
-          end
+          raise ArgumentError, 'Invalid paths type' unless [String, Array].include?(paths.class)
 
-          command << paths
+          command.append_array(paths)
         end
 
         command.append_flag('-executable', opts[:executable])

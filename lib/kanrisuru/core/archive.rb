@@ -10,18 +10,16 @@ module Kanrisuru
       FilePath = Struct.new(:path)
 
       def tar(action, file, opts = {})
-        compress    = opts[:compress]
         paths       = opts[:paths]
         exclude     = opts[:exclude]
-        directory   = opts[:directory]
 
         command = Kanrisuru::Command.new('tar --restrict')
 
-        directory = realpath(directory, strip: true).path if directory
+        directory = opts[:directory] ? realpath(opts[:directory], strip: true).path : nil
         command.append_arg('-C', directory)
         command.append_arg('-f', file)
 
-        set_compression(command, compress) if compress
+        set_compression(command, opts[:compress]) if opts[:compress]
 
         case action
         when 'list', 't'
@@ -58,10 +56,7 @@ module Kanrisuru
           command.append_flag('--unlink-first', opts[:unlink_first])
           command.append_flag('--recursive-unlink', opts[:recursive_unlink])
 
-          if Kanrisuru::Util.present?(paths)
-            paths = [paths] if paths.instance_of?(String)
-            command << paths.join(' ')
-          end
+          command.append_array(paths)
 
           execute_shell(command)
           Kanrisuru::Result.new(command)
@@ -70,46 +65,31 @@ module Kanrisuru
           command.append_flag('--multi-volume', opts[:multi_volume])
 
           if Kanrisuru::Util.present?(exclude)
-            exclude_options = exclude.instance_of?(String) ? [exclude] : exclude
-            exclude_options.each do |exclude_option|
-              command << "--exclude=#{exclude_option}"
+            options = exclude.instance_of?(String) ? [exclude] : exclude
+            options.each do |option|
+              command << "--exclude=#{option}"
             end
           end
 
-          if Kanrisuru::Util.present?(paths)
-            paths = paths.instance_of?(String) ? [paths] : paths
-            command << paths.join(' ')
-          end
+          command.append_array(paths)
 
           execute_shell(command)
           Kanrisuru::Result.new(command)
         when 'append', 'r'
           command.append_flag('-r')
-
-          if Kanrisuru::Util.present?(paths)
-            paths = paths.instance_of?(String) ? [paths] : paths
-            command << paths.join(' ')
-          end
+          command.append_array(paths)
 
           execute_shell(command)
           Kanrisuru::Result.new(command)
         when 'catenate', 'concat', 'A'
           command.append_flag('-A')
-
-          if Kanrisuru::Util.present?(paths)
-            paths = paths.instance_of?(String) ? [paths] : paths
-            command << paths.join(' ')
-          end
+          command.append_array(paths)
 
           execute_shell(command)
           Kanrisuru::Result.new(command)
         when 'update', 'u'
           command.append_flag('-u')
-
-          if Kanrisuru::Util.present?(paths)
-            paths = paths.instance_of?(String) ? [paths] : paths
-            command << paths.join(' ')
-          end
+          command.append_array(paths)
 
           execute_shell(command)
           Kanrisuru::Result.new(command)
@@ -122,11 +102,7 @@ module Kanrisuru
         when 'delete'
           command.append_flag('--delete')
           command.append_arg('--occurrence', opts[:occurrence])
-
-          if Kanrisuru::Util.present?(paths)
-            paths = paths.instance_of?(String) ? [paths] : paths
-            command << paths.join(' ')
-          end
+          command.append_array(paths)
 
           execute_shell(command)
           Kanrisuru::Result.new(command)

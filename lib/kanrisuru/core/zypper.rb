@@ -181,8 +181,7 @@ module Kanrisuru
         command.append_flag('--metadata', opts[:metadata])
         command.append_flag('--raw-metadata', opts[:raw_metadata])
         command.append_flag('--all', opts[:all])
-
-        command << opts[:repos]
+        command.append_array(opts[:repos])
 
         execute_shell(command)
 
@@ -276,11 +275,7 @@ module Kanrisuru
           command.append_arg('--medium-type', opts[:medium_type])
         end
 
-        repos = opts[:repos]
-        if Kanrisuru::Util.present?(repos)
-          repos = [repos] if repos.instance_of?(String)
-          command << repos.join(' ')
-        end
+        command.append_array(opts[:repos])
 
         execute_shell(command)
 
@@ -336,11 +331,7 @@ module Kanrisuru
           command.append_arg('--media-type', opts[:media_type])
         end
 
-        repos = opts[:repos]
-        if Kanrisuru::Util.present?(repos)
-          repos = repos.instance_of?(String) ? [repos] : repos
-          command << repos.join(' ')
-        end
+        command.append_array(opts[:repos])
 
         execute_shell(command)
 
@@ -372,11 +363,7 @@ module Kanrisuru
         command.append_flag('--refresh', opts[:refresh])
         command.append_flag('--no-refresh', opts[:no_refresh])
 
-        services = opts[:services]
-        if Kanrisuru::Util.present?(services)
-          services = [services] if services.instance_of?(String)
-          command << services.join(' ')
-        end
+        command.append_array(opts[:services])
 
         execute_shell(command)
 
@@ -386,15 +373,11 @@ module Kanrisuru
       def zypper_remove_service(opts)
         command = Kanrisuru::Command.new('zypper')
         zypper_global_opts(command, opts)
+
         command << 'removeservice'
         command.append_flag('--loose-auth', opts[:loose_auth])
         command.append_flag('--loose-query', opts[:loose_query])
-
-        services = opts[:services]
-        if Kanrisuru::Util.present?(services)
-          services = [services] if services.instance_of?(String)
-          command << services.join(' ')
-        end
+        command.append_array(opts[:services])
 
         execute_shell(command)
 

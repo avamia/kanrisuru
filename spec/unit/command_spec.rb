@@ -28,4 +28,22 @@ RSpec.describe Kanrisuru::Command do
     expect(command).to respond_to(:append_flag)
     expect(command).to respond_to(:append_valid_exit_code)
   end
+
+  it 'does not append nil array values' do
+    command = described_class.new('hello')
+    command.append_array(nil)
+    expect(command.raw_command).to eq('hello')
+  end
+
+  it 'appends string array values' do
+    command = described_class.new('ls')
+    command.append_array('/etc')
+    expect(command.raw_command).to eq('ls /etc')
+  end
+
+  it 'appends array values' do
+    command = described_class.new('ls')
+    command.append_array(['/proc/', '/etc', '/var', '/dev'])
+    expect(command.raw_command).to eq('ls /proc/ /etc /var /dev')
+  end
 end

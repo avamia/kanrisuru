@@ -84,6 +84,13 @@ module Kanrisuru
       append_value("| #{value}")
     end
 
+    def append_array(value)
+      return unless Kanrisuru::Util.present?(value)
+
+      value = [value] if value.instance_of?(String)
+      append_value(value.join(' '))
+    end
+
     def append_value(value)
       @raw_command = "#{@raw_command} #{value}"
     end

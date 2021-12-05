@@ -64,12 +64,9 @@ module Kanrisuru
           command << dest
         elsif opts[:target_directory]
           command.append_arg('-t', dest)
-
-          source = [source] if source.instance_of?(String)
-          command << source.join(' ')
+          command.append_array(source)
         else
-          source = [source] if source.instance_of?(String)
-          command << source.join(' ')
+          command.append_array(source)
           command << dest
         end
 
@@ -108,13 +105,9 @@ module Kanrisuru
           command << dest
         elsif opts[:target_directory]
           command.append_arg('-t', dest)
-
-          source = source.instance_of?(String) ? [source] : source
-          command << source.join(' ')
+          command.append_array(source)
         else
-          source = source.instance_of?(String) ? [source] : source
-
-          command << source.join(' ')
+          command.append_array(source)
           command << dest
         end
 
