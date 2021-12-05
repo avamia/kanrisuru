@@ -40,13 +40,14 @@ module Kanrisuru
     end
 
     def to_i
-      if @data.instance_of?(Integer)
+      case @data
+      when Integer
         @data
-      elsif @data.instance_of?(String)
+      when String
         @data.to_i
-      elsif @data.instance_of?(Array)
+      when Array
         @data.map(&:to_i)
-      elsif @data.instance_of?(NilClass)
+      when NilClass
         nil
       else
         raise NoMethodError, "(undefined method `to_i' for Kanrisuru::Result)"
