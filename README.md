@@ -1,11 +1,18 @@
-[![Latest version](https://img.shields.io/gem/v/kanrisuru?style=flat-square)](https://rubygems.org/gems/kanrisuru)&nbsp;
-[![Latest version](https://img.shields.io/github/license/avamia/kanrisuru)](https://github.com/avamia/kanrisuru/blob/main/LICENSE.txt)&nbsp;
-![GitHub repo size](https://img.shields.io/github/repo-size/avamia/kanrisuru)&nbsp;
-![Codecov](https://img.shields.io/codecov/c/gh/avamia/kanrisuru?token=2Q1BE106B2)&nbsp;
-![Codacy grade](https://img.shields.io/codacy/grade/9e839eb160bc445ea4e81b64cef22b27)&nbsp;
-
 <p align='center'>
   <img src="https://s3.us-east-2.amazonaws.com/kanrisuru.com/kanrisuru-banner-02.png" width="600" />
+</p>
+
+<p align="center">
+  <a href="https://rubygems.org/gems/kanrisuru">
+    <img src="https://img.shields.io/gem/v/kanrisuru?style=flat-square" alt="Latest version" />
+  </a> 
+  <a href="https://github.com/avamia/kanrisuru/blob/main/LICENSE.txt">
+    <img src="https://img.shields.io/github/license/avamia/kanrisuru" alt="Latest version" />
+  </a> 
+  <img src="https://img.shields.io/github/repo-size/avamia/kanrisuru" alt="GitHub repo size" />
+  <img src="https://img.shields.io/codecov/c/gh/avamia/kanrisuru?token=2Q1BE106B2" alt="Codecov" /> 
+  <img src="https://img.shields.io/codacy/grade/9e839eb160bc445ea4e81b64cef22b27" alt="Codacy grade" />
+  <img src="https://img.shields.io/codeclimate/maintainability/avamia/kanrisuru" alt="Code Climate maintainability" />
 </p>
 
 # Kanrisuru
@@ -81,88 +88,6 @@ cluster = Kanrisuru::Remote::Cluster.new(host, {host: 'host2', username: 'alice'
 
 cluster.execute('uname') #=> {host: 'host1', result: 'Linux'}, {host: 'host2', result: 'Linux'}
 ```
-
-## Methods and Testing 
-
-| Description                           | Ruby             | Shell              | Module | Man                                  | Debian | Ubuntu | Fedora | Centos | RHEL | openSUSE | SLES |
-|---------------------------------------|------------------|--------------------|--------|--------------------------------------|--------|--------|--------|--------|------|----------|------|
-| **System**                            |                  |                    |        |                                      |        |        |        |        |      |          |      |
-| Get CPU Info                          | cpu_info         | lscpu              | core   | https://linux.die.net/man/1/lscpu    | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Get CPU architecture                          |  lscpu         | lscpu            | core   | https://linux.die.net/man/1/lscpu    | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Get kernel stastics                          |  kernel_statistics         | cat /proc/stat            | core   |   | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Get hardware BIOS info                          |  dmi         | dmidecode            | core   | https://linux.die.net/man/8/dmidecode  | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Get open file details for processes                          |  lsof         | lsof            | core   | https://linux.die.net/man/8/lsof  | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Get Load Average                      | load_average     | cat /proc/load_avg | core   |                                      | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Get RAM Available                     | free             | cat /proc/meminfo  | core   |                                      | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Get list of processes                 | ps               | ps                 | core   | https://linux.die.net/man/1/ps       | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Get Env vars                          | load_env         | env                | core   |                                      | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Kill process                          | kill             | kill               | core   | https://linux.die.net/man/1/kill     | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Get uptime of system                  | uptime           | cat /proc/uptime   | core   | https://linux.die.net/man/1/uptime   | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Get who's logged in                   | w                | w                  | core   | https://linux.die.net/man/1/w        | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Reboot machine                        | reboot           | shutdown           | core   | https://linux.die.net/man/8/reboot   | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Poweroff machine                      | poweroff         | shutdown           | core   | https://linux.die.net/man/8/shutdown | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| **Disk**                              |                  |                    |        |                                      |        |        |        |        |      |          |      |
-| Get Disk Space                        | df               | df                 | core   | https://linux.die.net/man/1/df       | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Get Disk Usage                        | du               | du                 | core   | https://linux.die.net/man/1/du       | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| List block devices                    | lsblk            | lsblk              | core   | https://linux.die.net/man/8/lsblk    | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Get block device attributes           | blkid            | blikd              | core   | https://linux.die.net/man/8/blkid    | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| **Mount**                             |                  |                    |        |                                      |        |        |        |        |      |          |      |
-| Mount a filesystem                    | mount            | mount              | core   | https://linux.die.net/man/8/mount    |        |        |        |        |      |          |      |
-| Unmount a filesystem                  | umount           | umount             | core   | https://linux.die.net/man/8/umount   |        |        |        |        |      |          |      |
-| **Group**                             |                  |                    |        |                                      |        |        |        |        |      |          |      |
-| Get Group Id                          | get_gid          | getent group       | core   | https://linux.die.net/man/1/getent   | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Get Group                             | get_group        | grep /etc/group    | core   |                                      | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Create Group                          | create_group     | groupadd           | core   | https://linux.die.net/man/8/groupadd | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Update Group                          | update_group     | groupmod           | core   | https://linux.die.net/man/8/groupmod | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Delete Group                          | delete_group     | groupdel           | core   | https://linux.die.net/man/8/groupdel | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| **User**                              |                  |                    |        |                                      |        |        |        |        |      |          |      |
-| Get User Id                           | get_uid          | id -u              | core   | https://linux.die.net/man/1/id       | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Get User                              | get_user         | id                 | core   | https://linux.die.net/man/1/id       | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Create User                           | create_user      | useradd            | core   | https://linux.die.net/man/8/useradd  | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Update User                           | update_user      | usermod            | core   | https://linux.die.net/man/8/usermod  | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Delete User                           | delete_user      | userdel            | core   | https://linux.die.net/man/8/userdel  | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| **Path**                              |                  |                    |        |                                      |        |        |        |        |      |          |      |
-| List files and directories            | ls               | ls                 | core   | https://linux.die.net/man/1/ls       | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Get Current Dir                       | pwd              | pwd                | core   | https://linux.die.net/man/1/pwd      | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Get Current User                      | whoami           | whoami             | core   | https://linux.die.net/man/1/whoami   | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Get Full Path of Shell Command        | which            | which              | core   | https://linux.die.net/man/1/which    | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Real Path                             | realpath         | realpath           | core   | https://linux.die.net/man/1/realpath | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Read link                             | readlink         | readlink           | core   | https://linux.die.net/man/1/readlink | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Change Dir                            | cd               | cd                 | core   |                                      | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| **File**                              |                  |                    |        |                                      |        |        |        |        |      |          |      |
-| "Find file, dir, special file device" | find             | find               | core   | https://linux.die.net/man/1/find     | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Stat file info                        | stat             | stat               | core   | https://linux.die.net/man/1/stat     | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Change Permission of file / folder    | chmod            | chmod              | core   | https://linux.die.net/man/1/chmod    | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Change Ownership of file / folder     | chown            | chown              | core   | https://linux.die.net/man/1/chown    | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Hard Link File                        | ln               | ln                 | core   | https://linux.die.net/man/1/ln       | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Soft Link File / Dir                  | ln_s             | ln                 | core   | https://linux.die.net/man/1/ln       | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Create Directory                      | mkdir            | mkdir              | core   | https://linux.die.net/man/1/mkdir    | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Remove file / directory               | rm               | rm                 | core   | https://linux.die.net/man/1/rm       | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Remove Directory                      | rmdir            | rm                 | core   | https://linux.die.net/man/1/rm       | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Touch File                            | touch            | touch              | core   | https://linux.die.net/man/1/touch    | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Copy file / directory                 | cp               | cp                 | core   | https://linux.die.net/man/1/cp       | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Move file / directory                 | mv               | mv                 | core   | https://linux.die.net/man/1/mv       | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| "Get file line, word, and char count" | wc               | wc                 | core   | https://linux.die.net/man/1/wc       | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| **Stream**                            |                  |                    |        |                                      |        |        |        |        |      |          |      |
-| Get content from beginning of file    | head             | head               | core   | https://linux.die.net/man/1/head     | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Get content from end of file          | tail             | tail               | core   | https://linux.die.net/man/1/tail     | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Read a chunk from a file by lines     | reach_file_chunk | tail and head      | core   |                                      | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Echo to stdout or to file             | echo             | echo               | core   | https://linux.die.net/man/1/echo     | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Get all content from a file           | cat              | cat                | core   | https://linux.die.net/man/1/cat      | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Sed                                   | sed              | sed                | core   | https://linux.die.net/man/1/sed      | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| **Archive**                           |                  |                    |        |                                      |        |        |        |        |      |          |      |
-| Tar Files                             | tar              | tar                | core   | https://linux.die.net/man/1/tar      | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| **Network**                           |                  |                    |        |                                      |        |        |        |        |      |          |      |
-| Manage network devices                | ip               | ip                 | core   | https://linux.die.net/man/8/ip       | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Get Socket Details                    | ss               | ss                 | core   | https://linux.die.net/man/8/ss       | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| **Transfer**                          |                  |                    |        |                                      |        |        |        |        |      |          |      |
-| Upload to remote server               | upload           | scp                | core   | https://linux.die.net/man/1/scp      | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Download from remote server           | download         | scp                | core   | https://linux.die.net/man/1/scp      | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| Wget                                  | wget             | wget               | core   | https://linux.die.net/man/1/wget     | [x]    | [x]    | [x]    | [x]    | [x]  | [x]      | [x]  |
-| **Packages**                          |                  |                    |        |                                      |        |        |        |        |      |          |      |
-| Apt               | apt           | apt                | core   | https://linux.die.net/man/1/apt      | [x]    | [x]    |    |    |  |      |  |
-| Yum           | yum         | yum                | core   | https://linux.die.net/man/1/yum      |    |    | [x]    | [x]    | [x]  |      |  |
-| Zypper           | zypper         | zypper                | core   | https://en.opensuse.org/SDB:Zypper_manual   |    |    |   |    |  | [x] | [x] |
 
 ## Development
 
