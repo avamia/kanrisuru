@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'securerandom'
+
 class TestHosts
   class << self
     def each_os(opts = {}, &block)
@@ -7,12 +9,20 @@ class TestHosts
         next unless test?(os_name)
         next if opts[:only] && !only?(opts, os_name)
 
-        block.call(os_name)
+        host_json = TestHosts.host(os_name)
+        spec_dir = spec_dir(os_name, host_json)
+
+        block.call(os_name, host_json, spec_dir)
       end
     end
 
     def host(name)
       hosts(name)
+    end
+
+    def spec_dir(os_name, host_json)
+      random_string = SecureRandom.hex
+      "#{host_json['home']}/.kanrisuru_spec_files_#{random_string[0..5]}"
     end
 
     def only?(opts, name)

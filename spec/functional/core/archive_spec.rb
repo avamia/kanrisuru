@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe Kanrisuru::Core::Apt do
+RSpec.describe Kanrisuru::Core::Archive do
   before(:all) do
     StubNetwork.stub!
     StubNetwork.stub_command!(:realpath) do |_args|
@@ -141,6 +141,7 @@ RSpec.describe Kanrisuru::Core::Apt do
     %w[diff compare d].each do |action_variant|
       expect_command(host.tar(action_variant, 'archive.tar', directory: directory),
                      'tar --restrict -C /home/ubuntu/dir -f archive.tar -d')
+
       expect_command(host.tar(action_variant, 'archive.tar',
                               directory: directory,
                               occurrence: 4),

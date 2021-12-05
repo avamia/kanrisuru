@@ -2,10 +2,9 @@
 
 require 'spec_helper'
 
-RSpec.describe Kanrisuru::Core::Yum do
-  TestHosts.each_os(only: %w[fedora rhel centos]) do |os_name|
+TestHosts.each_os(only: %w[fedora rhel centos]) do |os_name, host_json|
+  RSpec.describe Kanrisuru::Core::Yum do
     context "with #{os_name}" do
-      let(:host_json) { TestHosts.host(os_name) }
       let(:host) do
         Kanrisuru::Remote::Host.new(
           host: host_json['hostname'],

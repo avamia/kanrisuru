@@ -2,22 +2,20 @@
 
 require 'spec_helper'
 
-RSpec.describe Kanrisuru::Core::Archive do
-  TestHosts.each_os do |os_name|
+TestHosts.each_os do |os_name, host_json, spec_dir|
+  RSpec.describe Kanrisuru::Core::Archive do
     context "with #{os_name}" do
       before(:all) do
-        host_json = TestHosts.host(os_name)
         host = Kanrisuru::Remote::Host.new(
           host: host_json['hostname'],
           username: host_json['username'],
           keys: [host_json['ssh_key']]
         )
 
-        host.mkdir("#{host_json['home']}/.kanrisuru_spec_files", silent: true)
+        host.mkdir(spec_dir, silent: true)
         host.disconnect
       end
 
-      let(:host_json) { TestHosts.host(os_name) }
       let(:host) do
         Kanrisuru::Remote::Host.new(
           host: host_json['hostname'],
@@ -26,22 +24,19 @@ RSpec.describe Kanrisuru::Core::Archive do
         )
       end
 
-      let(:spec_dir) { "#{host_json['home']}/.kanrisuru_spec_files" }
-
       after do
         host.disconnect
       end
 
       after(:all) do
-        host_json = TestHosts.host(os_name)
         host = Kanrisuru::Remote::Host.new(
           host: host_json['hostname'],
           username: host_json['username'],
           keys: [host_json['ssh_key']]
         )
 
-        host.rmdir("#{host_json['home']}/.kanrisuru_spec_files")
-        host.rmdir("#{host_json['home']}/extract-tar-files") if host.dir?("#{host_json['home']}/extract-tar-files")
+        host.rmdir(spec_dir)
+        host.rmdir("#{spec_dir}/extract-tar-files") if host.dir?("#{spec_dir}/extract-tar-files")
         host.disconnect
       end
 
@@ -126,10 +121,10 @@ RSpec.describe Kanrisuru::Core::Archive do
         paths = result.map(&:path)
         expect(paths.include?('test2.config')).to eq(false)
 
-        host.mkdir("#{host_json['home']}/extract-tar-files", silent: true)
-        host.tar('extract', 'archive.tar', directory: "#{host_json['home']}/extract-tar-files")
+        host.mkdir("#{spec_dir}/extract-tar-files", silent: true)
+        host.tar('extract', 'archive.tar', directory: "#{spec_dir}/extract-tar-files")
 
-        result = host.ls(path: "#{host_json['home']}/extract-tar-files")
+        result = host.ls(path: "#{spec_dir}/extract-tar-files")
         paths = result.map(&:path)
 
         expect(paths.include?('test1.config')).to eq(true)

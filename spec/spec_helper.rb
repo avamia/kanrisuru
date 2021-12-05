@@ -1,10 +1,17 @@
 # frozen_string_literal: true
 
 require 'simplecov'
-SimpleCov.start
-
 require 'simplecov-cobertura'
-SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
+
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
+  SimpleCov::Formatter::HTMLFormatter,
+  SimpleCov::Formatter::CoberturaFormatter
+])
+
+SimpleCov.use_merging true 
+SimpleCov.command_name("kanrisuru-tests" + (ENV['TEST_ENV_NUMBER'] || ''))
+
+SimpleCov.start
 
 require 'kanrisuru'
 
@@ -20,6 +27,8 @@ RSpec.configure do |config|
 
   # Disable RSpec exposing methods globally on `Module` and `main`
   config.disable_monkey_patching!
+
+  config.silence_filter_announcements = true if ENV['TEST_ENV_NUMBER']
 
   config.expect_with :rspec do |c|
     c.syntax = :expect

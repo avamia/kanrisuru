@@ -33,7 +33,7 @@ class StubNetwork
       end
 
       return if Kanrisuru::Result.instance_methods(false).include?(:initialize_alias)
- 
+
       Kanrisuru::Result.class_eval do
         alias_method :initialize_alias, :initialize
         def initialize(command, parse_result = false, &block)

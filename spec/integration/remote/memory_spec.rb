@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-RSpec.describe Kanrisuru::Remote::Memory do
-  TestHosts.each_os do |os_name|
+TestHosts.each_os do |os_name|
+  RSpec.describe Kanrisuru::Remote::Memory do
     context "with #{os_name}" do
       let(:host_json) { TestHosts.host(os_name) }
       let(:host) do

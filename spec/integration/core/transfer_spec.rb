@@ -2,22 +2,20 @@
 
 require 'spec_helper'
 
-RSpec.describe Kanrisuru::Core::File do
-  TestHosts.each_os do |os_name|
+TestHosts.each_os do |os_name, host_json, spec_dir|
+  RSpec.describe Kanrisuru::Core::File do
     context "with #{os_name}" do
       before(:all) do
-        host_json = TestHosts.host(os_name)
         host = Kanrisuru::Remote::Host.new(
           host: host_json['hostname'],
           username: host_json['username'],
           keys: [host_json['ssh_key']]
         )
 
-        host.mkdir("#{host_json['home']}/.kanrisuru_spec_files", silent: true)
+        host.mkdir(spec_dir, silent: true)
         host.disconnect
       end
 
-      let(:host_json) { TestHosts.host(os_name) }
       let(:host) do
         Kanrisuru::Remote::Host.new(
           host: host_json['hostname'],
@@ -26,21 +24,18 @@ RSpec.describe Kanrisuru::Core::File do
         )
       end
 
-      let(:spec_dir) { "#{host_json['home']}/.kanrisuru_spec_files" }
-
       after do
         host.disconnect
       end
 
       after(:all) do
-        host_json = TestHosts.host(os_name)
         host = Kanrisuru::Remote::Host.new(
           host: host_json['hostname'],
           username: host_json['username'],
           keys: [host_json['ssh_key']]
         )
 
-        host.rmdir("#{host_json['home']}/.kanrisuru_spec_files")
+        host.rmdir(spec_dir)
         host.disconnect
       end
 

@@ -2,10 +2,9 @@
 
 require 'spec_helper'
 
-RSpec.describe Kanrisuru::Remote::Host do
-  TestHosts.each_os do |os_name|
+TestHosts.each_os do |os_name, host_json|
+  RSpec.describe Kanrisuru::Remote::Host do
     context "with #{os_name}" do
-      let(:host_json) { TestHosts.host(os_name) }
       let(:host) do
         described_class.new(
           host: host_json['hostname'],
