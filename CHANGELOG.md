@@ -1,3 +1,12 @@
+## Kanrisuru 0.12.0 (December 05, 20201) ##
+*  Add functional test cases for `mount` command.
+*  Fix typos and command preperation for `mount` command.
+*  Refactor `os_package` module into smaller modules for `Kanrisuru::OsPackage::Collection`, `Kanrisuru::OsPackage::Define`, and `Kanrisuru::OsPackage::Include`.
+*  Add `append_array` to `command` class for easy string to array conversion for variable option passing.
+*  Cleanup bad coding styles.
+*  Add parallel testing support for long running integration tests on remote servers. 
+*  Refactor specs to use variable spec_dir path for parallel testing on remote hosts with possible overwriting at the same time.
+
 ## Kanrisuru 0.11.1 (December 04, 2021) ##
 *  Cleanup self-assignment branches
 *  Fix linting issues.
