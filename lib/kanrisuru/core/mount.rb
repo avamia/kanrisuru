@@ -10,9 +10,6 @@ module Kanrisuru
 
       def mount(opts = {})
         type = opts[:type]
-        all  = opts[:all]
-        device = opts[:device]
-        directory = opts[:directory]
 
         bind_old = opts[:bind_old]
         bind_new = opts[:bind_new]
@@ -39,13 +36,12 @@ module Kanrisuru
         else
           command.append_arg('-L', opts[:label])
           command.append_arg('-U', opts[:uuid])
-          command.append_flag('-n', opts[:no_mtab])
           command.append_flag('-f', opts[:fake])
           command.append_flag('-i', opts[:internal_only])
           command.append_flag('-s', opts[:sloppy])
 
           command.append_flag('--no-mtab', opts[:no_mtab])
-          command.append_flag('--no-canonicalizeb', opts[:no_canonicalize])
+          command.append_flag('--no-canonicalize', opts[:no_canonicalize])
 
           fs_options = nil
           if Kanrisuru::Util.present?(type)
@@ -55,14 +51,14 @@ module Kanrisuru
             fs_options = Kanrisuru::Remote::Fstab::Options.new('common', fs_opts)
           end
 
-          if Kanrisuru::Util.present?(all)
+          if Kanrisuru::Util.present?(opts[:all])
             command.append_flag('-a')
             add_test_opts(command, opts[:test_opts], type)
           else
             command.append_arg('-o', fs_options.to_s)
 
-            command << device if Kanrisuru::Util.present?(device)
-            command << directory if Kanrisuru::Util.present?(directory)
+            command << opts[:device] if Kanrisuru::Util.present?(opts[:device])
+            command << opts[:directory] if Kanrisuru::Util.present?(opts[:directory])
           end
         end
 
@@ -75,12 +71,6 @@ module Kanrisuru
         type = opts[:type]
         command = Kanrisuru::Command.new('umount')
 
-        if Kanrisuru::Util.present?(all)
-          command.append_flag('-a')
-          add_type(command, type)
-          add_test_opts(command, opts[:test_opts], type)
-        end
-
         command.append_flag('--fake', opts[:fake])
         command.append_flag('--no-canonicalize', opts[:no_canonicalize])
         command.append_flag('-n', opts[:no_mtab])
@@ -89,6 +79,15 @@ module Kanrisuru
 
         command.append_flag('-l', opts[:lazy])
         command.append_flag('-f', opts[:force])
+
+        if Kanrisuru::Util.present?(all)
+          command.append_flag('-a')
+          add_type(command, type)
+          add_test_opts(command, opts[:test_opts], type)
+        else
+          command << opts[:device] if Kanrisuru::Util.present?(opts[:device])
+          command << opts[:directory] if Kanrisuru::Util.present?(opts[:directory])
+        end
 
         execute_shell(command)
 
@@ -115,7 +114,7 @@ module Kanrisuru
 
         test_types.each do |t|
           device_opts = Kanrisuru::Util::FsMountOpts.get_device(t)
-          raise ArugmentError, "Invalid fstype: #{t}" unless device_opts
+          raise ArgumentError, "Invalid fstype: #{t}" unless device_opts
         end
 
         command.append_arg('-t', type)
