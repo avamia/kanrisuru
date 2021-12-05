@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-TestHosts.each_os do |os_name. host_json|
+TestHosts.each_os do |os_name, host_json|
   RSpec.describe Kanrisuru::Remote::Fstab do
     context "with #{os_name}" do
       let(:host) do

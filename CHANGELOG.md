@@ -1,4 +1,8 @@
-## Kanrisuru 0.12.0 (December 05, 20201) ##
+## Kanrisuru 0.12.1 (December 05, 2021) ##
+*  Fix typo in spec.
+*  Cleanup bad code style.
+
+## Kanrisuru 0.12.0 (December 05, 2021) ##
 *  Add functional test cases for `mount` command.
 *  Fix typos and command preperation for `mount` command.
 *  Refactor `os_package` module into smaller modules for `Kanrisuru::OsPackage::Collection`, `Kanrisuru::OsPackage::Define`, and `Kanrisuru::OsPackage::Include`.

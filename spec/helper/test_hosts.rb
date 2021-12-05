@@ -10,7 +10,7 @@ class TestHosts
         next if opts[:only] && !only?(opts, os_name)
 
         host_json = TestHosts.host(os_name)
-        spec_dir = spec_dir(os_name, host_json)
+        spec_dir = spec_dir(host_json)
 
         block.call(os_name, host_json, spec_dir)
       end
@@ -20,7 +20,7 @@ class TestHosts
       hosts(name)
     end
 
-    def spec_dir(os_name, host_json)
+    def spec_dir(host_json)
       random_string = SecureRandom.hex
       "#{host_json['home']}/.kanrisuru_spec_files_#{random_string[0..5]}"
     end
