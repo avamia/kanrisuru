@@ -66,7 +66,7 @@ class TestHosts
     end
 
     def hosts_list
-      json_config_path = File.join('spec', 'hosts.json')
+      json_config_path = File.join('spec', 'helper', 'hosts.json')
       hosts_data = File.open(json_config_path).read
       JSON.parse(hosts_data)
     end

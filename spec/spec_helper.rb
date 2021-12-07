@@ -1,17 +1,8 @@
 # frozen_string_literal: true
 
-require 'simplecov'
-require 'simplecov-cobertura'
+require_relative 'helper/simplecov'
 
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
-  SimpleCov::Formatter::HTMLFormatter,
-  SimpleCov::Formatter::CoberturaFormatter
-])
-
-SimpleCov.use_merging true 
-SimpleCov.command_name("kanrisuru-tests" + (ENV['TEST_ENV_NUMBER'] || ''))
-
-SimpleCov.start
+Dir[ './spec/support/**/*.rb'].each { |f| require(f) }
 
 require 'kanrisuru'
 
