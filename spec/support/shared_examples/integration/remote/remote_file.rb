@@ -8,7 +8,7 @@ module Kanrisuru
   end
 end
 
-RSpec.shared_examples "remote_file" do |os_name, host_json, spec_dir|
+RSpec.shared_examples 'remote_file' do |os_name, host_json, spec_dir|
   context "with #{os_name}" do
     before(:all) do
       host = Kanrisuru::Remote::Host.new(

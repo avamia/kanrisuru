@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.shared_examples "transfer" do |os_name, host_json, spec_dir|
+RSpec.shared_examples 'transfer' do |os_name, host_json, spec_dir|
   context "with #{os_name}" do
     before(:all) do
       host = Kanrisuru::Remote::Host.new(

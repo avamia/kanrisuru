@@ -2,7 +2,7 @@
 
 require_relative 'helper/simplecov'
 
-Dir[ './spec/support/**/*.rb'].each { |f| require(f) }
+Dir['./spec/support/**/*.rb'].sort.each { |f| require(f) }
 
 require 'kanrisuru'
 

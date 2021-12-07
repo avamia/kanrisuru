@@ -4,6 +4,6 @@ require 'spec_helper'
 
 TestHosts.each_os(only: %w[opensuse]) do |os_name, host_json, spec_dir|
   RSpec.describe Kanrisuru::Remote::Env do
-    include_examples "env", os_name, host_json, spec_dir
+    include_examples 'env', os_name, host_json, spec_dir
   end
 end

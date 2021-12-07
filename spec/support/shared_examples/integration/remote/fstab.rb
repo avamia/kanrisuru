@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.shared_examples "fstab" do |os_name, host_json, spec_dir|
+RSpec.shared_examples 'fstab' do |os_name, host_json, _spec_dir|
   context "with #{os_name}" do
     let(:host) do
       Kanrisuru::Remote::Host.new(

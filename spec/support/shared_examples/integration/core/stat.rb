@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.shared_examples "stat" do |os_name, host_json, spec_dir|
+RSpec.shared_examples 'stat' do |os_name, host_json, _spec_dir|
   context "with #{os_name}" do
     let(:host) do
       Kanrisuru::Remote::Host.new(

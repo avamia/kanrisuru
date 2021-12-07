@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.shared_examples "cluster" do |os_name, host_json, spec_dir|
+RSpec.shared_examples 'cluster' do |os_name, _host_json, _spec_dir|
   context "with #{os_name}" do
     it 'gets hostname for cluster' do
       cluster = described_class.new({

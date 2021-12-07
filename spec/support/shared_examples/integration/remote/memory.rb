@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.shared_examples "memory" do |os_name, host_json, spec_dir|
+RSpec.shared_examples 'memory' do |os_name, host_json, _spec_dir|
   context "with #{os_name}" do
     let(:host_json) { TestHosts.host(os_name) }
     let(:host) do

@@ -4,6 +4,6 @@ require 'spec_helper'
 
 TestHosts.each_os(only: %w[ubuntu]) do |os_name, host_json, spec_dir|
   RSpec.describe Kanrisuru::Core::Transfer do
-    include_examples "transfer", os_name, host_json, spec_dir
+    include_examples 'transfer', os_name, host_json, spec_dir
   end
 end

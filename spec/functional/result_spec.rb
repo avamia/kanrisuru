@@ -9,7 +9,7 @@ RSpec.describe Kanrisuru::Result do
     command.handle_status(0)
 
     result = described_class.new(command)
-    expect(result).to be_instance_of(Kanrisuru::Result)
+    expect(result).to be_instance_of(described_class)
   end
 
   it 'initializes with block and return struct fields' do
