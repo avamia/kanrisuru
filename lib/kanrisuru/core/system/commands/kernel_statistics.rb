@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module Kanrisuru
   module Core
     module System
       def kstat
         kernel_statistics
       end
-      
+
       def kernel_statistics
         command = Kanrisuru::Command.new('cat /proc/stat')
 

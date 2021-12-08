@@ -11,7 +11,7 @@ module Kanrisuru
   module Core
     module IP
       extend OsPackage::Define
-      
+
       os_define :linux, :ip
 
       def ip(object, action = nil, opts = {})
@@ -37,7 +37,6 @@ module Kanrisuru
           ip_maddress(action, opts)
         end
       end
-
     end
   end
 end

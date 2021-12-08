@@ -1,22 +1,27 @@
-module Kanrisuru::Core::Apt
-  module Parser
-    class List < Base 
-      class << self 
-        def parse(command)
-          lines = command.to_a
-          lines.shift
+# frozen_string_literal: true
 
-          result = []
-          lines.each do |line|
-            item = parse_apt_line(line)
-            next unless item
+module Kanrisuru
+  module Core
+    module Apt
+      module Parser
+        class List < Base
+          class << self
+            def parse(command)
+              lines = command.to_a
+              lines.shift
 
-            result << item
+              result = []
+              lines.each do |line|
+                item = parse_apt_line(line)
+                next unless item
+
+                result << item
+              end
+
+              result
+            end
           end
-
-          result
         end
-
       end
     end
   end

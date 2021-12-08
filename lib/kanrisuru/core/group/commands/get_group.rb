@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Kanrisuru
   module Core
     module Group
@@ -12,7 +14,7 @@ module Kanrisuru
           break if result.failure?
 
           gid = result.to_i
-          
+
           users = Parser::Group.parse(cmd)
           users = users.map do |user|
             uid = get_uid(user)

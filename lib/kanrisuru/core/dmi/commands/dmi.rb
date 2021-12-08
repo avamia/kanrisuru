@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Kanrisuru
   module Core
     module Dmi
@@ -8,12 +10,12 @@ module Kanrisuru
         execute_shell(command)
 
         Kanrisuru::Result.new(command) do |cmd|
-          Parser::Dmi.parse(cmd) 
+          Parser::Dmi.parse(cmd)
         end
       end
 
       private
-      
+
       def dmi_type_opts(command, opts)
         return unless Kanrisuru::Util.present?(opts[:types])
 
@@ -35,8 +37,6 @@ module Kanrisuru
           Kanrisuru::Util::DmiType[type]
         end
       end
-
     end
   end
 end
- 

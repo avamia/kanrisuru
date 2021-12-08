@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module Kanrisuru
   module Core
@@ -105,7 +106,7 @@ module Kanrisuru
       end
 
       private
-      
+
       def set_compression(command, compress)
         case compress
         when 'bzip2'

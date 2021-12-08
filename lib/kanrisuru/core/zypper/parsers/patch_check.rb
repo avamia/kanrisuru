@@ -1,27 +1,33 @@
-module Kanrisuru::Core::Zypper
-  module Parser
-    class PatchCheck < Base 
-      def self.parse(command)
-        lines = command.to_a
+# frozen_string_literal: true
 
-        rows = []
-        lines.each do |line|
-          next if line == ''
+module Kanrisuru
+  module Core
+    module Zypper
+      module Parser
+        class PatchCheck < Base
+          def self.parse(command)
+            lines = command.to_a
 
-          values = line.split(' | ')
-          next if values.length != 3
+            rows = []
+            lines.each do |line|
+              next if line == ''
 
-          values = values.map(&:strip)
-          next if values[0] == 'Category'
+              values = line.split(' | ')
+              next if values.length != 3
 
-          rows << Kanrisuru::Core::Zypper::PatchCount.new(
-            values[0],
-            values[1].to_i,
-            values[2].to_i
-          )
+              values = values.map(&:strip)
+              next if values[0] == 'Category'
+
+              rows << Kanrisuru::Core::Zypper::PatchCount.new(
+                values[0],
+                values[1].to_i,
+                values[2].to_i
+              )
+            end
+
+            rows
+          end
         end
-
-        rows
       end
     end
   end

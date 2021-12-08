@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Kanrisuru
   module Core
     module Path
@@ -16,7 +18,7 @@ module Kanrisuru
         execute_shell(command)
 
         Kanrisuru::Result.new(command) do |cmd|
-          Parser::Ls.parse(cmd)
+          Parser::Ls.parse(cmd, id)
         end
       end
     end

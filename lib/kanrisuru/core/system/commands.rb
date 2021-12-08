@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'commands/cpu_info'
 require_relative 'commands/free'
 require_relative 'commands/kernel_statistics'
@@ -17,7 +19,7 @@ module Kanrisuru
   module Core
     module System
       private
-      
+
       def format_shutdown_time(time)
         if time.instance_of?(Integer) || !/^[0-9]+$/.match(time).nil?
           "+#{time}"

@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module Kanrisuru
   module Core
     module System
       def who(opts = {})
         w(opts)
       end
-      
+
       def w(opts = {})
         users = opts[:users]
         command = Kanrisuru::Command.new('w -hi')

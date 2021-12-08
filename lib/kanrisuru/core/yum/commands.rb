@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'commands/autoremove'
 require_relative 'commands/clean'
 require_relative 'commands/erase'
@@ -15,7 +17,7 @@ module Kanrisuru
   module Core
     module Yum
       private
-      
+
       ## Bug reported on the output of the yum command
       ## https://bugzilla.redhat.com/show_bug.cgi?id=584525
       ## that autowraps text when used in a script beyond 80 chars wide.
@@ -29,6 +31,7 @@ module Kanrisuru
 
       def yum_disable_repo(command, repo)
         return unless Kanrisuru::Util.present?(repo)
+
         command.append_flag("--disablerepo=#{repo}")
       end
     end

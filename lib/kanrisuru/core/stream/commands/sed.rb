@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Kanrisuru
   module Core
     module Stream
@@ -13,7 +15,7 @@ module Kanrisuru
         execute_shell(command)
 
         Kanrisuru::Result.new(command) do |cmd|
-
+          Parser::Sed.parse(cmd, opts)
         end
       end
     end

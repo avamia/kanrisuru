@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'commands/mount'
 require_relative 'commands/umount'
 

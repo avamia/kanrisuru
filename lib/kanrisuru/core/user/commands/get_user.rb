@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Kanrisuru
   module Core
     module User
@@ -28,7 +30,7 @@ module Kanrisuru
           execute(cmd)
 
           result = Kanrisuru::Result.new(cmd) do |cmd2|
-            Parser::Getend.parse(cmd2)
+            Parser::Getent.parse(cmd2)
           end
 
           ## TODO: Raise custom error to change parent result to use nested error and mark

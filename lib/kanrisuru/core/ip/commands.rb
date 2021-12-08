@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'commands/address'
 require_relative 'commands/address_label'
 require_relative 'commands/link'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'commands/cat'
 require_relative 'commands/echo'
 require_relative 'commands/head'
@@ -9,6 +11,7 @@ module Kanrisuru
   module Core
     module Stream
       private
+
       def append_file(command, opts)
         return unless Kanrisuru::Util.present?(opts[:new_file])
 

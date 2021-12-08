@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'parsers/base'
 require_relative 'parsers/address'
 require_relative 'parsers/address_label'

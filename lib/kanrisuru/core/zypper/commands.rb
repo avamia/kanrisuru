@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'commands/add_lock'
 require_relative 'commands/add_repo'
 require_relative 'commands/add_service'
@@ -33,6 +35,7 @@ module Kanrisuru
   module Core
     module Zypper
       private
+
       def zypper_global_opts(command, opts)
         command.append_flag('--non-interactive')
         command.append_flag('--ignore-unknown')
@@ -100,7 +103,7 @@ module Kanrisuru
         type = opts[:type]
 
         command.append_arg('-t', type) if Kanrisuru::Util.present?(type) && PACKAGE_TYPES.include?(type)
-      end 
+      end
     end
   end
 end

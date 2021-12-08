@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Kanrisuru
   module Core
     module Socket
@@ -34,7 +36,7 @@ module Kanrisuru
         execute_shell(command)
 
         Kanrisuru::Result.new(command) do |cmd|
-          Parser::Ss.parse(cmd)
+          Parser::Ss.parse(cmd, state)
         end
       end
     end

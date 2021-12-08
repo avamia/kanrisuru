@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'commands/autoclean'
 require_relative 'commands/autoremove'
 require_relative 'commands/clean'

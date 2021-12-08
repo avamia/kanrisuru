@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module Kanrisuru
   module Core
     module File
       def copy(source, dest, opts = {})
         cp(source, dest, opts)
       end
-      
+
       def cp(source, dest, opts = {})
         backup = opts[:backup]
         command = Kanrisuru::Command.new('cp')

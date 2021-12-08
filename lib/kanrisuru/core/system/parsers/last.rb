@@ -1,56 +1,62 @@
-module Kanrisuru::Core::System
-  module Parser
-    class Last
-      class << self
-        def parse(command)
-          lines = cmd.to_a
+# frozen_string_literal: true
 
-          mapping = {}
+module Kanrisuru
+  module Core
+    module System
+      module Parser
+        class Last
+          class << self
+            def parse(command, opts)
+              lines = command.to_a
 
-          lines.each do |line|
-            next if Kanrisuru::Util.blank?(line)
-            next if line.include?('wtmp') || line.include?('btmp')
+              mapping = {}
 
-            line = line.gsub('  still logged in', '- still logged in') if line.include?('still logged in')
+              lines.each do |line|
+                next if Kanrisuru::Util.blank?(line)
+                next if line.include?('wtmp') || line.include?('btmp')
 
-            values = line.split(/\s{2,}/, 4)
-            user   = values[0]
-            tty    = values[1]
-            ip     = IPAddr.new(values[2])
+                line = line.gsub('  still logged in', '- still logged in') if line.include?('still logged in')
 
-            date_range = values[3]
-            login, logout = date_range.split(' - ')
+                values = line.split(/\s{2,}/, 4)
+                user   = values[0]
+                tty    = values[1]
+                ip     = IPAddr.new(values[2])
 
-            login = parse_last_date(login) if login
-            logout = parse_last_date(logout) if logout
+                date_range = values[3]
+                login, logout = date_range.split(' - ')
 
-            detail = Kanrisuru::Core::System::SessionDetail.new
-            detail.tty = tty
-            detail.ip_address = ip
-            detail.login_at = login
-            detail.logout_at = logout
+                login = parse_last_date(login) if login
+                logout = parse_last_date(logout) if logout
 
-            detail.success = !Kanrisuru::Util.present?(opts[:failed_attemps])
+                detail = Kanrisuru::Core::System::SessionDetail.new
+                detail.tty = tty
+                detail.ip_address = ip
+                detail.login_at = login
+                detail.logout_at = logout
 
-            mapping[user] = Kanrisuru::Core::System::LoginUser.new(user, []) unless mapping.key?(user)
+                detail.success = !Kanrisuru::Util.present?(opts[:failed_attemps])
 
-            mapping[user].sessions << detail
+                mapping[user] = Kanrisuru::Core::System::LoginUser.new(user, []) unless mapping.key?(user)
+
+                mapping[user].sessions << detail
+              end
+
+              mapping.values
+            end
+
+            def parse_last_date(string)
+              tokens = string.split
+
+              return if tokens.length < 4
+
+              month_abbr = tokens[1]
+              day = tokens[2]
+              timestamp = tokens[3]
+              year = tokens[4]
+
+              DateTime.parse("#{day} #{month_abbr} #{year} #{timestamp}")
+            end
           end
-
-          mapping.values
-        end
-
-        def parse_last_date(string)
-          tokens = string.split
-
-          return if tokens.length < 4
-
-          month_abbr = tokens[1]
-          day = tokens[2]
-          timestamp = tokens[3]
-          year = tokens[4]
-
-          DateTime.parse("#{day} #{month_abbr} #{year} #{timestamp}")
         end
       end
     end

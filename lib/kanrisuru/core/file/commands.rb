@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'commands/chmod'
 require_relative 'commands/chown'
 require_relative 'commands/copy'
@@ -14,6 +16,7 @@ module Kanrisuru
   module Core
     module File
       private
+
       def backup_control_valid?(backup)
         opts = %w[
           none off numbered t existing nil simple never

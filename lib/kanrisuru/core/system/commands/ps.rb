@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Kanrisuru
   module Core
     module System
@@ -23,7 +25,7 @@ module Kanrisuru
         command.append_flag('--no-headers')
 
         execute(command)
-        
+
         Kanrisuru::Result.new(command) do |cmd|
           Parser::Ps.parse(cmd)
         end

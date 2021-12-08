@@ -1,19 +1,20 @@
+# frozen_string_literal: true
 
 module Kanrisuru
   module Core
     module Zypper
-      def zypper_refresh_services(opts)
+      def zypper_list_services(opts)
         command = Kanrisuru::Command.new('zypper')
         zypper_global_opts(command, opts)
 
-        command << 'refresh-services'
-        command.append_flag('--force', opts[:force])
-        command.append_flag('--with-repos', opts[:with_repos])
-        command.append_flag('--restore-status', opts[:restore_status])
+        command << 'services'
+        command.append_flag('--details')
 
         execute_shell(command)
 
-        Kanrisuru::Result.new(command)
+        Kanrisuru::Result.new(command) do |cmd|
+          Parser::ListServices.parse(cmd)
+        end
       end
     end
   end
