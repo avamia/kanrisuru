@@ -15,6 +15,22 @@ RSpec.describe Kanrisuru::Util do
     expect(described_class.present?(nil)).to eq(false)
   end
 
+  it 'joins strings into array' do
+    expect(described_class.array_join_string(%w[opt1 opt2 opt3])).to eq('opt1,opt2,opt3')
+    expect(described_class.array_join_string(%w[opt1 opt2 opt3], ' | ')).to eq('opt1 | opt2 | opt3')
+    expect(described_class.array_join_string('opt1, opt2, opt3')).to eq('opt1, opt2, opt3')
+  end
+
+  it 'still joins string with depecrated method' do
+    allow(Kanrisuru.logger).to receive(:info)
+    expect(Kanrisuru.logger).to receive(:info) do |&block|
+      expect(block.call).to eq('DEPRECATION WARNING: string_join_array will be removed in the upcoming major release. Use array_join_string instead.')
+    end
+
+    expect(described_class.string_join_array('a')).to eq('a')
+    expect(described_class.string_join_array(%w[a b c])).to eq('a,b,c')
+  end
+
   it 'camelizes strings' do
     expect(described_class.camelize('hello_world')).to eq('HelloWorld')
     expect(described_class.camelize('helloworld')).to eq('Helloworld')

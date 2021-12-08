@@ -1,3 +1,7 @@
+## Kanrisuru 0.14.0 (December 08, 2021) ##
+*  Add additional unit test cases for `util` methods.
+*  Refactor the `core` module commands into smaller files, with each command split up. Also refactor parsing code into separate `Parser` class.
+ 
 ## Kanrisuru 0.13.0 (December 06, 2021) ##
 *  Add functional test cases for `Kanrisuru::Result` class.
 *  Refactor integration tests for better parallelization with the `parallel_tests` gem. This dropped overall test time from 35 minutes, to 22 minutes after first integration with 1 processor. After scaling upto 8 core machine, the run time dropped to 16 minutes, but was still sending the entire test file to a processor. By splitting up each host test into a seperate file, the run time dropped to a little over 9 minutes. There's probably a way to optimize which test gets run together, but overall a much better scenario.
