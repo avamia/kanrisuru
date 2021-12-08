@@ -1,25 +1,12 @@
 # frozen_string_literal: true
 
-require_relative 'apt/constants'
-require_relative 'apt/parsers'
-
-require_relative 'apt/autoclean'
-require_relative 'apt/autoremove'
-require_relative 'apt/clean'
-require_relative 'apt/full_upgrade'
-require_relative 'apt/install'
-require_relative 'apt/list'
-require_relative 'apt/purge'
-require_relative 'apt/remove'
-require_relative 'apt/search'
-require_relative 'apt/show'
-require_relative 'apt/update'
-require_relative 'apt/upgrade'
+require_relative 'apt/types'
+require_relative 'apt/parser'
+require_relative 'apt/commands'
 
 module Kanrisuru
   module Core
     module Apt
-      include Constants
       extend OsPackage::Define
 
       os_define :debian, :apt

@@ -6,12 +6,3 @@ require_relative 'parsers/maddress'
 require_relative 'parsers/neighbour'
 require_relative 'parsers/route'
 require_relative 'parsers/rule'
-
-module Kanrisuru
-  module Core
-    module IP
-      module Parser
-      end
-    end
-  end
-end

@@ -3,44 +3,13 @@
 require 'date'
 
 require_relative 'zypper/constants'
-require_relative 'zypper/common'
-require_relative 'zypper/parsers'
-
-require_relative 'zypper/add_lock'
-require_relative 'zypper/add_repo'
-require_relative 'zypper/add_service'
-require_relative 'zypper/clean_cache'
-require_relative 'zypper/clean_locks'
-require_relative 'zypper/dist_upgrade'
-require_relative 'zypper/info'
-require_relative 'zypper/install'
-require_relative 'zypper/install_new_recommends'
-require_relative 'zypper/list_locks'
-require_relative 'zypper/list_patches'
-require_relative 'zypper/list_repos'
-require_relative 'zypper/list_services'
-require_relative 'zypper/list_updates'
-require_relative 'zypper/modify_repo'
-require_relative 'zypper/modify_service'
-require_relative 'zypper/patch'
-require_relative 'zypper/patch_check'
-require_relative 'zypper/purge_kernels'
-require_relative 'zypper/refresh_repos'
-require_relative 'zypper/refresh_services'
-require_relative 'zypper/remove'
-require_relative 'zypper/remove_lock'
-require_relative 'zypper/remove_repo'
-require_relative 'zypper/remove_service'
-require_relative 'zypper/rename_repo'
-require_relative 'zypper/search'
-require_relative 'zypper/source_install'
-require_relative 'zypper/update'
-require_relative 'zypper/verify'
+require_relative 'zypper/types'
+require_relative 'zypper/parser'
+require_relative 'zypper/commands'
 
 module Kanrisuru
   module Core
     module Zypper
-      include Constants
       extend OsPackage::Define
 
       os_define :sles, :zypper

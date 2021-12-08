@@ -1,17 +1,15 @@
 # frozen_string_literal: true
 
-require_relative 'dmi/constants'
-require_relative 'dmi/dmi_parser'
-require_relative 'dmi/dmi'
+require_relative 'dmi/types'
+require_relative 'dmi/parser'
+require_relative 'dmi/commands'
 
 module Kanrisuru
   module Core
     module Dmi
-      include Constants
       extend OsPackage::Define
 
       os_define :linux, :dmi
-
     end
   end
 end

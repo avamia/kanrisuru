@@ -3,13 +3,13 @@
 require 'ipaddr'
 
 require_relative 'ip/constants'
+require_relative 'ip/types'
 require_relative 'ip/parser'
 require_relative 'ip/commands'
 
 module Kanrisuru
   module Core
     module IP
-      include Constants
       extend OsPackage::Define
       
       os_define :linux, :ip
