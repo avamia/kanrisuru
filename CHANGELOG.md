@@ -1,3 +1,10 @@
+## Kanrisuru 0.15.0 (December 13, 2021) ##
+*  Add opts for `ip` command.
+*  Refactor `ip` object commands into smaller methods. Refactor `version` for consistent use and stub ability in funcitonal test cases.
+*  Add functional test cases for `ip` command.
+*  Add `append_flag_no` to `Kanrisuru::Command` class. Adds no to value for `falsey` statements. The `no` flag is commonly appended to indicate a deactived state for many arguments passed to programs on the command line.
+*  Fix test case `transfer` by appending the osname to the filename to avoid parallel overwrite.
+
 ## Kanrisuru 0.14.0 (December 08, 2021) ##
 *  Add additional unit test cases for `util` methods.
 *  Refactor the `core` module commands into smaller files, with each command split up. Also refactor parsing code into separate `Parser` class.

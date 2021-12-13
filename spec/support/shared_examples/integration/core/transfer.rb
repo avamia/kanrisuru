@@ -76,7 +76,7 @@ RSpec.shared_examples 'transfer' do |os_name, host_json, spec_dir|
     end
 
     it 'downloads a file to local fs' do
-      path = '../hosts-file'
+      path = "../hosts-file.#{os_name}.txt"
       src_path = '/etc/hosts'
 
       result = host.download(src_path, path)

@@ -7,12 +7,12 @@
     <img src="https://img.shields.io/gem/v/kanrisuru?style=flat-square" alt="Latest version" />
   </a> 
   <a href="https://github.com/avamia/kanrisuru/blob/main/LICENSE.txt">
-    <img src="https://img.shields.io/github/license/avamia/kanrisuru" alt="Latest version" />
+    <img src="https://img.shields.io/github/license/avamia/kanrisuru?style=flat-square" alt="Latest version" />
   </a> 
-  <img src="https://img.shields.io/github/repo-size/avamia/kanrisuru" alt="GitHub repo size" />
-  <img src="https://img.shields.io/codecov/c/gh/avamia/kanrisuru?token=2Q1BE106B2" alt="Codecov" /> 
-  <img src="https://img.shields.io/codacy/grade/9e839eb160bc445ea4e81b64cef22b27" alt="Codacy grade" />
-  <img src="https://img.shields.io/codeclimate/maintainability/avamia/kanrisuru" alt="Code Climate maintainability" />
+  <img src="https://img.shields.io/github/repo-size/avamia/kanrisuru?style=flat-square" alt="GitHub repo size" />
+  <img src="https://img.shields.io/codecov/c/gh/avamia/kanrisuru?token=2Q1BE106B2&style=flat-square" alt="Codecov" /> 
+  <img src="https://img.shields.io/codacy/grade/9e839eb160bc445ea4e81b64cef22b27?style=flat-square" alt="Codacy grade" />
+  <img src="https://img.shields.io/codeclimate/maintainability/avamia/kanrisuru?style=flat-square" alt="Code Climate maintainability" />
 </p>
 
 # Kanrisuru
