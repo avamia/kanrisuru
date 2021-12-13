@@ -16,25 +16,28 @@ module Kanrisuru
 
       def ip(object, action = nil, opts = {})
         if action.instance_of?(Hash)
-          opts = action
+          opts = action || {}
           action = 'show'
+        elsif action.nil?
+          action = 'show'
+          opts = {}
         end
 
         case object
-        when 'link', 'l'
-          ip_link(action, opts)
         when 'address', 'addr', 'a'
           ip_address(action, opts)
         when 'addrlabel', 'addrl'
           ip_address_label(action, opts)
+        when 'link', 'l'
+          ip_link(action, opts)
+        when 'maddress', 'maddr', 'm'
+          ip_maddress(action, opts)
+        when 'neighbour', 'neigh', 'n'
+          ip_neighbour(action, opts)
         when 'route', 'r', 'ro', 'rou', 'rout'
           ip_route(action, opts)
         when 'rule', 'ru'
           ip_rule(action, opts)
-        when 'neighbour', 'neigh', 'n'
-          ip_neighbour(action, opts)
-        when 'maddress', 'maddr', 'm'
-          ip_maddress(action, opts)
         end
       end
     end

@@ -16,7 +16,7 @@ module Kanrisuru
 
             def parse_apt_sources(string)
               url, dist, architecture, = string.split
-              Source.new(url, dist, architecture)
+              Kanrisuru::Core::Apt::Source.new(url, dist, architecture)
             end
 
             def parse_apt_line(line)

@@ -103,6 +103,16 @@ module Kanrisuru
       @raw_command = Kanrisuru::Util.present?(boolean) ? "#{@raw_command} #{arg}" : @raw_command
     end
 
+    def append_flag_no(arg, boolean = 'true')
+      return if boolean.nil?
+
+      if boolean
+        append_flag(arg, true)
+      else
+        append_flag("no#{arg}", true)
+      end
+    end
+
     def append_valid_exit_code(code)
       @valid_exit_codes << code if code.instance_of?(Integer)
       @valid_exit_codes.concat(code) if code.instance_of?(Array)
