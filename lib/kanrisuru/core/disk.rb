@@ -2,6 +2,7 @@
 
 require 'json'
 
+require_relative 'disk/constants'
 require_relative 'disk/types'
 require_relative 'disk/parser'
 require_relative 'disk/commands'

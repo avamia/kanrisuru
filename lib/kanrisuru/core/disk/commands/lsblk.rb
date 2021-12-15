@@ -10,12 +10,12 @@ module Kanrisuru
 
         command = Kanrisuru::Command.new('lsblk')
 
-        version = lsblk_version
+        version = lsblk_version.to_f
 
         ## lsblk after version 2.26 handles json parsing.
         ## TODO: parse nested children for earlier version of lsblk
-        if version >= 2.27
-          command.append_flag('--json') if version >= 2.27
+        if version >= LSBK_VERSION
+          command.append_flag('--json') if version >= LSBK_VERSION
         else
           command.append_flag('-i')
           command.append_flag('-P')
@@ -40,14 +40,9 @@ module Kanrisuru
         command = Kanrisuru::Command.new('lsblk --version')
         execute(command)
 
-        version = 0.00
-        regex = Regexp.new(/\d+(?:[,.]\d+)?/)
-
-        raise 'lsblk command not found' if command.failure?
-
-        version = command.to_s.scan(regex)[0].to_f unless regex.match(command.to_s).nil?
-
-        version
+        Kanrisuru::Result.new(command) do |cmd|
+          Parser::LsblkVersion.parse(cmd)
+        end
       end
     end
   end
