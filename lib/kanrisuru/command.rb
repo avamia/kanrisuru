@@ -23,6 +23,10 @@ module Kanrisuru
       to_a.join.to_i
     end
 
+    def to_f
+      to_a.join.to_f
+    end
+
     def to_s
       to_a.join(' ')
     end
@@ -87,7 +91,7 @@ module Kanrisuru
     def append_array(value)
       return unless Kanrisuru::Util.present?(value)
 
-      value = [value] if value.instance_of?(String)
+      value = [value] unless value.instance_of?(Array)
       append_value(value.join(' '))
     end
 
