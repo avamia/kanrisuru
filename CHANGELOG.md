@@ -1,3 +1,12 @@
+## Kanrisuru 0.16.0 (December 14, 2021) ##
+*  Fix `append_array` for the `Kanrisuru::Command` class with negated check on Array type.
+*  Add `to_f` method for `Kanrisuru::Command` and `Kanrisuru::Result` with unit test cases.
+*  Refactor `lsblk_version` into seperate command namespace with it's own parser.
+*  Add functional test cases for several core modules.
+*  Add `return_value` option to `stub_command!` method for non-result return methods. These are few and far between, but need to be tested appropriately. 
+*  Refactor several core modules with use of `command` calls for legibility.
+*  Fix several issues with `create_user`, `update_user`, and `delete_user`.
+
 ## Kanrisuru 0.15.0 (December 13, 2021) ##
 *  Add opts for `ip` command.
 *  Refactor `ip` object commands into smaller methods. Refactor `version` for consistent use and stub ability in funcitonal test cases.
