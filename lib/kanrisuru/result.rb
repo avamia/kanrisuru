@@ -39,6 +39,21 @@ module Kanrisuru
       @data.instance_of?(Array) ? @data : [@data]
     end
 
+    def to_f
+      case @data
+      when Numeric
+        @data
+      when String
+        @data.to_f
+      when Array
+        @data.map(&:to_f)
+      when NilClass
+        nil
+      else
+        raise NoMethodError, "(undefined method `to_f' for Kanrisuru::Result)"
+      end
+    end
+
     def to_i
       case @data
       when Integer

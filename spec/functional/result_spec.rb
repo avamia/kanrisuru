@@ -57,72 +57,119 @@ RSpec.describe Kanrisuru::Result do
     expect(result.to_s).to eq('output')
   end
 
-  it 'returns to_a on array result' do
-    command.handle_status(0)
-    result = described_class.new(command) do |_cmd|
-      [0, 1, 2, 3]
+  context 'with to_a' do
+    it 'returns to_a on array result' do
+      command.handle_status(0)
+      result = described_class.new(command) do |_cmd|
+        [0, 1, 2, 3]
+      end
+
+      expect(result.to_a).to eq([0, 1, 2, 3])
     end
 
-    expect(result.to_a).to eq([0, 1, 2, 3])
+    it 'returns to_a on non-array result' do
+      command.handle_status(0)
+      result = described_class.new(command) do |_cmd|
+        'output'
+      end
+
+      expect(result.to_a).to eq(['output'])
+    end
+
+    it 'returns to_i on integer return value' do
+      command.handle_status(0)
+      result = described_class.new(command) do |_cmd|
+        55
+      end
+
+      expect(result.to_i).to eq(55)
+    end
   end
 
-  it 'returns to_a on non-array result' do
-    command.handle_status(0)
-    result = described_class.new(command) do |_cmd|
-      'output'
+  context 'with to_i' do
+    it 'returns to_i on non-integer return value' do
+      command.handle_status(0)
+      result = described_class.new(command) do |_cmd|
+        '100'
+      end
+
+      expect(result.to_i).to eq(100)
+
+      result = described_class.new(command) do |_cmd|
+        'hello'
+      end
+
+      expect(result.to_i).to eq(0)
+
+      result = described_class.new(command) do |_cmd|
+        [0, 1, 2, 3]
+      end
+
+      expect(result.to_i).to eq([0, 1, 2, 3])
+
+      result = described_class.new(command) do |_cmd|
+        %w[0 1 2 3]
+      end
+
+      expect(result.to_i).to eq([0, 1, 2, 3])
+
+      result = described_class.new(command)
+      expect(result.to_i).to be_nil
     end
 
-    expect(result.to_a).to eq(['output'])
+    it 'raises error on to_i for invalid data type' do
+      command.handle_status(0)
+      result = described_class.new(command) do |_cmd|
+        { 'hello' => 'world' }
+      end
+
+      expect do
+        result.to_i
+      end.to raise_error(NoMethodError)
+    end
   end
 
-  it 'returns to_i on integer return value' do
-    command.handle_status(0)
-    result = described_class.new(command) do |_cmd|
-      55
+  context 'with to_f' do
+    it 'returns to_f on non-integer return value' do
+      command.handle_status(0)
+      result = described_class.new(command) do |_cmd|
+        '100.5'
+      end
+
+      expect(result.to_f).to eq(100.5)
+
+      result = described_class.new(command) do |_cmd|
+        'hello'
+      end
+
+      expect(result.to_f).to eq(0)
+
+      result = described_class.new(command) do |_cmd|
+        [0.1, 1.2, 2.3, 3.4]
+      end
+
+      expect(result.to_f).to eq([0.1, 1.2, 2.3, 3.4])
+
+      result = described_class.new(command) do |_cmd|
+        %w[0.1 1.2 2.3 3.4]
+      end
+
+      expect(result.to_f).to eq([0.1, 1.2, 2.3, 3.4])
+
+      result = described_class.new(command)
+      expect(result.to_f).to be_nil
     end
 
-    expect(result.to_i).to eq(55)
-  end
+    it 'raises error on to_f for invalid data type' do
+      command.handle_status(0)
+      result = described_class.new(command) do |_cmd|
+        { 'hello' => 'world' }
+      end
 
-  it 'returns to_i on non-integer return value' do
-    command.handle_status(0)
-    result = described_class.new(command) do |_cmd|
-      '100'
+      expect do
+        result.to_f
+      end.to raise_error(NoMethodError)
     end
-
-    expect(result.to_i).to eq(100)
-
-    result = described_class.new(command) do |_cmd|
-      'hello'
-    end
-
-    expect(result.to_i).to eq(0)
-
-    result = described_class.new(command) do |_cmd|
-      [0, 1, 2, 3]
-    end
-
-    expect(result.to_i).to eq([0, 1, 2, 3])
-
-    result = described_class.new(command) do |_cmd|
-      %w[0 1 2 3]
-    end
-
-    expect(result.to_i).to eq([0, 1, 2, 3])
-
-    result = described_class.new(command)
-    expect(result.to_i).to be_nil
-  end
-
-  it 'raises error on to_i for invalid data type' do
-    command.handle_status(0)
-    result = described_class.new(command) do |_cmd|
-      { 'hello' => 'world' }
-    end
-
-    expect do
-      result.to_i
-    end.to raise_error(NoMethodError)
   end
 
   it 'returns success string variant on inspect' do
