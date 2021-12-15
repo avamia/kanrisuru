@@ -35,6 +35,18 @@ RSpec.describe Kanrisuru::Core::IP do
          ])
     )
 
+    expect(Kanrisuru::Core::IP::IP_FAMILIES).to(eq(%w[inet inet6 link]))
+    expect(Kanrisuru::Core::IP::IP_SCOPES).to(eq(%w[global site link host]))
+    expect(Kanrisuru::Core::IP::IP_LINK_TYPES).to(
+      eq(%w[
+           vlan veth vcan vxcan dummy ifb macvlan macvtap
+           bridge bond team ipoib ip6tnl ipip sit vxlan
+           gre gretap erspan ip6gre ip6gretap ip6erspan
+           vti nlmon team_slave bond_slave bridge_slave
+           ipvlan ipvtap geneve vrf macsec netdevsim rmnet
+           xfrm bareudp hsr
+         ])
+    )
     expect(Kanrisuru::Core::IP::IPLinkProperty.new).to respond_to(
       :index, :name, :flags, :mtu,
       :qdisc, :state, :group, :qlen,

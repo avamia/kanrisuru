@@ -5,7 +5,7 @@ require 'spec_helper'
 RSpec.describe Kanrisuru::Core::Archive do
   before(:all) do
     StubNetwork.stub!
-    StubNetwork.stub_command!(:realpath) do |_args|
+    StubNetwork.stub_command!(:realpath) do
       Kanrisuru::Core::Path::FilePath.new(directory)
     end
   end

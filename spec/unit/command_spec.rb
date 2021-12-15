@@ -11,6 +11,7 @@ RSpec.describe Kanrisuru::Command do
     expect(command).to respond_to(:success?)
     expect(command).to respond_to(:failure?)
     expect(command).to respond_to(:to_i)
+    expect(command).to respond_to(:to_f)
     expect(command).to respond_to(:to_s)
     expect(command).to respond_to(:to_a)
     expect(command).to respond_to(:to_json)
@@ -26,6 +27,7 @@ RSpec.describe Kanrisuru::Command do
     expect(command).to respond_to(:append_value)
     expect(command).to respond_to(:append_arg)
     expect(command).to respond_to(:append_flag)
+    expect(command).to respond_to(:append_flag_no)
     expect(command).to respond_to(:append_valid_exit_code)
   end
 

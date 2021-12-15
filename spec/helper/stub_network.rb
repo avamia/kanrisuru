@@ -69,8 +69,12 @@ class StubNetwork
           status = opts[:status] || 0
           command.handle_status(status)
 
-          Kanrisuru::Result.new(command, true) do |_cmd|
-            block.call(args)
+          if opts[:return_value].nil?
+            Kanrisuru::Result.new(command, true) do |_cmd|
+              block.call(args)
+            end
+          else
+            opts[:return_value]
           end
         end
       end
