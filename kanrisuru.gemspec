@@ -8,9 +8,12 @@ Gem::Specification.new do |gem|
   gem.author      = 'Ryan Mammina'
   gem.email       = 'ryan@avamia.com'
   gem.license     = 'MIT'
-  gem.summary     = 'Manage remote servers over ssh with ruby.'
-  gem.description = 'Kanrisuru helps manage remote servers with objected oriented ruby. Results come back as structured data, parsed, prepared and ready.'
   gem.homepage    = 'https://github.com/avamia/kanrisuru'
+  gem.summary     = 'Manage remote servers over ssh with ruby.'
+  gem.description = <<-EOF
+    Kanrisuru helps manage remote servers with objected oriented ruby.#{' '}
+    Results come back as structured data, parsed, prepared and ready.
+  EOF
 
   gem.required_ruby_version = '>= 2.5.0'
 
@@ -30,6 +33,7 @@ Gem::Specification.new do |gem|
 
   gem.metadata = {
     'source_code_uri' => 'https://github.com/avamia/kanrisuru/',
-    'changelog_uri' => 'https://github.com/avamia/kanrisuru/blob/main/CHANGELOG.md'
+    'changelog_uri' => 'https://github.com/avamia/kanrisuru/blob/main/CHANGELOG.md',
+    'rubygems_mfa_required' => 'true'
   }
 end
