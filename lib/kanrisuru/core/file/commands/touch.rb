@@ -7,7 +7,8 @@ module Kanrisuru
         date = opts[:date]
 
         paths = [paths] if paths.instance_of?(String)
-        command = Kanrisuru::Command.new("touch #{paths.join(' ')}")
+        command = Kanrisuru::Command.new('touch')
+        command.append_array(paths)
 
         command.append_flag('-a', opts[:atime])
         command.append_flag('-m', opts[:mtime])

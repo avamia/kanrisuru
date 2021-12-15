@@ -10,7 +10,10 @@ module Kanrisuru
           raise ArgumentError, "Can't delete root path" if path == '/' || realpath(path).path == '/'
         end
 
-        command = Kanrisuru::Command.new("rm #{paths.join(' ')} --preserve-root")
+        command = Kanrisuru::Command.new('rm')
+        command.append_array(paths)
+
+        command.append_flag('--preserve-root')
         command.append_flag('-f', opts[:force])
         command.append_flag('-r', opts[:recursive])
 

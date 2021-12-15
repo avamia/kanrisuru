@@ -7,7 +7,7 @@ module Kanrisuru
         recursive = opts[:recursive]
 
         command =
-          if mode.instance_of?(String) && (mode.include?(',') || /[=+-]/.match(mode))
+          if mode.instance_of?(String) && (mode.include?(',') || /[=+-]/.match(mode)) && mode.length < 10
             Kanrisuru::Command.new("chmod #{mode} #{path}")
           elsif mode.instance_of?(Kanrisuru::Mode)
             Kanrisuru::Command.new("chmod #{mode.numeric} #{path}")

@@ -29,9 +29,7 @@ module Kanrisuru
         if opts[:preserve].instance_of?(TrueClass)
           command.append_flag('-p')
         elsif Kanrisuru::Util.present?(opts[:preserve])
-          preserve =
-            (opts[:preserve].join(',') if opts[:preserve].instance_of?(Array))
-
+          preserve = Kanrisuru::Util.array_join_string(opts[:preserve], ',')
           command << "--preserve=#{preserve}"
         end
 

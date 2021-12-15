@@ -20,7 +20,7 @@ module Kanrisuru
         return unless Kanrisuru::Util.present?(opts[:types])
 
         types = opts[:types]
-        types = [types] if types.instance_of?(String)
+        types = [types] unless types.instance_of?(Array)
 
         types.each do |type|
           type = get_dmi_type(type)

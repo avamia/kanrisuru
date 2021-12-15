@@ -11,7 +11,7 @@ module Kanrisuru
 
         command = Kanrisuru::Command.new('kill')
         command << "-#{signal}"
-        command << (pids.instance_of?(Array) ? pids.join(' ') : pids)
+        command.append_array(pids)
 
         execute_shell(command)
 

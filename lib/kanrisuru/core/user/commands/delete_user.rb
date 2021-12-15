@@ -6,7 +6,7 @@ module Kanrisuru
       def delete_user(user, opts = {})
         force = opts[:force]
 
-        return false unless get_uid(user)
+        return false if get_uid(user).failure?
 
         command = Kanrisuru::Command.new("userdel #{user}")
         command.append_flag('-f', force)

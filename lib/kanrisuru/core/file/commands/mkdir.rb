@@ -8,16 +8,21 @@ module Kanrisuru
         group     = opts[:group]
         recursive = opts[:recursive]
 
-        command = Kanrisuru::Command.new("mkdir #{path}")
+        command = Kanrisuru::Command.new('mkdir')
+
+        command.append_array(path)
         command.append_flag('-p', opts[:silent])
 
         if Kanrisuru::Util.present?(opts[:mode])
           mode = opts[:mode]
-          if mode.instance_of?(Kanrisuru::Mode)
-            mode = mode.numeric
-          elsif mode.instance_of?(String) && (mode.include?(',') || /[=+-]/.match(mode))
-            mode = Kanrisuru::Mode.new(mode).numeric
-          end
+
+          mode = if mode.instance_of?(Kanrisuru::Mode)
+                   mode.numeric
+                 elsif mode.instance_of?(String) && (mode.include?(',') || /[=+-]/.match(mode))
+                   mode
+                 else
+                   Kanrisuru::Mode.new(mode).numeric
+                 end
 
           command.append_arg('-m', mode)
         end
