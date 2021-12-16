@@ -1,3 +1,6 @@
+## Kanrisuru 0.16.1 (December 16, 2021) ##
+*  Fix require class for `os_package`.
+
 ## Kanrisuru 0.16.0 (December 14, 2021) ##
 *  Fix `append_array` for the `Kanrisuru::Command` class with negated check on Array type.
 *  Add `to_f` method for `Kanrisuru::Command` and `Kanrisuru::Result` with unit test cases.
