@@ -88,11 +88,10 @@ module Kanrisuru
       append_value("| #{value}")
     end
 
-    def append_array(value)
+    def append_array(value, separator = ' ')
       return unless Kanrisuru::Util.present?(value)
 
-      value = [value] unless value.instance_of?(Array)
-      append_value(value.join(' '))
+      append_value(Kanrisuru::Util.array_join_string(value, separator))
     end
 
     def append_value(value)
