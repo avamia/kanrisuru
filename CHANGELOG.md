@@ -1,3 +1,11 @@
+## Kanrisuru 0.16.2 (December 19, 2021) ##
+*  Organize functional ip specs
+*  Log in realtime, debug output the stdout from the remote server, as opposed to waiting until after the command is done.
+*  Fix the `opensuse_leap` for the stubnetwork rspec helper.
+*  Refactor and cleanup the `append_array` method for the `Kanrisuru::Command` instance
+*  Move `gpg_opts` for `zypper` command into re-usable method
+*  Add functional test cases for `zypper` command. 
+
 ## Kanrisuru 0.16.1 (December 16, 2021) ##
 *  Fix require class for `os_package`.
 
