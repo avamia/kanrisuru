@@ -130,7 +130,7 @@ class StubNetwork
           operating_system: 'GNU/Linux',
           hardware_platform: 'x86_64',
           processor: 'x86_64',
-          release: 'opensuse-leap',
+          release: 'opensuse_leap',
           version: 15.2
         }
       }
