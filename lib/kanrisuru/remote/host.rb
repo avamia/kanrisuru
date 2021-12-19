@@ -135,6 +135,7 @@ module Kanrisuru
               end
 
               ch.on_data do |_, data|
+                Kanrisuru.logger.debug { data.strip }
                 command.handle_data(data)
               end
 
@@ -145,9 +146,6 @@ module Kanrisuru
           end
 
           channel.wait
-
-          Kanrisuru.logger.debug { command.to_a }
-
           command
         rescue Net::SSH::ConnectionTimeout, Net::SSH::Timeout => e
           if retry_attempts > 1
