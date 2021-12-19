@@ -17,16 +17,9 @@ module Kanrisuru
         command.append_flag('--no-refresh', opts[:no_refresh])
         command.append_flag('--keep-packages', opts[:keep_packages])
         command.append_flag('--no-keep-packages', opts[:no_keep_packages])
-        command.append_flag('--gpgcheck', opts[:gpgcheck])
-        command.append_flag('--gpgcheck-strict', opts[:gpgcheck_strict])
-        command.append_flag('--gpgcheck-allow-unsigned', opts[:gpgcheck_allow_unsigned])
-        command.append_flag('--gpgcheck-allow-unsigned-repo', opts[:gpgcheck_allow_unsigned_repo])
-        command.append_flag('--gpgcheck-allow-unsigned-package', opts[:gpgcheck_allow_unsigned_package])
-        command.append_flag('--no-gpgcheck', opts[:no_gpgcheck])
-        command.append_flag('--default-gpgcheck', opts[:default_gpgcheck])
-
         command.append_arg('--priority', opts[:priority])
 
+        zypper_gpg_opts(command, opts)
         zypper_repos_opt(command, opts)
 
         execute_shell(command)

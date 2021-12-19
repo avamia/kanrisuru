@@ -12,7 +12,7 @@ module Kanrisuru
         zypper_package_type_opt(command, opts)
 
         command.append_arg('-n', opts[:name])
-        command.append_arg('-f', opts[:force])
+        command.append_flag('-f', opts[:force])
         command.append_flag('--oldpackage', opts[:oldpackage])
         command.append_arg('--from', opts[:from])
         command.append_arg('--capability', opts[:capability])
@@ -27,8 +27,7 @@ module Kanrisuru
         zypper_download_and_install_opts(command, opts)
         zypper_expert_opts(command, opts)
 
-        packages = Kanrisuru::Util.array_join_string(opts[:packages], ' ')
-        command << packages
+        command.append_array(opts[:packages])
 
         execute_shell(command)
 

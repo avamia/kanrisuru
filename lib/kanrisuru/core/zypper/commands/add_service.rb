@@ -8,14 +8,16 @@ module Kanrisuru
         zypper_global_opts(command, opts)
         command << 'addservice'
 
-        command.append_arg('--name', opts[:name])
+        name = ("'#{opts[:name]}'" if Kanrisuru::Util.present?(opts[:name]))
 
+        command.append_arg('--name', name)
         command.append_flag('--enable', opts[:enable])
         command.append_flag('--disable', opts[:disable])
         command.append_flag('--refresh', opts[:refresh])
         command.append_flag('--no-refresh', opts[:no_refresh])
 
-        command.append_array(opts[:services])
+        command << opts[:service]
+        command << opts[:alias]
 
         execute_shell(command)
 

@@ -8,8 +8,8 @@ module Kanrisuru
         zypper_global_opts(command, opts)
 
         command << 'modifyservice'
-        command.append_arg('--name', opts[:name])
 
+        command.append_arg('--name', opts[:name])
         command.append_flag('--enable', opts[:enable])
         command.append_flag('--disable', opts[:disable])
         command.append_flag('--refresh', opts[:refresh])
@@ -30,6 +30,8 @@ module Kanrisuru
 
           command.append_arg('--medium-type', opts[:medium_type])
         end
+
+        command << opts[:service] if Kanrisuru::Util.present?(opts[:service])
 
         execute_shell(command)
 

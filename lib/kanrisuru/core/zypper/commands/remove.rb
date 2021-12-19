@@ -15,8 +15,7 @@ module Kanrisuru
         zypper_package_type_opt(command, opts)
         zypper_solver_opts(command, opts)
 
-        packages = Kanrisuru::Util.array_join_string(opts[:packages], ' ')
-        command << packages
+        command.append_array(opts[:packages])
 
         execute_shell(command)
         Kanrisuru::Result.new(command)

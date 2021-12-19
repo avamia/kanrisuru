@@ -37,9 +37,7 @@ module Kanrisuru
 
         zypper_repos_opt(command, opts)
         zypper_package_type_opt(command, opts)
-
-        packages = Kanrisuru::Util.array_join_string(opts[:packages], ' ')
-        command << packages
+        command.append_array(opts[:packages])
 
         execute_shell(command)
 

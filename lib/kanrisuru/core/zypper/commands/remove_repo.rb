@@ -15,10 +15,10 @@ module Kanrisuru
         command.append_flag('--local', opts[:local])
         command.append_flag('--remote', opts[:remote])
 
-        if Kanrisuru::Util.present?(opts[:media_type])
-          raise ArgumentError, 'Invalid media type' unless ZYPPER_MEDIA_TYPES.include?(opts[:media_type])
+        if Kanrisuru::Util.present?(opts[:medium_type])
+          raise ArgumentError, 'Invalid media type' unless MEDIUM_TYPES.include?(opts[:medium_type])
 
-          command.append_arg('--media-type', opts[:media_type])
+          command.append_arg('--medium-type', opts[:medium_type])
         end
 
         command.append_array(opts[:repos])

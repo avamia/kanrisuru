@@ -13,6 +13,8 @@ module Kanrisuru
         command.append_flag('--no-build-deps', opts[:no_build_deps])
         command.append_flag('--download-only', opts[:download_only])
 
+        command.append_array(opts[:packages])
+
         execute_shell(command)
 
         Kanrisuru::Result.new(command)
