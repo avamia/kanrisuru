@@ -1,3 +1,6 @@
+## Kanrisuru 0.16.4 (December 25, 2021) ##
+*  Refactor `Kanrisuru::Fstab::Entry` and `Kanrisuru::Fstab::Options` classes into separate files.
+
 ## Kanrisuru 0.16.3 (December 25, 2021) ##
 *  Refactor `Kanrisuru::Mode::Permission` class into separate file.
 
