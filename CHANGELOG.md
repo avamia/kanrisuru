@@ -1,3 +1,6 @@
+## Kanrisuru 0.16.5 (December 25, 2021) ##
+*  Refactor `dmi_field_translate` to reduce complexity.
+
 ## Kanrisuru 0.16.4 (December 25, 2021) ##
 *  Refactor `Kanrisuru::Fstab::Entry` and `Kanrisuru::Fstab::Options` classes into separate files.
 
