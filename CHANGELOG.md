@@ -1,3 +1,6 @@
+## Kanrisuru 0.16.3 (December 25, 2021) ##
+*  Refactor `Kanrisuru::Mode::Permission` class into separate file.
+
 ## Kanrisuru 0.16.2 (December 19, 2021) ##
 *  Organize functional ip specs
 *  Log in realtime, debug output the stdout from the remote server, as opposed to waiting until after the command is done.
