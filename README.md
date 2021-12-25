@@ -1,8 +1,5 @@
-<p align='center'>
-  <img src="https://s3.us-east-2.amazonaws.com/kanrisuru.com/kanrisuru-banner-02.png" width="600" />
-</p>
-
-<p align="center">
+# Kanrisuru
+<p>
   <a href="https://rubygems.org/gems/kanrisuru">
     <img src="https://img.shields.io/gem/v/kanrisuru?style=flat-square" alt="Latest version" />
   </a> 
@@ -14,8 +11,6 @@
   <img src="https://img.shields.io/codacy/grade/9e839eb160bc445ea4e81b64cef22b27?style=flat-square" alt="Codacy grade" />
   <img src="https://img.shields.io/codeclimate/maintainability/avamia/kanrisuru?style=flat-square" alt="Code Climate maintainability" />
 </p>
-
-# Kanrisuru
 
 Kanrisuru (manage) helps you remotely control infrastructure using Ruby. This is done over SSH. I'm working on building up some basic functionality to help quickly provision, deploy and manage a single host or cluster of hosts.
 
