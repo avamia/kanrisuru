@@ -1,3 +1,6 @@
+## Kanrisuru 0.16.6 (December 26, 2021) ##
+*  Add `delete` to fstab class to delete an entry from the fstab.
+
 ## Kanrisuru 0.16.5 (December 25, 2021) ##
 *  Refactor `dmi_field_translate` to reduce complexity.
 

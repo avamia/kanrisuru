@@ -21,6 +21,12 @@ module Kanrisuru
         get_entry(device)
       end
 
+      def delete(device)
+        return false unless @entries.key?(device)
+
+        @entries.delete(device)
+      end
+
       def get_entry(device)
         result = @entries[device]
 
