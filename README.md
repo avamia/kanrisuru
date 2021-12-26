@@ -1,4 +1,5 @@
-# ![Kanrisuru](./logo/kanrisuru-logo-h.png "Kanrisuru")
+# ![Kanrisuru](./logo/kanrisuru-logo.png "Kanrisuru")
+
 <p>
   <a href="https://rubygems.org/gems/kanrisuru">
     <img src="https://img.shields.io/gem/v/kanrisuru?style=flat-square" alt="Latest version" />
@@ -98,7 +99,6 @@ HOSTS=ubuntu,debian,centos rspec
 ```
 
 This will run tests on the ubuntu, debian and centos instances.
-
 
 Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
