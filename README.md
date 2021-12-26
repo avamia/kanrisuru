@@ -1,4 +1,4 @@
-# Kanrisuru
+# ![Kanrisuru](./logo/kanrisuru-logo-h.png "Kanrisuru")
 <p>
   <a href="https://rubygems.org/gems/kanrisuru">
     <img src="https://img.shields.io/gem/v/kanrisuru?style=flat-square" alt="Latest version" />
