@@ -1,4 +1,6 @@
-# ![Kanrisuru](./logo/kanrisuru-logo.png "Kanrisuru")
+<h1>
+  <img src="./logo/kanrisuru-logo.png" alt="Kanrisuru" width="515" height="100%"/>  
+</h1>
 
 <p>
   <a href="https://rubygems.org/gems/kanrisuru">
