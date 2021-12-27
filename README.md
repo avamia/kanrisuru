@@ -15,7 +15,7 @@
   <img src="https://img.shields.io/codeclimate/maintainability/avamia/kanrisuru?style=flat-square" alt="Code Climate maintainability" />
 </p>
 
-Kanrisuru helps manage remote infrastructure with plain ruby objects. There's no DSL, no config files, no remote agents, and no overtly complex dependencies. The goal with Kanrisuru is to provide a clean objected oriented wrapper over the most commonly used linux commands, with a clean command interface, and with any usable output, present that as parsed structured data.
+Kanrisuru helps manage remote infrastructure with plain ruby objects. The goal with Kanrisuru is to provide a clean objected oriented wrapper over the most commonly used linux commands, with a clean command interface, and with any usable output, present that as parsed structured data. Kanrisuru doesn't use remote agents to run commands on hosts, nor does the project rely on a large complex set of depedencies.
 
 ## Getting Started
 
