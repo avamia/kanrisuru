@@ -68,7 +68,7 @@ RSpec.shared_examples 'transfer' do |os_name, host_json, spec_dir|
     end
 
     it 'uploads a dir' do
-      path = '../meta/'
+      path = '/home/ubuntu/kanrisuru/meta/'
       dest_path = "#{spec_dir}/meta"
 
       result = host.upload(path, dest_path, recursive: true)
