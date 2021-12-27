@@ -15,15 +15,11 @@
   <img src="https://img.shields.io/codeclimate/maintainability/avamia/kanrisuru?style=flat-square" alt="Code Climate maintainability" />
 </p>
 
-Kanrisuru (manage) helps you remotely control infrastructure using Ruby. This is done over SSH. I'm working on building up some basic functionality to help quickly provision, deploy and manage a single host or cluster of hosts.
+Kanrisuru helps manage remote infrastructure with plain ruby objects. There's no DSL, no config files, no remote agents, and no overtly complex dependencies. The goal with Kanrisuru is to provide a clean objected oriented wrapper over the most commonly used linux commands, with a clean command interface, and with any usable output, present that as parsed structured data.
 
-The idea behind this project is not to replace the numerous other projects to manage your infrastrucutre, however, I've found there usually meant to be a standalone project that have their own ecosystem. With Kanrisuru, you essentailly plug the library directly into your ruby project.
+## Getting Started
 
-At this point, Kanrisuru doesn't use a DSL, or offer idempotency, and while that may be added later on, the goal with this project is to expose helpful ways of managing your remote infrastructure with plain ruby in a procedural manner. The realization I had was when trying to deal with other open source projects, you either had to deal with a different language than ruby, use agents on remote hosts, or deal with a complex library that is meant to act in a declarative manner.
-
-If you want to dynamically interact with a host, eg: If you need to dynamically scale your infrastructure by continually monitoring specific stats from a centralized system, Kanrisuru can help you accomplish this.
-
-## Installation
+Kanrisuru requires ruby `2.5.0` at a minimum.
 
 Add this line to your application's Gemfile:
 
