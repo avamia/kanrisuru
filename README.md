@@ -40,7 +40,7 @@ $ gem install kanrisuru
 ```
 
 ## Documentation
-You can find the official documenation https://kanrisuru.com
+You can find the official documentation https://kanrisuru.com
 
 ## Usage Guide
 ### Host
