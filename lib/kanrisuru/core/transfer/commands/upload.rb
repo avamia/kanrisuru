@@ -12,16 +12,16 @@ module Kanrisuru
 
           ## Need to copy internal dir contents, not the tmp dir itself
           if opts[:recursive]
-            tmp_path = "#{tmp_path}/*"
-
             unless dir?(remote_path)
               mkdir(remote_path, silent: true)
             end
+
+            result = cp("#{tmp_path}/*", remote_path, recursive: true)
+          else
+            result = mv(tmp_path, remote_path)
           end
 
-          result = mv(tmp_path, remote_path)
-          raise 'Unable to move file to remote path' unless result.success?
-
+          raise "Unable to move file to remote path - #{result.command.raw_result}" unless result.success?
           stat(remote_path)
         ensure
           rm(tmp_path, force: true) if inode?(tmp_path)

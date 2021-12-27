@@ -1,3 +1,6 @@
+## Kanrisuru 0.16.9 (December 27, 2021) ##
+*  Use cp intead of mv for recurisive dir overwrite on upload command.
+
 ## Kanrisuru 0.16.8 (December 27, 2021) ##
 *  Fix return value of field for dmi parser.
 *  Fix upload command to copy contents of directory when transfering directories from tmp location.
