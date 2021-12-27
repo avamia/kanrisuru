@@ -1,3 +1,6 @@
+## Kanrisuru 0.16.7 (December 27, 2021) ##
+*  Update homepage to docs website.
+
 ## Kanrisuru 0.16.6 (December 26, 2021) ##
 *  Add `delete` to fstab class to delete an entry from the fstab.
 

@@ -8,7 +8,7 @@ Gem::Specification.new do |gem|
   gem.author      = 'Ryan Mammina'
   gem.email       = 'ryan@avamia.com'
   gem.license     = 'MIT'
-  gem.homepage    = 'https://github.com/avamia/kanrisuru'
+  gem.homepage    = 'https://kanrisuru.com'
   gem.summary     = 'Manage remote servers over ssh with ruby.'
   gem.description = <<-EOF
     Kanrisuru helps manage remote servers with objected oriented ruby.#{' '}

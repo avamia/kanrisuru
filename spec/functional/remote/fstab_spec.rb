@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe Kanrisuru::Remote::Cluster do
+RSpec.describe Kanrisuru::Remote::Fstab do
   before(:all) do
     StubNetwork.stub!
   end
