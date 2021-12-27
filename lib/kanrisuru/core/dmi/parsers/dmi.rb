@@ -94,40 +94,40 @@ module Kanrisuru
 
             def dmi_field_translate(struct, field)
               field = dmi_scrub_field(field)
-
               case struct.dmi_type
               when 'Memory Device'
                 case field
                 when 'size'
-                  'mem_size'
+                  field = 'mem_size'
                 end
               when 'System Slots'
                 case field
                 when 'length'
-                  'slot_length'
+                  field = 'slot_length'
                 end
               when 'OEM Strings'
                 case field
                 when /^string/
-                  'strings'
+                  field = 'strings'
                 end
               when 'Boot Integrity Services'
                 case field
                 when '16_bit_entry_point_address'
-                  'sixteen_bit_entry_point_address'
+                  field = 'sixteen_bit_entry_point_address'
                 when '32_bit_entry_point_address'
-                  'thirty_two_bit_entry_point_address'
+                  field = 'thirty_two_bit_entry_point_address'
                 end
-              else
-                field
               end
+
+              field
             end
 
             def dmi_scrub_field(field)
               field = field.downcase
               field = field.gsub(/\s/, '_')
               field = field.gsub('-', '_')
-              field.gsub(':', '')
+              field = field.gsub(':', '')
+              field
             end
 
             def dmi_type_to_struct(type)
