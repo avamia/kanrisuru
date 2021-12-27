@@ -1,3 +1,7 @@
+## Kanrisuru 0.16.8 (December 27, 2021) ##
+*  Fix return value of field for dmi parser.
+*  Fix upload command to copy contents of directory when transfering directories from tmp location.
+
 ## Kanrisuru 0.16.7 (December 27, 2021) ##
 *  Update homepage to docs website.
 
