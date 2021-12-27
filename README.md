@@ -39,48 +39,128 @@ Or install it yourself as:
 $ gem install kanrisuru
 ```
 
-## Usage
-Run basic commands you would have access to while running on a remote host or on a cluster of hosts.
+## Documentation
+You can find the official documenation https://kanrisuru.com
 
+## Usage Guide
 ### Host
-```ruby
-host = Kanrisuru::Remote::Host.new(host: 'host', username: 'ubuntu', keys: ['~/.ssh/id_rsa'])
-result = host.whoami   
-result.to_s						# => 'ubuntu'
+To connect with Kanrisuru to a remote host, provide the login credentials to instantiate a `Kanrisuru::Remote::Host` instance.
 
-result = host.pwd
-result.path 					# => /home/ubuntu 
+```ruby
+host = Kanrisuru::Remote::Host.new(
+  host: 'remote-host-name', 
+  username: 'ubuntu', 
+  keys: ['~/.ssh/id_rsa']
+)
 ```
 
-### Cluster 
+#### run a simple echo command on the remote host
 ```ruby
-cluster = Kanrisuru::Remote::Cluster.new({
-  host: 'host1', username: 'ubuntu', keys: ['~/.ssh/id_rsa']
-}, {
-  host: 'host2', username: 'alice', keys: ['~/.ssh/id_rsa']
-})
+host.env['VAR'] = 'world'
+result = host.echo('hello $VAR')
+result.success?
+true
 
-cluster.whoami   # => {host: 'host1', result: 'ubuntu'}, {host: 'host2', result: 'alice'}
-cluster.pwd      # => {host: 'host1', result: '/home/ubuntu'}, {host: 'host2', result: '/home/alice'}
+result.to_s
+'hello world'
+```
 
-cluster.each do |host|
-  host.pwd.path  # => /home/ubuntu
+#### build a custom command
+```ruby
+command = Kanrisuru::Command.new('wc')
+command << '/home/ubuntu/file1.txt'
+
+host.execute_shell(command)
+result = Kanrisuru::Result.new(command) do |cmd|
+  items = cmd.to_s.split
+  
+  struct = Kanrisuru::Core::File::FileCount.new
+  struct.lines = items[0]
+  struct.words = items[1]
+  struct.characters = items[2]
+  struct
 end
 ```
+The `Kanrisuru::Result` class will only run the parsing block if the command run on the remote host was succeful. The final line will be used to build the result object to be read easily. This instance will also dynamically add getter methods to read the underlying data struct for easier querying capabiltiies.
 
-### Host or Cluster with underlying command
 ```ruby
-host = Kanrisuru::Remote::Host.new(host: 'host1', username: 'ubuntu', keys: ['~/.ssh/id_rsa'])
+result.success?
+true
 
-command = Kanrisuru::Command.new('uname')
-host.execute(command)
+result.lines
+8
 
-command.success? #=> true
-command.to_s  #=> Linux
+result.characters
+150
 
-cluster = Kanrisuru::Remote::Cluster.new(host, {host: 'host2', username: 'alice', keys: ['~/.ssh/id_rsa']})
+result.words
+85
+```
 
-cluster.execute('uname') #=> {host: 'host1', result: 'Linux'}, {host: 'host2', result: 'Linux'}
+### Cluster
+Kanrisuru can manage multiple hosts at the same time with the `Kanrisuru::Remote::Cluster`.
+
+#### To instantiate a cluster, add 1 or more hosts:
+```ruby
+cluster = Kanrisuru::Remote::Cluster.new({
+  host: 'remote-host-1',
+  username: 'ubuntu',
+  keys: ['~/.ssh/remote_1_id_rsa']
+}, {
+  host: 'remote-host-2',
+  username: 'centos',
+  keys: ['~/.ssh/remote_2_id_rsa']
+}, {
+  host: 'remote-host-3',
+  username: 'opensuse',
+  keys: ['~/.ssh/remote_3_id_rsa']
+})
+```
+
+#### You can also add a host to a cluster that's already been created 
+```ruby
+host = Kanrisuru::Remote::Host.new(host: 'remote-host-4', username: 'rhel', keys: ['~/.ssh/remote_4_id_rsa'])
+
+cluster << host 
+```
+
+Kanrisuru at this point only runs commands sequentially. We plan on creating a parallel run mode in a future release.
+
+#### To run across all hosts with a single command, cluster will return a array of result hashes
+```ruby
+cluster.whoami
+[
+  {
+    :host => "remote-host-1",
+    :result => #<Kanrisuru::Result:0x640 @status=0 @data=#<struct Kanrisuru::Core::Path::UserName user="ubuntu"> @command=sudo -u ubuntu /bin/bash -c "whoami">
+  },
+  {
+    :host => "remote-host-2",
+    :result => #<Kanrisuru::Result:0x700 @status=0 @data=#<struct Kanrisuru::Core::Path::UserName user="centos"> @command=sudo -u centos /bin/bash -c "whoami">
+  },
+  {
+    :host => "remote-host-3",
+    :result => #<Kanrisuru::Result:0x760 @status=0 @data=#<struct Kanrisuru::Core::Path::UserName user="opensuse"> @command=sudo -u opensuse /bin/bash -c "whoami">
+  },
+  {
+    :host => "remote-host-4",
+    :result => #<Kanrisuru::Result:0x820 @status=0 @data=#<struct Kanrisuru::Core::Path::UserName user="rhel"> @command=sudo -u rhel /bin/bash -c "whoami">
+  }
+]
+```
+
+#### You can also access each host individually to run a command conditionaly within an iterable block
+```ruby
+cluster.each do |host|
+  case host.os.release
+  when 'ubuntu', 'debian'
+    host.apt('update')
+  when 'centos', 'redhat', 'fedora'
+    host.yum('update')
+  when 'opensuse_leap', 'sles'
+    host.zypper('update')
+  end
+end
 ```
 
 ## Development
