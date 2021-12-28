@@ -36,6 +36,7 @@ module Kanrisuru
 
         command.append_arg('-path', opts[:path])
         command.append_arg('-name', opts[:name])
+        command.append_arg('-iname', opts[:iname])
         command.append_arg('-gid', opts[:gid])
         command.append_arg('-uid', opts[:uid])
         command.append_arg('-user', opts[:user])
@@ -58,7 +59,8 @@ module Kanrisuru
           command.append_arg('-regextype', opts[:regex_type])
         end
 
-        command.append_arg('-regex', "'#{regex}'") if Kanrisuru::Util.present?(regex)
+        command.append_arg('-regex', "'#{opts[:regex]}'") if Kanrisuru::Util.present?(opts[:regex])
+        command.append_arg('-iregex', "'#{opts[:iregex]}'") if Kanrisuru::Util.present?(opts[:iregex])
 
         if size.instance_of?(String)
           regex = Regexp.new(/^([-+])?(\d+)([bcwkMG])*$/)

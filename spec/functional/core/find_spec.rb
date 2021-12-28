@@ -66,9 +66,21 @@ RSpec.describe Kanrisuru::Core::Find do
 
     expect_command(host.find(
                      paths: '/dev',
+                     iname: 'tty*'
+                   ),
+                   "find /dev -iname tty*")
+
+    expect_command(host.find(
+                     paths: '/dev',
                      regex: '/dev/tty[0-9]*'
                    ),
                    "find /dev -regex '/dev/tty[0-9]*'")
+
+    expect_command(host.find(
+                     paths: '/dev',
+                     iregex: '/dev/tty[0-9]*'
+                   ),
+                   "find /dev -iregex '/dev/tty[0-9]*'")
 
     expect_command(host.find(
                      paths: '/dev',

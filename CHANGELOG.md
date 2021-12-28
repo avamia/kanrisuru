@@ -1,3 +1,6 @@
+## Kanrisuru 0.16.10 (December 28, 2021) ##
+*  Add `iname` and `iregex` params to `find` command.
+
 ## Kanrisuru 0.16.9 (December 27, 2021) ##
 *  Use cp intead of mv for recurisive dir overwrite on upload command.
 
