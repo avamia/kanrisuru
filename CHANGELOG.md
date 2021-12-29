@@ -1,3 +1,7 @@
+## Kanrisuru 0.16.11 (December 28, 2021) ##
+*  Add functional and integration test cases for the `Kanrisuru::Remote::Cluster` class.
+*  Allow for passing a command instance into `execute` and `execute_shell` on a cluster instance, by deep copying a command object. 
+
 ## Kanrisuru 0.16.10 (December 28, 2021) ##
 *  Add `iname` and `iregex` params to `find` command.
 
