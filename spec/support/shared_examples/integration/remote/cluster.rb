@@ -2,8 +2,24 @@
 
 require 'spec_helper'
 
-RSpec.shared_examples 'cluster' do |os_name, _host_json, _spec_dir|
+RSpec.shared_examples 'cluster' do |os_name, host_json, spec_dir|
   context "with #{os_name}" do
+    let(:host1) do
+      Kanrisuru::Remote::Host.new(
+        host: host_json['hostname'],
+        username: host_json['username'],
+        keys: [host_json['ssh_key']]
+      )
+    end
+
+    let(:host2) do
+      Kanrisuru::Remote::Host.new(
+        host: 'localhost',
+        username: 'ubuntu',
+        keys: ['~/.ssh/id_rsa']
+      )
+    end
+
     it 'gets hostname for cluster' do
       cluster = described_class.new({
                                       host: 'localhost',
@@ -40,6 +56,15 @@ RSpec.shared_examples 'cluster' do |os_name, _host_json, _spec_dir|
                                      ])
 
       cluster.disconnect
+    end
+
+    it 'disconnects all hosts' do
+      cluster = described_class.new(host1, host2)
+      cluster.disconnect
+
+      cluster.each do |host|
+        expect(host.ssh.closed).to be_truthy
+      end
     end
   end
 end

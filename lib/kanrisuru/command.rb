@@ -7,6 +7,7 @@ module Kanrisuru
 
     def initialize(command)
       @valid_exit_codes = [0]
+
       @raw_command = command
       @raw_result = []
     end

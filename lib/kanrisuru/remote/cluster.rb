@@ -32,7 +32,7 @@ module Kanrisuru
       def execute(command)
         @hosts.map do |host_addr, host|
           ## Need to evaluate each host independently for the command.
-          cmd = Kanrisuru::Command.new(command)
+          cmd = create_command(command)
 
           { host: host_addr, result: host.execute(cmd) }
         end
@@ -41,7 +41,7 @@ module Kanrisuru
       def execute_shell(command)
         @hosts.map do |host_addr, host|
           ## Need to evaluate each host independently for the command.
-          cmd = Kanrisuru::Command.new(command)
+          cmd = create_command(command)
 
           { host: host_addr, result: host.execute_shell(cmd) }
         end
@@ -82,6 +82,17 @@ module Kanrisuru
       end
 
       private
+
+      def create_command(command)
+        case command
+        when String
+          Kanrisuru::Command.new(command)
+        when Kanrisuru::Command
+          command.clone
+        else
+          raise ArgumentError, 'Invalid command type'
+        end
+      end
 
       def map_host_results(action)
         @hosts.map do |host_addr, host|
