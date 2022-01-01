@@ -1,3 +1,7 @@
+## Kanrisuru 0.16.12 (January 01, 2022) ## 
+*  Update date ranges for 2022 on license files.
+*  Add unit test case for `Kanrisuru::Logger`.
+
 ## Kanrisuru 0.16.11 (December 28, 2021) ##
 *  Add functional and integration test cases for the `Kanrisuru::Remote::Cluster` class.
 *  Allow for passing a command instance into `execute` and `execute_shell` on a cluster instance, by deep copying a command object. 
