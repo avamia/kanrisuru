@@ -1,3 +1,6 @@
+## Kanrisuru 0.16.13 (January 01, 2022) ##
+*  Add `non_unique` and `system` opts to `create_group` command
+
 ## Kanrisuru 0.16.12 (January 01, 2022) ## 
 *  Update date ranges for 2022 on license files.
 *  Add unit test case for `Kanrisuru::Logger`.

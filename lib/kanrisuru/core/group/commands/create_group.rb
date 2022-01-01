@@ -8,6 +8,8 @@ module Kanrisuru
 
         command = Kanrisuru::Command.new("groupadd #{group}")
         command.append_arg('-g', gid)
+        command.append_flag('-o', opts[:non_unique])
+        command.append_flag('-r', opts[:system])
 
         execute_shell(command)
 
