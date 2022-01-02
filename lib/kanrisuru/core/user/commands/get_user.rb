@@ -8,11 +8,15 @@ module Kanrisuru
         execute_shell(command)
 
         Kanrisuru::Result.new(command) do |cmd|
-          ## Get user id
-          result = get_uid(user)
-          break if result.failure?
-
-          uid = result.to_i
+          if Kanrisuru::Util.numeric?(user)
+            uid = user.to_i
+            user = Parser::User.parse(cmd) 
+          else
+            ## Get user id
+            result = get_uid(user)
+            break if result.failure?
+            uid = result.to_i
+          end
 
           ## Get all groups for the user, with gid and group name
           array = Parser::Groups.parse(cmd)
@@ -24,12 +28,12 @@ module Kanrisuru
           end
 
           ## Get home / shell path information
-          cmd = Kanrisuru::Command.new("getent passwd #{user}")
-          cmd | "awk -F: '{print $6, $7}'"
+          command2 = Kanrisuru::Command.new("getent passwd #{user}")
+          command2 | "awk -F: '{print $6, $7}'"
 
-          execute(cmd)
+          execute(command2)
 
-          result = Kanrisuru::Result.new(cmd) do |cmd2|
+          result = Kanrisuru::Result.new(command2) do |cmd2|
             Parser::Getent.parse(cmd2)
           end
 
