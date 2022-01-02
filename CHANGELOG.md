@@ -1,3 +1,6 @@
+## Kanrisuru 0.16.14 (January 02, 2022) ##
+*  Fix `get_user` command by parsing output to get user name if uid is passed in. 
+
 ## Kanrisuru 0.16.13 (January 01, 2022) ##
 *  Add `non_unique` and `system` opts to `create_group` command
 
