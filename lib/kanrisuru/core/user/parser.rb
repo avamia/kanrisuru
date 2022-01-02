@@ -2,3 +2,4 @@
 
 require_relative 'parsers/getent'
 require_relative 'parsers/groups'
+require_relative 'parsers/user'

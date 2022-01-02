@@ -35,8 +35,22 @@ RSpec.shared_examples 'user' do |os_name, host_json, _spec_dir|
       expect(host.get_uid('asdf').to_i).to eq(nil)
     end
 
-    it 'gets a user details' do
+    it 'gets a user details by name' do
       result = host.get_user(host_json['username'])
+      expect(result.uid).to eq(1000)
+      expect(result.name).to eq(host_json['username'])
+      expect(result.home.path).to eq(host_json['home'])
+
+      case os_name
+      when 'opensuse', 'sles'
+        expect(result.groups[0]).to have_attributes(gid: 100, name: 'users')
+      else
+        expect(result.groups[0]).to have_attributes(gid: 1000, name: host_json['username'])
+      end
+    end
+
+    it 'gets a user details by uid' do
+      result = host.get_user(1000)
       expect(result.uid).to eq(1000)
       expect(result.name).to eq(host_json['username'])
       expect(result.home.path).to eq(host_json['home'])
