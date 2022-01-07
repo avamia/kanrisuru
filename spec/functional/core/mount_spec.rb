@@ -95,6 +95,8 @@ RSpec.describe Kanrisuru::Core::Mount do
 
   it 'prepares umount command' do
     expect_command(host.umount, 'umount')
+    expect_command(host.umount(recursive: true, all_targets: true), 'umount --all-targets --recursive')
+
     expect_command(host.umount(
                      fake: true,
                      no_canonicalize: true,
