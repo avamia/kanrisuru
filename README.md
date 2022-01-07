@@ -1,5 +1,5 @@
 <h1>
-  <img src="./logo/kanrisuru-logo.png" alt="Kanrisuru" width="400" height="100%"/>  
+  <img src="https://s3.us-east-2.amazonaws.com/kanrisuru.com/kanrisuru-logo.png" alt="Kanrisuru" width="400" height="100%"/>  
 </h1>
 
 <p>
