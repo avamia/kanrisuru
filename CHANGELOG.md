@@ -1,3 +1,6 @@
+## Kanrisuru 0.16.15 (January 07, 2022) ##
+*  Add recursive and all_targets opts to `umount` command.
+
 ## Kanrisuru 0.16.14 (January 02, 2022) ##
 *  Fix `get_user` command by parsing output to get user name if uid is passed in. 
 
