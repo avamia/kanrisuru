@@ -85,9 +85,9 @@ RSpec.describe Kanrisuru::Remote::Cluster do
     expect(command.prepared_command).to eq('sudo -u root /bin/bash -c "ls"')
     expect(cloned_command.prepared_command).to eq('sudo -u root /bin/bash -c "ls"')
 
-    expect {
+    expect do
       cluster.send(:create_command, 1)
-    }.to raise_error(ArgumentError)
+    end.to raise_error(ArgumentError)
   end
 
   it 'runs execute for a command on a cluster' do
@@ -178,8 +178,8 @@ RSpec.describe Kanrisuru::Remote::Cluster do
 
     cluster.cd('/etc')
     cluster.each do |host|
-      expect(host.instance_variable_get(:@current_dir)).to eq('/etc') 
-    end 
+      expect(host.instance_variable_get(:@current_dir)).to eq('/etc')
+    end
 
     StubNetwork.unstub_command!(:pwd)
     StubNetwork.unstub_command!(:realpath)
@@ -198,18 +198,18 @@ RSpec.describe Kanrisuru::Remote::Cluster do
 
     cluster.chdir('/etc')
     cluster.each do |host|
-      expect(host.instance_variable_get(:@current_dir)).to eq('/etc') 
-    end 
+      expect(host.instance_variable_get(:@current_dir)).to eq('/etc')
+    end
 
     StubNetwork.unstub_command!(:pwd)
     StubNetwork.unstub_command!(:realpath)
   end
-  
+
   it 'fails to remove a host from a cluster' do
     cluster = described_class.new(host1, host2)
 
-    expect {
+    expect do
       cluster.delete(1)
-    }.to raise_error(ArgumentError)
+    end.to raise_error(ArgumentError)
   end
 end

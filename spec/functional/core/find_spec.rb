@@ -68,7 +68,7 @@ RSpec.describe Kanrisuru::Core::Find do
                      paths: '/dev',
                      iname: 'tty*'
                    ),
-                   "find /dev -iname tty*")
+                   'find /dev -iname tty*')
 
     expect_command(host.find(
                      paths: '/dev',

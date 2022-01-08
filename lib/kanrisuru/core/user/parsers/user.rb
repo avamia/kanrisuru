@@ -8,7 +8,7 @@ module Kanrisuru
           def self.parse(command)
             string = command.to_s
             string = string.split[0]
-            
+
             matches = string.match(/uid=\d+\((.+)\)/)
             return if !matches || !matches.captures
 

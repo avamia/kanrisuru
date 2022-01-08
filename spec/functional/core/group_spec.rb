@@ -22,11 +22,9 @@ RSpec.describe Kanrisuru::Core::Group do
   it 'prepares create_group command' do
     expect_command(host.create_group('admin'), 'groupadd admin')
     expect_command(host.create_group('admin',
-        gid: 9000, 
-        non_unique: true
-      ), 
-      'groupadd admin -g 9000 -o'
-    )
+                                     gid: 9000,
+                                     non_unique: true),
+                   'groupadd admin -g 9000 -o')
 
     expect_command(host.create_group('admin', gid: 12, system: true), 'groupadd admin -g 12 -r')
   end

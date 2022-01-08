@@ -10,11 +10,12 @@ module Kanrisuru
         Kanrisuru::Result.new(command) do |cmd|
           if Kanrisuru::Util.numeric?(user)
             uid = user.to_i
-            user = Parser::User.parse(cmd) 
+            user = Parser::User.parse(cmd)
           else
             ## Get user id
             result = get_uid(user)
             break if result.failure?
+
             uid = result.to_i
           end
 

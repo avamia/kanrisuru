@@ -126,8 +126,7 @@ module Kanrisuru
               field = field.downcase
               field = field.gsub(/\s/, '_')
               field = field.gsub('-', '_')
-              field = field.gsub(':', '')
-              field
+              field.gsub(':', '')
             end
 
             def dmi_type_to_struct(type)
