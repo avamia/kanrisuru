@@ -1,3 +1,6 @@
+## Kanrisuru 0.16.16 (January 08, 2022) ##
+*  Fix issue with `download` command when downloading directories from remote server.
+
 ## Kanrisuru 0.16.15 (January 07, 2022) ##
 *  Add recursive and all_targets opts to `umount` command.
 
