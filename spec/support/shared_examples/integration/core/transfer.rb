@@ -34,6 +34,7 @@ RSpec.shared_examples 'transfer' do |os_name, host_json, spec_dir|
         keys: [host_json['ssh_key']]
       )
 
+      FileUtils.rm_rf("../test-output-#{os_name}")
       host.rmdir(spec_dir)
       host.disconnect
     end
@@ -80,7 +81,7 @@ RSpec.shared_examples 'transfer' do |os_name, host_json, spec_dir|
       src_path = '/etc/hosts'
 
       result = host.download(src_path, path)
-      expect(result).to eq(path)
+      expect(result).to be_truthy
       FileUtils.rm(path)
     end
 
@@ -91,6 +92,22 @@ RSpec.shared_examples 'transfer' do |os_name, host_json, spec_dir|
       expect(result).to be_instance_of(String)
       lines = result.split("\n")
       expect(lines.length).to be >= 1
+    end
+
+    it 'downloads a dir' do
+      remote_path = '/var/log'
+      local_path  = "../test-output-#{os_name}"
+      FileUtils.mkdir(local_path)
+
+      host.su('root')
+      result = host.download(remote_path, local_path, recursive: true)
+      expect(result).not_to be nil
+
+      paths = host.ls(path: '/var/log').map(&:path)
+      Dir.glob("#{local_path}/log/*").each do |file|
+        name = File.basename(file)
+        expect(paths).to include(name)
+      end
     end
 
     it 'wgets url' do
