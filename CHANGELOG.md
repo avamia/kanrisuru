@@ -1,3 +1,7 @@
+## Kanrisuru 0.16.17 (January 10, 2022) ##
+*  Add additional options to `wget` command.
+*  Rename some options to better reflect options from wget program.
+
 ## Kanrisuru 0.16.16 (January 08, 2022) ##
 *  Fix issue with `download` command when downloading directories from remote server.
 

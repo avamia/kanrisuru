@@ -105,7 +105,12 @@ module Kanrisuru
         end
 
         command.append_arg('--post-file', opts[:post_file])
+        command.append_arg('--method', opts[:method])
+
         command.append_flag('--content-disposition', opts[:content_disposition])
+        command.append_flag('--content-on-error', opts[:content_on_error])
+        command.append_flag('--trust-server-names', opts[:trust_server_names])
+        command.append_flag('--retry-on-host-error', opts[:retry_on_host_error])
 
         ## SSL / TLS
         if Kanrisuru::Util.present?(opts[:secure_protocol])
@@ -123,18 +128,24 @@ module Kanrisuru
         command.append_arg('--ca-directory', opts[:ca_directory])
         command.append_arg('--random-file', opts[:random_file])
         command.append_arg('--egd-file', opts[:egd_file])
+        command.append_flag('--https-only', opts[:https_only])
 
-        ## FTP
+        ## FTP / FTPS
         command.append_arg('--ftp-user', opts[:ftp_user])
         command.append_arg('--ftp-password', opts[:ftp_password])
         command.append_flag('--no-remove-listing', opts[:no_remove_listing])
         command.append_flag('--no-glob', opts[:no_glob])
         command.append_flag('--no-passive-ftp', opts[:no_passive_ftp])
         command.append_flag('--retr-symlinks', opts[:retr_symlinks])
+        command.append_flag('--preserve-permissions', opts[:preserve_permissions])
+        command.append_flag('--ftps-implicit', opts[:ftps_implicit])
+        command.append_flag('--no-ftps-resume-ssl', opts[:no_ftps_resume_ssl])
+        command.append_flag('--ftps-clear-data-connection', opts[:ftps_clear_data_connection])
+        command.append_flag('--ftps-fallback-to-ftp', opts[:ftps_fallback_to_ftp])
 
         ## Recursive Retrieval
         command.append_flag('--recursive', opts[:recursive])
-        command.append_arg('--level', opts[:depth])
+        command.append_arg('--level', opts[:level])
         command.append_flag('--delete-after', opts[:delete_after])
         command.append_flag('--convert-links', opts[:convert_links])
         command.append_flag('--backup-converted', opts[:backup_converted])
@@ -143,10 +154,13 @@ module Kanrisuru
         command.append_flag('--strict-comments', opts[:strict_comments])
 
         ## Recursive Accept/Reject
-        command.append_arg('--accept', Kanrisuru::Util.array_join_string(opts[:accept_list]))
-        command.append_arg('--reject', Kanrisuru::Util.array_join_string(opts[:reject_list]))
-        command.append_arg('--domains', Kanrisuru::Util.array_join_string(opts[:domain_list]))
-        command.append_arg('--exclude-domains', Kanrisuru::Util.array_join_string(opts[:exclude_domain_list]))
+        command.append_arg('--accept', Kanrisuru::Util.array_join_string(opts[:accept]))
+        command.append_arg('--reject', Kanrisuru::Util.array_join_string(opts[:reject]))
+        command.append_arg('--accept-regex', opts[:accept_regex])
+        command.append_arg('--reject-regex', opts[:reject_regex])
+        command.append_arg('--regex_type', opts[:regex_type])
+        command.append_arg('--domains', Kanrisuru::Util.array_join_string(opts[:domains]))
+        command.append_arg('--exclude-domains', Kanrisuru::Util.array_join_string(opts[:exclude_domains]))
         command.append_arg('--follow-tags', Kanrisuru::Util.array_join_string(opts[:follow_tags]))
         command.append_arg('--ignore-tags', Kanrisuru::Util.array_join_string(opts[:ignore_tags]))
         command.append_arg('--include-directories', Kanrisuru::Util.array_join_string(opts[:include_directories]))

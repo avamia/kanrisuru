@@ -97,8 +97,11 @@ RSpec.describe Kanrisuru::Core::Stat do
                              },
                              content_disposition: true,
                              secure_protocol: 'SSLv3',
+                             content_on_error: true,
+                             trust_server_names: true,
+                             retry_on_host_error: true,
                              no_check_certificate: true),
-                   "wget --post-data url=https%3A%2F%2Fexample.com%3Fparam%3D123 --content-disposition --secure-protocol SSLv3 --no-check-certificate #{url}")
+                   "wget --post-data url=https%3A%2F%2Fexample.com%3Fparam%3D123 --content-disposition --content-on-error --trust-server-names --retry-on-host-error --secure-protocol SSLv3 --no-check-certificate #{url}")
 
     expect do
       host.wget(url, secure_protocol: 'SSL')
@@ -115,27 +118,37 @@ RSpec.describe Kanrisuru::Core::Stat do
 
     expect_command(host.wget(url,
                              certificate: '~/cert.pem',
+                             https_only: true,
                              certificate_type: 'PEM',
                              private_key: '~/key.pem',
                              private_key_type: 'PEM',
                              ca_certificate: '~/ca.pem',
                              random_file: '~/random'),
-                   "wget --certificate ~/cert.pem --certificate-type PEM --private-key ~/key.pem --private-key-type PEM --ca-certificate ~/ca.pem --random-file ~/random #{url}")
+                   "wget --certificate ~/cert.pem --certificate-type PEM --private-key ~/key.pem --private-key-type PEM --ca-certificate ~/ca.pem --random-file ~/random --https-only #{url}")
 
     ## FTP
-    expect_command(host.wget(url,
+    expect_command(host.wget("ftp.example.com",
                              ftp_user: 'admin',
                              ftp_password: '12345678',
                              no_remove_listing: true,
                              no_glob: true,
                              no_passive_ftp: true,
-                             retr_symlinks: true),
-                   "wget --ftp-user admin --ftp-password 12345678 --no-remove-listing --no-glob --no-passive-ftp --retr-symlinks #{url}")
+                             retr_symlinks: true,
+                             preserve_permissions: true),
+                   "wget --ftp-user admin --ftp-password 12345678 --no-remove-listing --no-glob --no-passive-ftp --retr-symlinks --preserve-permissions ftp.example.com")
+
+    expect_command(host.wget("ftps.example.com",
+                             ftp_user: 'admin',
+                             ftp_password: '12345678',
+                             ftps_implicit: true,
+                             no_ftps_resume_ssl: true,
+                             ftps_fallback_to_ftp: true,
+                             ftps_clear_data_connection: true), "wget --ftp-user admin --ftp-password 12345678 --ftps-implicit --no-ftps-resume-ssl --ftps-clear-data-connection --ftps-fallback-to-ftp ftps.example.com")
 
     ## Recursive Retrieval
     expect_command(host.wget(url,
                              recursive: true,
-                             depth: 10,
+                             level: 10,
                              delete_after: true,
                              convert_links: true,
                              backup_converted: true,
@@ -146,10 +159,13 @@ RSpec.describe Kanrisuru::Core::Stat do
 
     ## Recursive Accept/Reject
     expect_command(host.wget(url,
-                             accept_list: ['.txt', '.html'],
-                             reject_list: ['.csv'],
-                             domain_list: ['example.com'],
-                             exclude_domain_list: ['hackernews.com'],
+                             accept: ['.txt', '.html'],
+                             reject: ['.csv'],
+                             accept_regex: 'https://*',
+                             regect_regex: 'ftp*',
+                             regex_type: 'posix',
+                             domains: ['example.com'],
+                             exclude_domains: ['hackernews.com'],
                              follow_tags: %w[a div span],
                              ignore_tags: %w[area link],
                              include_directories: ['/gems'],
@@ -159,6 +175,6 @@ RSpec.describe Kanrisuru::Core::Stat do
                              span_hosts: true,
                              relative: true,
                              no_parent: true),
-                   "wget --accept .txt,.html --reject .csv --domains example.com --exclude-domains hackernews.com --follow-tags a,div,span --ignore-tags area,link --include-directories /gems --exclude-directories /releases --follow-ftp --ignore-case --span-hosts --relative --no-parent #{url}")
+                   "wget --accept .txt,.html --reject .csv --accept-regex https://* --regex_type posix --domains example.com --exclude-domains hackernews.com --follow-tags a,div,span --ignore-tags area,link --include-directories /gems --exclude-directories /releases --follow-ftp --ignore-case --span-hosts --relative --no-parent #{url}")
   end
 end
