@@ -1,3 +1,6 @@
+## Kanrisuru 0.17.0 (January 20, 2022) ##
+* Add `nproc` command with test cases.
+
 ## Kanrisuru 0.16.17 (January 10, 2022) ##
 *  Add additional options to `wget` command.
 *  Rename some options to better reflect options from wget program.

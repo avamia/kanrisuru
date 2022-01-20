@@ -16,7 +16,7 @@ module Kanrisuru
 
         command.append_flag('-l', opts[:lazy])
         command.append_flag('-f', opts[:force])
-        
+
         command.append_flag('--all-targets', opts[:all_targets])
         command.append_flag('--recursive', opts[:recursive])
 

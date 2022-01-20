@@ -108,6 +108,12 @@ RSpec.shared_examples 'system' do |os_name, host_json, _spec_dir|
       expect(result).to be_success
     end
 
+    it 'gets nproc count' do
+      result = host.nproc
+      expect(result).to be_success
+      expect(result.to_i).to be > 0
+    end
+
     it 'gets process details' do
       result = host.ps
 

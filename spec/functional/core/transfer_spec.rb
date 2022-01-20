@@ -127,7 +127,7 @@ RSpec.describe Kanrisuru::Core::Stat do
                    "wget --certificate ~/cert.pem --certificate-type PEM --private-key ~/key.pem --private-key-type PEM --ca-certificate ~/ca.pem --random-file ~/random --https-only #{url}")
 
     ## FTP
-    expect_command(host.wget("ftp.example.com",
+    expect_command(host.wget('ftp.example.com',
                              ftp_user: 'admin',
                              ftp_password: '12345678',
                              no_remove_listing: true,
@@ -135,15 +135,15 @@ RSpec.describe Kanrisuru::Core::Stat do
                              no_passive_ftp: true,
                              retr_symlinks: true,
                              preserve_permissions: true),
-                   "wget --ftp-user admin --ftp-password 12345678 --no-remove-listing --no-glob --no-passive-ftp --retr-symlinks --preserve-permissions ftp.example.com")
+                   'wget --ftp-user admin --ftp-password 12345678 --no-remove-listing --no-glob --no-passive-ftp --retr-symlinks --preserve-permissions ftp.example.com')
 
-    expect_command(host.wget("ftps.example.com",
+    expect_command(host.wget('ftps.example.com',
                              ftp_user: 'admin',
                              ftp_password: '12345678',
                              ftps_implicit: true,
                              no_ftps_resume_ssl: true,
                              ftps_fallback_to_ftp: true,
-                             ftps_clear_data_connection: true), "wget --ftp-user admin --ftp-password 12345678 --ftps-implicit --no-ftps-resume-ssl --ftps-clear-data-connection --ftps-fallback-to-ftp ftps.example.com")
+                             ftps_clear_data_connection: true), 'wget --ftp-user admin --ftp-password 12345678 --ftps-implicit --no-ftps-resume-ssl --ftps-clear-data-connection --ftps-fallback-to-ftp ftps.example.com')
 
     ## Recursive Retrieval
     expect_command(host.wget(url,

@@ -124,6 +124,11 @@ RSpec.describe Kanrisuru::Core::System do
     end.to raise_error(ArgumentError)
   end
 
+  it 'prepares nproc command' do
+    expect_command(host.nproc, 'nproc')
+    expect_command(host.nproc(all: true), 'nproc --all')
+  end
+
   it 'prepares uptime command' do
     expect_command(host.uptime, 'cat /proc/uptime')
   end
