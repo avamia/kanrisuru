@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'parsers/kernel_statistics'
+require_relative 'parsers/history'
 require_relative 'parsers/last'
 require_relative 'parsers/load_average'
 require_relative 'parsers/load_env'

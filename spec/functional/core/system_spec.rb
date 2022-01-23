@@ -43,6 +43,20 @@ RSpec.describe Kanrisuru::Core::System do
     end.to raise_error(ArgumentError)
   end
 
+  it 'prepares history command' do
+    expect_command(host.history, 'HISTFILE=~/.bash_history; history -r; history')
+    expect_command(host.history(histfile: '~/.history', n: 100),
+                   'HISTFILE=~/.history; history -r; history 100')
+    expect_command(host.history(clear: true),
+                   'HISTFILE=~/.bash_history; history -r; history -c')
+    expect_command(host.history(delete: 5),
+                   'HISTFILE=~/.bash_history; history -r; history -d 5')
+    expect_command(host.history(delete: [23, 30]),
+                   'HISTFILE=~/.bash_history; history -r; history -d 23 30')
+    expect_command(host.history(delete: '-7'),
+                   'HISTFILE=~/.bash_history; history -r; history -d -7')
+  end
+
   it 'prepares kernel_statistics command' do
     expect_command(host.kernel_statistics, 'cat /proc/stat')
   end

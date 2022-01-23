@@ -50,6 +50,12 @@ RSpec.shared_examples 'system' do |os_name, host_json, _spec_dir|
       expect(result.days).to be >= 0
     end
 
+    it 'gets history' do
+      result = host.history
+      expect(result).to be_success
+      expect(result.data).to be_instance_of(Array)
+    end
+
     it 'kills pids' do
       command = 'sleep 100000 > /dev/null 2>&1 &'
 

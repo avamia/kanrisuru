@@ -2,6 +2,7 @@
 
 require_relative 'commands/cpu_info'
 require_relative 'commands/free'
+require_relative 'commands/history'
 require_relative 'commands/kernel_statistics'
 require_relative 'commands/kill'
 require_relative 'commands/last'

@@ -25,6 +25,7 @@ RSpec.describe Kanrisuru::Core::System do
     expect(host).to respond_to(:lscpu)
     expect(host).to respond_to(:load_average)
     expect(host).to respond_to(:free)
+    expect(host).to respond_to(:history)
     expect(host).to respond_to(:ps)
     expect(host).to respond_to(:kill)
     expect(host).to respond_to(:kernel_statistics)
