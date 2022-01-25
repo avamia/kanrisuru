@@ -93,6 +93,11 @@ RSpec.describe Kanrisuru::Core::System do
     expect_command(host.lsof, 'lsof -F pcuftDsin')
   end
 
+  it 'prepares sysctl command' do
+    expect_command(host.sysctl, 'sysctl --all')
+    expect_command(host.sysctl('net.ipv4.conf.all'), 'sysctl net.ipv4.conf.all')
+  end
+
   it 'prepares poweroff command' do
     expect_command(host.poweroff, 'shutdown')
     expect_command(host.poweroff(cancel: true), 'shutdown -c')

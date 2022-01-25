@@ -14,6 +14,7 @@ require_relative 'commands/nproc'
 require_relative 'commands/poweroff'
 require_relative 'commands/ps'
 require_relative 'commands/reboot'
+require_relative 'commands/sysctl'
 require_relative 'commands/uptime'
 require_relative 'commands/w'
 

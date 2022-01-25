@@ -1,8 +1,11 @@
+## Kanrisuru 0.19.0 (January 25, 2022) ##
+*  Add readonly version of `sysctl` command with test cases.
+
 ## Kanrisuru 0.18.0 (January 23, 2022) ##
-* Add `history` command with test cases.
+*  Add `history` command with test cases.
 
 ## Kanrisuru 0.17.0 (January 20, 2022) ##
-* Add `nproc` command with test cases.
+*  Add `nproc` command with test cases.
 
 ## Kanrisuru 0.16.17 (January 10, 2022) ##
 *  Add additional options to `wget` command.

@@ -33,6 +33,7 @@ RSpec.describe Kanrisuru::Core::System do
     expect(host).to respond_to(:lsof)
     expect(host).to respond_to(:nproc)
     expect(host).to respond_to(:last)
+    expect(host).to respond_to(:sysctl)
     expect(host).to respond_to(:uptime)
     expect(host).to respond_to(:w)
     expect(host).to respond_to(:who)

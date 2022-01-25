@@ -100,6 +100,20 @@ RSpec.shared_examples 'system' do |os_name, host_json, _spec_dir|
       expect(result.cpus.length).to eq(host.cpu.cores)
     end
 
+    it 'gets kernel sysctl info' do
+      result = host.sysctl
+      expect(result).to be_success
+      expect(result).to respond_to :net 
+      expect(result).to respond_to :kernel
+      expect(result).to respond_to :dev
+
+      result = host.sysctl('net.ipv4.conf')
+      expect(result).to be_success
+      expect(result).to respond_to :net
+      expect(result.net).to respond_to :ipv4
+      expect(result.net.ipv4).to respond_to :conf
+    end
+
     it 'gets login details' do
       host.su('root')
 
