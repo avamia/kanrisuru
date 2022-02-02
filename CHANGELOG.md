@@ -1,3 +1,6 @@
+## Kanrisuru 0.19.1 (February 02, 2022) ##
+*  Fix `load_env` command with parsing output, use `to_a` for cleaner newline parsing.
+
 ## Kanrisuru 0.19.0 (January 25, 2022) ##
 *  Add readonly version of `sysctl` command with test cases.
 

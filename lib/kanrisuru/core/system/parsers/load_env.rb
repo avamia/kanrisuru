@@ -6,12 +6,11 @@ module Kanrisuru
       module Parser
         class LoadEnv
           def self.parse(command)
-            string = command.to_s
+            rows = command.to_a
             hash = {}
 
-            rows = string.split("\n")
             rows.each do |row|
-              key, value = row.split('=', 2)
+              key, value = row.split('=')
               hash[key] = value
             end
 
