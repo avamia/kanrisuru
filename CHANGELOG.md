@@ -1,3 +1,6 @@
+## Kanrisuru 0.19.2 (February 02, 2022) ##
+*  Add `to_h` to result class.
+
 ## Kanrisuru 0.19.1 (February 02, 2022) ##
 *  Fix `load_env` command with parsing output, use `to_a` for cleaner newline parsing.
 

@@ -35,6 +35,10 @@ module Kanrisuru
       @data.to_s
     end
 
+    def to_h
+      @data.to_h
+    end
+
     def to_a
       @data.instance_of?(Array) ? @data : [@data]
     end
