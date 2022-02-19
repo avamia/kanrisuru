@@ -1,3 +1,6 @@
+## Kanrisuru 0.19.4 (February 19, 2022) ##
+*  Add additional family types to `ss` command.
+
 ## Kanrisuru 0.19.3 (February 19, 2022) ##
 *  Fix bug in `ss` command with passing opts to parser.
 

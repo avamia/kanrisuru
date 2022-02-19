@@ -22,7 +22,7 @@ module Kanrisuru
       }.freeze
 
       NETWORK_FAMILIES = %w[
-        unix inet inet6 link netlink
+        unix inet inet6 link netlink vsock xdp
       ].freeze
     end
   end

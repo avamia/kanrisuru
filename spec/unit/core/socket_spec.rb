@@ -42,7 +42,7 @@ RSpec.describe Kanrisuru::Core::Socket do
     )
     expect(Kanrisuru::Core::Socket::NETWORK_FAMILIES).to eq(
       %w[
-        unix inet inet6 link netlink
+        unix inet inet6 link netlink vsock xdp
       ]
     )
     expect(Kanrisuru::Core::Socket::OTHER_STATES).to eq(
