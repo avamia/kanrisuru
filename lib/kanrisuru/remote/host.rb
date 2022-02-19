@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'net/ssh'
+require 'net/ssh/gateway'
 require 'net/scp'
 require 'net/ping'
 
@@ -12,6 +13,8 @@ module Kanrisuru
       attr_reader :host, :username, :password, :port, :keys
 
       def initialize(opts = {})
+        @opts = opts
+
         @host = opts[:host]
         @username = opts[:username]
         @login_user = @username
@@ -84,7 +87,11 @@ module Kanrisuru
       end
 
       def ssh
-        @ssh ||= Net::SSH.start(@host, @username, keys: @keys, password: @password, port: @port)
+        @ssh ||= init_ssh
+      end
+
+      def proxy
+        @proxy ||= init_proxy
       end
 
       def ping?
@@ -110,6 +117,7 @@ module Kanrisuru
 
       def disconnect
         ssh.close
+        proxy.close(ssh.transport.port) if proxy
       end
 
       private
@@ -155,6 +163,31 @@ module Kanrisuru
             disconnect
             raise e.class
           end
+        end
+      end
+
+      def init_ssh
+        if proxy && proxy.active? 
+          proxy.ssh(@host, @username, 
+            keys: @keys, password: @password, port: @port)
+        else
+          Net::SSH.start(@host, @username, 
+            keys: @keys, password: @password, port: @port)
+        end
+      end
+
+      def init_proxy
+        return unless @opts[:proxy]
+        proxy = @opts[:proxy]
+
+        if proxy.is_a?(Hash)
+          return Net::SSH::Gateway.new(proxy[:host], proxy[:username], 
+            keys: proxy[:keys], password: proxy[:password], port: proxy[:port])
+        elsif proxy.is_a?(Kanrisuru::Remote::Host) 
+          return Net::SSH::Gateway.new(proxy.host, proxy.username, 
+            keys: proxy.keys, password: proxy.password, port: proxy.port)
+        else
+          raise ArgumentError, 'Invalid proxy type'
         end
       end
 
