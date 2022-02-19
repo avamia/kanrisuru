@@ -36,7 +36,7 @@ module Kanrisuru
         execute_shell(command)
 
         Kanrisuru::Result.new(command) do |cmd|
-          Parser::Ss.parse(cmd, state)
+          Parser::Ss.parse(cmd, state, opts)
         end
       end
     end

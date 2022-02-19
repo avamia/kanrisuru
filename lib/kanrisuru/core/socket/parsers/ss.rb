@@ -6,7 +6,7 @@ module Kanrisuru
       module Parser
         class Ss
           class << self
-            def parse(command, state)
+            def parse(command, state, opts)
               rows = []
 
               ## New lines with tabs are from text overflow

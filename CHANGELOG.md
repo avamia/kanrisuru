@@ -1,3 +1,6 @@
+## Kanrisuru 0.19.3 (February 19, 2022) ##
+*  Fix bug in `ss` command with passing opts to parser.
+
 ## Kanrisuru 0.19.2 (February 02, 2022) ##
 *  Add `to_h` to result class.
 
