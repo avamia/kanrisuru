@@ -60,9 +60,7 @@ module Kanrisuru
       end
 
       def su(user)
-        @hosts.each do |_host_addr, host|
-          host.su(user)
-        end
+        @hosts.each { |_, host| host.su(user) }
       end
 
       def chdir(path = '~')
@@ -70,15 +68,11 @@ module Kanrisuru
       end
 
       def cd(path = '~')
-        @hosts.each do |_host_addr, host|
-          host.cd(path)
-        end
+        @hosts.each { |_, host| host.cd(path) }
       end
 
       def disconnect
-        @hosts.each do |_host_addr, host|
-          host.disconnect
-        end
+        @hosts.each { |_, host| host.disconnect }
       end
 
       private
