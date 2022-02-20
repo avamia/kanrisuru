@@ -117,7 +117,7 @@ module Kanrisuru
 
       def disconnect
         ssh.close
-        proxy.close(ssh.transport.port) if proxy
+        proxy&.close(ssh.transport.port)
       end
 
       private
@@ -167,25 +167,29 @@ module Kanrisuru
       end
 
       def init_ssh
-        if proxy && proxy.active? 
-          proxy.ssh(@host, @username, 
-            keys: @keys, password: @password, port: @port)
+        if proxy&.active?
+          proxy.ssh(@host, @username,
+                    keys: @keys, password: @password, port: @port)
         else
-          Net::SSH.start(@host, @username, 
-            keys: @keys, password: @password, port: @port)
+          Net::SSH.start(@host, @username,
+                         keys: @keys, password: @password, port: @port)
         end
       end
 
       def init_proxy
         return unless @opts[:proxy]
+
         proxy = @opts[:proxy]
 
-        if proxy.is_a?(Hash)
-          return Net::SSH::Gateway.new(proxy[:host], proxy[:username], 
-            keys: proxy[:keys], password: proxy[:password], port: proxy[:port])
-        elsif proxy.is_a?(Kanrisuru::Remote::Host) 
-          return Net::SSH::Gateway.new(proxy.host, proxy.username, 
-            keys: proxy.keys, password: proxy.password, port: proxy.port)
+        case proxy
+        when Hash
+          Net::SSH::Gateway.new(proxy[:host], proxy[:username],
+                                keys: proxy[:keys], password: proxy[:password], port: proxy[:port])
+        when Kanrisuru::Remote::Host
+          Net::SSH::Gateway.new(proxy.host, proxy.username,
+                                keys: proxy.keys, password: proxy.password, port: proxy.port)
+        when Net::SSH::Gateway
+          proxy
         else
           raise ArgumentError, 'Invalid proxy type'
         end
