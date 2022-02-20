@@ -20,6 +20,11 @@ class TestHosts
       hosts(name)
     end
 
+    def resolve(hostname)
+      s = Socket.getaddrinfo(hostname, nil)
+      s[0][2]
+    end
+
     def spec_dir(host_json)
       random_string = SecureRandom.hex
       "#{host_json['home']}/.kanrisuru_spec_files_#{random_string[0..5]}"
