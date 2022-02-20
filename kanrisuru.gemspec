@@ -27,6 +27,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'net-ping', '~> 2.0'
   gem.add_runtime_dependency 'net-scp', '~> 3.0'
   gem.add_runtime_dependency 'net-ssh', '~> 6.1'
+  gem.add_runtime_dependency 'net-ssh-gateway', '~> 2.0'
 
   gem.files         = `git ls-files`.split("\n")
   gem.require_paths = ['lib']

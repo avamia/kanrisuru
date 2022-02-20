@@ -103,7 +103,7 @@ RSpec.shared_examples 'system' do |os_name, host_json, _spec_dir|
     it 'gets kernel sysctl info' do
       result = host.sysctl
       expect(result).to be_success
-      expect(result).to respond_to :net 
+      expect(result).to respond_to :net
       expect(result).to respond_to :kernel
       expect(result).to respond_to :dev
 
