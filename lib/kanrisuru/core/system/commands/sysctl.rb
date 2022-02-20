@@ -14,7 +14,7 @@ module Kanrisuru
         else
           command.append_flag('--all')
         end
-        
+
         execute_shell(command)
 
         Kanrisuru::Result.new(command) do |cmd|
