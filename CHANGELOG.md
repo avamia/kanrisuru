@@ -1,3 +1,7 @@
+## Kanrisuru 0.20.0 (February 21, 2022) ##
+*  Allow hosts to be connected via proxy host. This is much like using a bastion / jump server. 
+*  Add integration test cases for proxy host connection. 
+
 ## Kanrisuru 0.19.4 (February 19, 2022) ##
 *  Add additional family types to `ss` command.
 
