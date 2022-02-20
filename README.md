@@ -54,6 +54,27 @@ host = Kanrisuru::Remote::Host.new(
 )
 ```
 
+#### Connect with a Jump / Bastion Host
+To connect to a host behind a firewall through a jump / bastion host, pass either an instance of another Kanrisuru::Remote::Host, or a hash of host config values
+
+```ruby
+proxy = Kanrisuru::Remote::Host.new(
+  host: 'proxy-host',
+  username: 'ubuntu',
+  keys: ['~/.ssh/proxy.pem']
+)
+
+host = Kanrisuru::Remote::Host.new(
+  host: '1.2.3.4', 
+  username: 'ubuntu', 
+  keys: ['~/.ssh/id_rsa'],
+  proxy: proxy
+)
+
+host.whoami
+'ubuntu'
+```
+
 #### run a simple echo command on the remote host
 ```ruby
 host.env['VAR'] = 'world'
