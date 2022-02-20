@@ -10,7 +10,7 @@ RSpec.describe Kanrisuru::Remote::Host do
   end
 
   let(:host) do
-    Kanrisuru::Remote::Host.new(
+    described_class.new(
       host: 'localhost',
       username: 'ubuntu',
       keys: ['id_rsa']

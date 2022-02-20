@@ -24,6 +24,47 @@ RSpec.shared_examples 'host' do |os_name, host_json, _spec_dir|
       expect(host.hostname).to eq(host_json['hostname'])
     end
 
+    it 'connects with proxy host' do
+      config = TestHosts.host('proxy')
+      proxy = Kanrisuru::Remote::Host.new(
+        host: config['hostname'],
+        username: config['username'],
+        keys: [config['ssh_key']]
+      )
+
+      expect(proxy).to be_ping
+
+      host = Kanrisuru::Remote::Host.new(
+        host: TestHosts.resolve(host_json['hostname']),
+        username: host_json['username'],
+        keys: [host_json['ssh_key']],
+        proxy: proxy
+      )
+
+      ## Test instiation
+      expect(host.proxy).to be_instance_of(Net::SSH::Gateway)
+      expect(host.ssh).to be_instance_of(Net::SSH::Connection::Session)
+
+      ## Test basic commands
+      expect(host.hostname).to eq(host_json['hostname'])
+
+      host.cd('../')
+      expect(host.pwd.path).to eq('/home')
+
+      expect(host.whoami.user).to eq(host_json['username'])
+      host.su 'root'
+      expect(host.whoami.user).to eq('root')
+
+      ## Test download
+      src_path = '/etc/hosts'
+      result = host.download(src_path)
+      expect(result).to be_instance_of(String)
+      lines = result.split("\n")
+      expect(lines.length).to be >= 1
+
+      ## Test upload
+    end
+
     it 'changes directories' do
       expect(host.pwd.path).to eq(host_json['home'])
 
