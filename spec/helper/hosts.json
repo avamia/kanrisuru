@@ -8,6 +8,15 @@
 		"kernel": "Linux",
 		"home": "/home/ubuntu"
 	},
+  {
+    "name": "proxy",
+    "port": 22,
+    "username": "ubuntu",
+    "ssh_key": "~/.ssh/id_rsa",
+    "hostname": "proxy-host",
+    "kernel": "Linux",
+    "home": "/home/ubuntu"
+  },
 	{
 		"name": "ubuntu",
 		"port": 22,
