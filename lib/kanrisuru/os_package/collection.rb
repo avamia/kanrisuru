@@ -34,9 +34,8 @@ module Kanrisuru
             os_method_names.each do |method_name|
               define_method method_name do |*args, &block|
                 cluster = namespace_instance.instance_variable_get(:@cluster)
-                hosts = cluster.instance_variable_get(:@hosts)
-                hosts.map do |host_addr, host|
-                  { host: host_addr, result: host.send(namespace).send(method_name, *args, &block) }
+                cluster.map do |host|
+                  host.send(namespace).send(method_name, *args, &block)
                 end
               end
             end
@@ -45,8 +44,8 @@ module Kanrisuru
           class_eval do
             os_method_names.each do |method_name|
               define_method method_name do |*args, &block|
-                @hosts.map do |host_addr, host|
-                  { host: host_addr, result: host.send(method_name, *args, &block) }
+                map do |host|
+                  host.send(method_name, *args, &block)
                 end
               end
             end
