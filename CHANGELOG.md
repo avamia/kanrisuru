@@ -1,3 +1,9 @@
+## Kanrisuru 1.0.0.beta1 (February 27, 2022) ##
+*  Add parallel mode for cluster. Allows hosts to run commands concurrently, reducing time it takes due to the high I/O blocking nature of the network requests.
+*  Add test cases for cluster parallel mode.
+*  Clean up methods on cluster class to use map and each methods in a simplified manner.
+*  Remove `/spec` dir from codecoverage.
+
 ## Kanrisuru 0.20.0 (February 21, 2022) ##
 *  Allow hosts to be connected via proxy host. This is much like using a bastion / jump server. 
 *  Add integration test cases for proxy host connection. 
