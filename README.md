@@ -145,7 +145,24 @@ host = Kanrisuru::Remote::Host.new(host: 'remote-host-4', username: 'rhel', keys
 cluster << host 
 ```
 
-Kanrisuru at this point only runs commands sequentially. We plan on creating a parallel run mode in a future release.
+#### Run cluster in parallel mode to reduce time waiting on blocking IO
+```ruby
+Benchmark.measure do
+  cluster.each do |host|
+    puts cluster.pwd 
+  end
+end
+# => 0.198980   0.029681   0.228661 (  5.258496)
+
+cluster.parallel = true
+
+Benchmark.measure do
+  cluster.each do |host|
+    puts cluster.pwd 
+  end
+end
+# => 0.016478   0.007956   0.024434 (  0.120066)
+```
 
 #### To run across all hosts with a single command, cluster will return a array of result hashes
 ```ruby

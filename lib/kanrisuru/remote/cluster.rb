@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'thread'
 
 module Kanrisuru
   module Remote
@@ -6,7 +7,12 @@ module Kanrisuru
       extend OsPackage::Collection
       include Enumerable
 
+      attr_accessor :parallel, :concurrency
+
       def initialize(*hosts)
+        @parallel = false 
+        @concurrency = local_concurrency
+
         @hosts = {}
         hosts.each do |host_opts|
           add_host(host_opts)
@@ -30,37 +36,23 @@ module Kanrisuru
       end
 
       def execute(command)
-        @hosts.map do |host_addr, host|
-          ## Need to evaluate each host independently for the command.
-          cmd = create_command(command)
-
-          { host: host_addr, result: host.execute(cmd) }
-        end
+        map { |host| host.execute(create_command(command)) }
       end
 
       def execute_shell(command)
-        @hosts.map do |host_addr, host|
-          ## Need to evaluate each host independently for the command.
-          cmd = create_command(command)
-
-          { host: host_addr, result: host.execute_shell(cmd) }
-        end
-      end
-
-      def each(&block)
-        @hosts.each { |_host_addr, host| block.call(host) }
+        map { |host| host.execute_shell(create_command(command)) }
       end
 
       def hostname
-        map_host_results(:hostname)
+        map { |host| host.send(:hostname) }
       end
 
       def ping?
-        map_host_results(:ping?)
+        map { |host| host.send(:ping?) }
       end
 
       def su(user)
-        @hosts.each { |_, host| host.su(user) }
+        each { |host| host.su(user) }
       end
 
       def chdir(path = '~')
@@ -68,14 +60,69 @@ module Kanrisuru
       end
 
       def cd(path = '~')
-        @hosts.each { |_, host| host.cd(path) }
+        each { |host| host.cd(path) }
       end
 
       def disconnect
-        @hosts.each { |_, host| host.disconnect }
+        each { |host| host.disconnect }
+      end
+
+      def map(&block)
+        parallel? ? each_parallel(preserve: true, &block) : each_sequential(preserve: true, &block)
+      end
+
+      def each(&block)
+        parallel? ? each_parallel(preserve: false, &block) : each_sequential(preserve: false, &block)
+      end
+
+      def parallel?
+        @parallel 
+      end
+
+      def sequential?
+        !parallel?
       end
 
       private
+
+      def each_sequential(opts = {}, &block)
+        results = @hosts.map do |host_addr, host| 
+          { host: host_addr, result: block.call(host) }
+        end
+
+        opts[:preserve] ? results : self
+      end
+
+      def each_parallel(opts = {}, &block)
+        queue = Queue.new.tap do |q|
+          @hosts.each { |_, host| q << host }
+        end
+
+        threads = []
+        results = []
+        mutex = Mutex.new
+
+        ## No need to spawn more threads then number of hosts in cluster
+        concurrency = queue.length < @concurrency ? queue.length : @concurrency 
+        concurrency.times do
+          threads << Thread.new do
+            loop do
+              host = queue.pop(true) rescue Thread.exit
+
+              begin
+                result = block.call(host)
+                mutex.synchronize { results.push({ host: host.host, result: result }) }
+              rescue Exception => exception
+                mutex.synchronize { results.push({ host: host.host, result: exception }) }
+              end
+            end
+          end
+        end
+
+        threads.each(&:join) 
+
+        opts[:preserve] ? results : self
+      end
 
       def create_command(command)
         case command
@@ -85,12 +132,6 @@ module Kanrisuru
           command.clone
         else
           raise ArgumentError, 'Invalid command type'
-        end
-      end
-
-      def map_host_results(action)
-        @hosts.map do |host_addr, host|
-          { host: host_addr, result: host.send(action) }
         end
       end
 
@@ -119,14 +160,22 @@ module Kanrisuru
       end
 
       def add_host(host_opts)
-        if host_opts.instance_of?(Hash)
+        case host_opts
+        when Hash
           @hosts[host_opts[:host]] = Kanrisuru::Remote::Host.new(host_opts)
-        elsif host_opts.instance_of?(Kanrisuru::Remote::Host)
+        when Kanrisuru::Remote::Host
           @hosts[host_opts.host] = host_opts
+        when Kanrisuru::Remote::Cluster
+          host_opts.send(:each_sequential) { |host| @hosts[host.host] = host }
         else
           raise ArgumentError, 'Invalid host option'
         end
       end
+
+      def local_concurrency
+        ProcessorCount.physical_processor_count
+      end
+
     end
   end
 end

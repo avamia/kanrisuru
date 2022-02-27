@@ -41,7 +41,7 @@ RSpec.shared_examples 'host' do |os_name, host_json, _spec_dir|
         proxy: proxy
       )
 
-      ## Test instiation
+      ## Test instantiation
       expect(host.proxy).to be_instance_of(Net::SSH::Gateway)
       expect(host.ssh).to be_instance_of(Net::SSH::Connection::Session)
 
@@ -61,8 +61,6 @@ RSpec.shared_examples 'host' do |os_name, host_json, _spec_dir|
       expect(result).to be_instance_of(String)
       lines = result.split("\n")
       expect(lines.length).to be >= 1
-
-      ## Test upload
     end
 
     it 'changes directories' do
