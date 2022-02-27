@@ -26,11 +26,16 @@ RSpec.describe Kanrisuru::Remote::Cluster do
     expect(cluster).to respond_to(:execute)
     expect(cluster).to respond_to(:execute_shell)
     expect(cluster).to respond_to(:each)
+    expect(cluster).to respond_to(:map)
     expect(cluster).to respond_to(:hostname)
     expect(cluster).to respond_to(:ping?)
     expect(cluster).to respond_to(:su)
     expect(cluster).to respond_to(:chdir)
     expect(cluster).to respond_to(:cd)
     expect(cluster).to respond_to(:disconnect)
+    expect(cluster).to respond_to(:parallel)
+    expect(cluster).to respond_to(:concurrency)
+    expect(cluster).to respond_to(:parallel?)
+    expect(cluster).to respond_to(:sequential?)
   end
 end

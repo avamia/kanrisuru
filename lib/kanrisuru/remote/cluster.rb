@@ -10,7 +10,7 @@ module Kanrisuru
       attr_accessor :parallel, :concurrency
 
       def initialize(*hosts)
-        @parallel = true
+        @parallel = false 
         @concurrency = local_concurrency
 
         @hosts = {}
@@ -105,7 +105,7 @@ module Kanrisuru
 
         ## No need to spawn more threads then number of hosts in cluster
         concurrency = queue.length < @concurrency ? queue.length : @concurrency 
-        @concurrency.times do
+        concurrency.times do
           threads << Thread.new do
             loop do
               host = queue.pop(true) rescue Thread.exit
@@ -120,7 +120,7 @@ module Kanrisuru
           end
         end
 
-        threads.each { |t| t.join }
+        threads.each(&:join) 
 
         return exception if exeption
         opts[:preserve] ? results : self

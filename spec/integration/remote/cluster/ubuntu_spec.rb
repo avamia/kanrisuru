@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 TestHosts.each_os(only: %w[ubuntu]) do |os_name, host_json, spec_dir|
-  RSpec.describe Kanrisuru::Core::Disk do
-    include_examples 'disk', os_name, host_json, spec_dir
+  RSpec.describe Kanrisuru::Core::Cluster do
+    include_examples 'cluster', os_name, host_json, spec_dir
   end
 end

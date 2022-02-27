@@ -27,6 +27,14 @@ RSpec.describe Kanrisuru::Remote::Cluster do
     )
   end
 
+  let(:host3) do
+    Kanrisuru::Remote::Host.new(
+      host: 'centos-host',
+      username: 'centos',
+      keys: ['id_rsa']
+    )
+  end
+
   it 'adds host to a cluster' do
     cluster = described_class.new(host1)
     expect(cluster.hosts.length).to eq(1)
@@ -41,18 +49,26 @@ RSpec.describe Kanrisuru::Remote::Cluster do
     expect(cluster.hosts).to include(host1)
     expect(cluster.hosts).to include(host2)
 
-    cluster << {
-      host: 'centos-host',
-      username: 'centos',
-      keys: ['id_rsa']
-    }
-
+    cluster << host3
     expect(cluster.hosts.length).to eq(3)
     expect(cluster.count).to eq(3)
     expect(cluster.count).to eq(3)
     expect(cluster['centos-host'].username).to eq('centos')
     expect(cluster.hosts).to include(host1)
     expect(cluster.hosts).to include(host2)
+  end
+
+  it 'adds a cluster to another cluster' do
+    cluster1 = described_class.new(host1, host2)
+    cluster2 = described_class.new(host3)
+
+    cluster1 << cluster2
+    expect(cluster1.hosts.length).to eq(3)
+    expect(cluster1.count).to eq(3)
+    expect(cluster1.count).to eq(3)
+    expect(cluster1['centos-host'].username).to eq('centos')
+    expect(cluster1.hosts).to include(host1)
+    expect(cluster1.hosts).to include(host2)
   end
 
   it 'fails to add host to a cluster' do
@@ -88,6 +104,58 @@ RSpec.describe Kanrisuru::Remote::Cluster do
     expect do
       cluster.send(:create_command, 1)
     end.to raise_error(ArgumentError)
+  end
+
+  it 'initializes cluster and is run in sequential mode by default' do
+    cluster = described_class.new
+    expect(cluster).to be_sequential
+  end
+
+  it 'sets cluster to parallel mode' do
+    cluster = described_class.new
+    cluster.parallel = true
+    expect(cluster).to be_parallel
+  end
+
+  it 'runs commands on a cluster sequentialy' do
+    cluster = described_class.new(host1, host2)
+
+    expect(cluster).to receive(:each_sequential)
+
+    command = Kanrisuru::Command.new('pwd')
+    cluster.execute(command)
+  end
+
+  it 'runs commands on a cluster in parallel across hosts' do
+    cluster = described_class.new(host1, host2)
+    cluster.parallel = true
+
+    expect(cluster).to receive(:each_parallel)
+
+    command = Kanrisuru::Command.new('pwd')
+    cluster.execute(command)
+  end
+
+  it 'gets cluster back from each method' do
+    cluster = described_class.new(host1, host2)
+
+    c = cluster.each { |h| h.su('root') } 
+    expect(c).to be_instance_of(Kanrisuru::Remote::Cluster)
+    expect(c.object_id).to eq(cluster.object_id)
+  end
+
+  it 'gets results back from map method' do
+    cluster = described_class.new(host1, host2)
+  
+    results = cluster.map do |host|
+      host.execute('hello')
+    end 
+
+    expect(results).to be_instance_of(Array)
+    results.each do |result|
+      expect(result).to have_key(:host)
+      expect(result).to have_key(:result)
+    end
   end
 
   it 'runs execute for a command on a cluster' do
