@@ -4,15 +4,6 @@ require 'benchmark'
 require 'spec_helper'
 
 RSpec.describe Kanrisuru::Remote::Cluster do
-  around(:example) do |example|
-    old_value = Thread.report_on_exception
-    Thread.report_on_exception = false
-
-    example.run
-
-    Thread.report_on_exception = old_value
-  end
-  
   let(:host1) do
     Kanrisuru::Remote::Host.new(
       host: TestHosts.host('ubuntu')['hostname'],
@@ -73,9 +64,24 @@ RSpec.describe Kanrisuru::Remote::Cluster do
     cluster = described_class.new(host1, host2, host3, host4)
     cluster.parallel = true
 
-    expect(Thread).to receive(:new).exactly(4).times.and_call_original
-    cluster.ping?
+    ## Called x2 b/c two methods invoke the parallel runner 
+    expect(Thread).to receive(:new).exactly(cluster.count * 2).times.and_call_original
 
+    cluster.hostname
+    cluster.disconnect
+  end
+
+  it 'should respect concurrency setting' do
+    concurrency = 2
+
+    cluster = described_class.new(host1, host2, host3, host4)
+    cluster.parallel = true
+    cluster.concurrency = concurrency
+
+    ## Called x2 b/c two methods invoke the parallel runner 
+    expect(Thread).to receive(:new).exactly(concurrency * 2).times.and_call_original
+
+    cluster.hostname
     cluster.disconnect
   end
 

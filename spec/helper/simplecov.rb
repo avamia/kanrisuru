@@ -4,6 +4,8 @@ require 'simplecov'
 require 'simplecov-cobertura'
 
 SimpleCov.start do
+  add_filter '/spec/'
+  
   command_name "kanrisuru-tests#{ENV['TEST_ENV_NUMBER'] || ''}"
   merge_timeout 2400
 

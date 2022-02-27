@@ -49,7 +49,12 @@ RSpec.describe Kanrisuru::Remote::Cluster do
     expect(cluster.hosts).to include(host1)
     expect(cluster.hosts).to include(host2)
 
-    cluster << host3
+    cluster << {
+      host: 'centos-host',
+      username: 'centos',
+      keys: ['id_rsa']
+    }
+    
     expect(cluster.hosts.length).to eq(3)
     expect(cluster.count).to eq(3)
     expect(cluster.count).to eq(3)
@@ -251,6 +256,19 @@ RSpec.describe Kanrisuru::Remote::Cluster do
 
     StubNetwork.unstub_command!(:pwd)
     StubNetwork.unstub_command!(:realpath)
+  end
+
+  it 'raises and catches exception in parallel mode' do
+    cluster = described_class.new(host1, host2, host3)
+    cluster.parallel = true
+
+    results = cluster.map do |host|
+      raise ArgumentError 
+    end 
+
+    results.each do |result|
+      expect(result[:result]).to be_instance_of(ArgumentError)
+    end
   end
 
   it 'changes current working directory for each host in a cluster' do

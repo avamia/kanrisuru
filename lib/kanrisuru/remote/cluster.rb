@@ -101,7 +101,6 @@ module Kanrisuru
         threads = []
         results = []
         mutex = Mutex.new
-        exeption = nil
 
         ## No need to spawn more threads then number of hosts in cluster
         concurrency = queue.length < @concurrency ? queue.length : @concurrency 
@@ -113,8 +112,8 @@ module Kanrisuru
               begin
                 result = block.call(host)
                 mutex.synchronize { results.push({ host: host.host, result: result }) }
-              rescue StandardError
-                exception = $!
+              rescue Exception => exception
+                mutex.synchronize { results.push({ host: host.host, result: exception }) }
               end
             end
           end
@@ -122,7 +121,6 @@ module Kanrisuru
 
         threads.each(&:join) 
 
-        return exception if exeption
         opts[:preserve] ? results : self
       end
 
