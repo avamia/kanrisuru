@@ -2,10 +2,9 @@
 
 module Kanrisuru
   module Core
-    module SSHKeygen
+    module SSH
       KEY_TYPES = %w[dsa ecdsa ecdsa-sk ed25519 ed25519-sk rsa].freeze
       FINGERPRINT_HASHES = %w[md5 sha256].freeze
-
     end
   end
 end

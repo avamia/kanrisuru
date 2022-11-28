@@ -18,7 +18,7 @@ require_relative 'core/apt'
 require_relative 'core/yum'
 require_relative 'core/zypper'
 require_relative 'core/dmi'
-require_relative 'core/ssh-keygen'
+require_relative 'core/ssh'
 
 module Kanrisuru
   module Remote
@@ -41,7 +41,7 @@ module Kanrisuru
       os_include Kanrisuru::Core::Yum
       os_include Kanrisuru::Core::Zypper
       os_include Kanrisuru::Core::Dmi
-      os_include Kanrisuru::Core::SSHKeygen
+      os_include Kanrisuru::Core::SSH
     end
 
     class Cluster
@@ -62,7 +62,7 @@ module Kanrisuru
       os_collection Kanrisuru::Core::Yum
       os_collection Kanrisuru::Core::Zypper
       os_collection Kanrisuru::Core::Dmi
-      os_collection Kanrisuru::Core::SSHKeygen
+      os_collection Kanrisuru::Core::SSH
     end
   end
 end

@@ -2,9 +2,11 @@
 
 module Kanrisuru
   module Core
-    module SSHKeygen
+    module SSH
       def ssh_keygen(opts = {}) 
         command = Kanrisuru::Command.new('ssh-keygen')
+        filename = Kanrisuru::Util.present?(opts[:filename]) ? 
+          opts[:filename] : '~/.ssh/id_rsa'
 
         if Kanrisuru::Util.present?(opts[:type])
           raise ArgumentError, 'invalid keygen type' unless KEY_TYPES.include?(opts[:type])
@@ -21,7 +23,7 @@ module Kanrisuru
           command.append_arg('-N', "''")
         end
 
-        command.append_arg('-f', opts[:filename])
+        command.append_arg('-f', filename)
 
         ## Append here-string to auto answer yes
         command << '<<< y'
@@ -29,6 +31,14 @@ module Kanrisuru
         execute_shell(command)
 
         Kanrisuru::Result.new(command) do |cmd|
+          if cmd.success?
+            key_file = filename
+            result = download(key_file, opts[:local_path])
+
+            rm(key_file)
+
+            return result
+          end
         end
       end
     end
