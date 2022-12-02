@@ -2,8 +2,8 @@
 
 require_relative 'remote/host'
 require_relative 'remote/cluster'
-require_relative 'remote/os'
-require_relative 'remote/env'
+require_relative 'os'
+require_relative 'env'
 require_relative 'remote/memory'
 require_relative 'remote/cpu'
 require_relative 'remote/file'

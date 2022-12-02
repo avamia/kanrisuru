@@ -21,6 +21,12 @@ require_relative 'core/dmi'
 require_relative 'core/ssh'
 
 module Kanrisuru
+  module Local
+    class Host
+      os_include Kanrisuru::Core::SSH
+    end
+  end
+
   module Remote
     class Host
       os_include Kanrisuru::Core::Path
@@ -41,7 +47,6 @@ module Kanrisuru
       os_include Kanrisuru::Core::Yum
       os_include Kanrisuru::Core::Zypper
       os_include Kanrisuru::Core::Dmi
-      os_include Kanrisuru::Core::SSH
     end
 
     class Cluster
@@ -62,7 +67,6 @@ module Kanrisuru
       os_collection Kanrisuru::Core::Yum
       os_collection Kanrisuru::Core::Zypper
       os_collection Kanrisuru::Core::Dmi
-      os_collection Kanrisuru::Core::SSH
     end
   end
 end

@@ -4,10 +4,10 @@ module Kanrisuru
   module Core
     module SSH
       module Parser
-        class SSHAdd < Base
+        class SSHAdd
           class << self
             def parse(command, opts)
-              
+               
             end
           end
         end

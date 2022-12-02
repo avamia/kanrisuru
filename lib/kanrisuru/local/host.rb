@@ -1,34 +1,27 @@
 # frozen_string_literal: true
 
-require 'net/ssh'
-require 'net/ssh/gateway'
-require 'net/scp'
-require 'net/ping'
+require 'open3'
 
 module Kanrisuru
-  module Remote
+  module Local 
     class Host
       extend OsPackage::Include
 
-      attr_reader :host, :username, :password, :port, :keys
+      attr_reader :username 
 
       def initialize(opts = {})
         @opts = opts
 
-        @host = opts[:host]
         @username = opts[:username]
         @login_user = @username
 
-        @port     = opts[:port] || 22
-        @password = opts[:password] if opts[:password]
-        @keys     = opts[:keys] if opts[:keys]
         @shell    = opts[:shell] || '/bin/bash'
 
         @current_dir = ''
       end
 
-      def remote_user
-        @remote_user ||= @username
+      def local_user
+        @local_user ||= @username
       end
 
       def hostname
@@ -130,68 +123,21 @@ module Kanrisuru
         Kanrisuru.logger.debug { "kanrisuru:~$ #{command.prepared_command}" }
 
         begin
-          channel = ssh.open_channel do |ch|
-            ch.exec(command.prepared_command) do |_, success|
-              raise "could not execute command: #{command.prepared_command}" unless success
+          data, status = Open3.capture3(command.prepared_command)
 
-              ch.on_request('exit-status') do |_, data|
-                command.handle_status(data.read_long)
-              end
+          Kanrisuru.logger.debug { data.strip }
 
-              ch.on_request('exit-signal') do |_, data|
-                command.handle_signal(data.read_long)
-              end
+          command.handle_status(status.to_i)
+          command.handle_data(data)
 
-              ch.on_data do |_, data|
-                Kanrisuru.logger.debug { data.strip }
-                command.handle_data(data)
-              end
-
-              ch.on_extended_data do |_, _type, data|
-                command.handle_data(data)
-              end
-            end
-          end
-
-          channel.wait
           command
-        rescue Net::SSH::ConnectionTimeout, Net::SSH::Timeout => e
+        rescue StandardError => e 
           if retry_attempts > 1
             retry_attempts -= 1
             retry
           else
-            disconnect
             raise e.class
           end
-        end
-      end
-
-      def init_ssh
-        if proxy&.active?
-          proxy.ssh(@host, @username,
-                    keys: @keys, password: @password, port: @port)
-        else
-          Net::SSH.start(@host, @username,
-                         keys: @keys, password: @password, port: @port)
-        end
-      end
-
-      def init_proxy
-        return unless @opts[:proxy]
-
-        proxy = @opts[:proxy]
-
-        case proxy
-        when Hash
-          Net::SSH::Gateway.new(proxy[:host], proxy[:username],
-                                keys: proxy[:keys], password: proxy[:password], port: proxy[:port])
-        when Kanrisuru::Remote::Host
-          Net::SSH::Gateway.new(proxy.host, proxy.username,
-                                keys: proxy.keys, password: proxy.password, port: proxy.port)
-        when Net::SSH::Gateway
-          proxy
-        else
-          raise ArgumentError, 'Invalid proxy type'
         end
       end
 
@@ -203,7 +149,7 @@ module Kanrisuru
       end
 
       def init_env
-        Kanrisuru::Env.new
+        Env.new
       end
 
       def init_fstab(file)

@@ -140,6 +140,10 @@ module Kanrisuru
             kernel  = os.kernel.downcase
             release = os.release.downcase
 
+            puts "="*100
+            puts kernel
+            puts release
+
             properties[method_name].each do |property|
               os_name = property[:os_name]
               strict = property[:options] ? property[:options][:strict] : false
