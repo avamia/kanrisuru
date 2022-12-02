@@ -97,6 +97,11 @@ module Kanrisuru
           type: 'alias',
           to: 'mac_os'
         },
+        macos: {
+          name: 'MacOS',
+          type: 'alias',
+          to: 'mac_os'
+        },
         linux: {
           name: 'GNU/Linux',
           os_family: 'unix_like',
