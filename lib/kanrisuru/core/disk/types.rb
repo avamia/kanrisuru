@@ -4,7 +4,7 @@ module Kanrisuru
   module Core
     module Disk
       DiskUsage = Struct.new(:fsize, :path)
-      DiskFree = Struct.new(:file_system, :type, :total, :used, :capacity, :mount)
+      DiskFree = Struct.new(:file_system, :type, :total, :used, :available, :capacity, :mount)
       LsblkDevice = Struct.new(
         :name, :maj_dev, :min_dev, :removable_device, :readonly_device, :owner, :group,
         :mode, :fsize, :type, :mount_point, :fs_type, :uuid, :children

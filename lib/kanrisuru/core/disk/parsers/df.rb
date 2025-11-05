@@ -20,9 +20,11 @@ module Kanrisuru
                   values[2].to_i,
                   values[3].to_i,
                   values[4].to_i,
-                  values[5]
+                  values[5].to_i,
+                  values[6]
                 )
               end
+              
               items
             end
           end

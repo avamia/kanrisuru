@@ -28,9 +28,9 @@ RSpec.describe Kanrisuru::Core::Disk do
   end
 
   it 'prepares df command' do
-    expect_command(host.df, "df -PT | awk '{print $1, $2, $3, $5, $6, $7}'")
+    expect_command(host.df, "df -PT | awk '{print $1, $2, $3, $4, $5, $6, $7}'")
     expect_command(host.df(inodes: true, path: '/dev/vda1'),
-                   "df -PT -i /dev/vda1 | awk '{print $1, $2, $3, $5, $6, $7}'")
+                   "df -PT -i /dev/vda1 | awk '{print $1, $2, $3, $4, $5, $6, $7}'")
   end
 
   it 'prepares du command' do

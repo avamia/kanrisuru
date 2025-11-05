@@ -13,7 +13,9 @@ module Kanrisuru
         command.append_flag('-i', inodes)
 
         command << path if Kanrisuru::Util.present?(path)
-        command | "awk '{print $1, $2, $3, $5, $6, $7}'"
+        
+        # Filesystem, Type, 1024 Blocks, Used, Available, Capacity, Mounted
+        command | "awk '{print $1, $2, $3, $4, $5, $6, $7}'"
 
         execute(command)
 

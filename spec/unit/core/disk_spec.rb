@@ -29,7 +29,7 @@ RSpec.describe Kanrisuru::Core::Disk do
   it 'responds to disk fields' do
     expect(Kanrisuru::Core::Disk::DiskUsage.new).to respond_to(:fsize, :path)
     expect(Kanrisuru::Core::Disk::DiskFree.new).to respond_to(
-      :file_system, :type, :total, :used, :capacity, :mount
+      :file_system, :type, :total, :used, :available, :capacity, :mount
     )
     expect(Kanrisuru::Core::Disk::LsblkDevice.new).to respond_to(
       :name, :maj_dev, :min_dev, :removable_device, :readonly_device, :owner, :group,
