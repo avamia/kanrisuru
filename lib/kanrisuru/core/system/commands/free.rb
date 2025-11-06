@@ -5,6 +5,7 @@ module Kanrisuru
     module System
       def free(type)
         conversions = {
+          available: 'MemAvailable',
           total: 'MemTotal',
           free: 'MemFree',
           swap: 'SwapTotal',

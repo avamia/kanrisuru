@@ -33,6 +33,7 @@ RSpec.describe Kanrisuru::Core::System do
   end
 
   it 'prepares free command' do
+    expect_command(host.free('available'), "cat /proc/meminfo | grep -i '^MemAvailable' | awk '{print $2}'")
     expect_command(host.free('total'), "cat /proc/meminfo | grep -i '^MemTotal' | awk '{print $2}'")
     expect_command(host.free('free'), "cat /proc/meminfo | grep -i '^MemFree' | awk '{print $2}'")
     expect_command(host.free('swap'), "cat /proc/meminfo | grep -i '^SwapTotal' | awk '{print $2}'")
